@@ -6,5 +6,8 @@ export default {
     },
     signInUser: function(user){
         return axios.post("/api/auth/signIn", user);
+    },
+    getUsers: function(){
+        return axios.get("/api/users/all");
     }
 };

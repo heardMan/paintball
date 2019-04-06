@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
+import MainContent from "./Components/MainContent/MainContent";
 import SignIn from "./Components/SignIn/SignIn";
 import Register from "./Components/Register/Register";
 import Footer from "./Components/Footer/Footer";
@@ -54,9 +55,16 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="container-fluid with-fixed-nav">
           <Navbar/>
-          
+
+          <Route exact path="/" render={(routeProps) => (<MainContent {...routeProps} 
+                                              state={this.state}
+                                              handleFormSubmit={this.handleFormSubmit}
+                                              handleInputChange={this.handleInputChange}
+                                        />)}
+             />
+
             <Route exact path="/register" render={(routeProps) => (<Register {...routeProps} 
                                               state={this.state}
                                               handleFormSubmit={this.handleFormSubmit}
