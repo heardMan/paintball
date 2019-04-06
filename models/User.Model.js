@@ -28,7 +28,14 @@ const UserSchema = new Schema({
     lastUpdated: {
         type: Date,
     },
-    
+    role: {
+        type: String,
+    },
+    managed_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
+    leased_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
+    leases: [{ type: Schema.ObjectId, ref: 'Lease' }],
+    tickets: [{ type: Schema.ObjectId, ref: 'Ticket' }],
+    payments: [{ type: Schema.ObjectId, ref: 'Payment' }],
 });
 
 UserSchema.methods.setFullName = function(){
