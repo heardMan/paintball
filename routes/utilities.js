@@ -26,14 +26,14 @@ const utilities = {
         //get cookie with useerId
 
         //get cookie with user token
-        const token = req.cookies.token;
+        const token = req.headers.cookie;
         //check if token exists
-        if (!token) {
+        if (!token || token === undefined) {
             //send message stating no toke received
             return res.status(403).send({ auth: false, message: "No token provided." });
         }
         //find user from id stored in the cookie
-        jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
+        jwt.verify(token.split("=")[1], process.env.JWT_SECRET, function (err, decoded) {
             if (err) {
                 return res.status(500).send({
                     auth: false,
@@ -42,6 +42,10 @@ const utilities = {
             }
             // if everything good, save to request for use in other routes
             req.userId = decoded.userID;
+            req.email = decoded.email;
+            req.roles = decoded.roles;
+            // req.firstName = decoded.firstName;
+            // req.lastName = decoded.lastName;
             next();
         });
     },

@@ -1,3 +1,10 @@
 module.exports = {
-    User: require("./User.Model")
+    Announcement: require("./Announcement.Model"),
+    Conversation: require("./Conversation.Model"),
+    Lease: require("./Lease.Model"),
+    Message: require("./Message.Model"),
+    Payment: require("./Payment.Model"),
+    Property: require("./Property.Model"),
+    Ticket: require("./Ticket.Model"),
+    User: require("./User.Model"),
   };

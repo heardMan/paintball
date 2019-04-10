@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const routes = require("./routes");
 const mongoose = require("mongoose");
+
 //connect to the database
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/paintball");
 // Define middleware here

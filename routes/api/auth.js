@@ -5,6 +5,15 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const utilities = require("../utilities");
 
+router.get("/verify", utilities.verifyToken, function(req, res){
+    const user = {};
+    user.id = req.userId,
+    user.email = req.email,
+    user.roles = req.roles
+    
+    res.status(200).send(user);
+})
+
 router.post("/signIn", (req, res) => {
     console.log(req.body);
     var user = {
@@ -20,11 +29,13 @@ router.post("/signIn", (req, res) => {
         if (utilities.checkIfValidPass(userData, user.password)) {
             const expiry = new Date();
             expiry.setDate(expiry.getDate() + 7);
+            console.log(`USERDATA:${userData}`);
             var token = jwt.sign(
                 {
                     exp: parseInt(expiry.getTime() / 1000),
                     userID: userData._id,
-                    email: userData.email
+                    email: userData.email,
+                    roles: userData.roles
                 },
                 process.env.JWT_SECRET
             );
@@ -43,20 +54,28 @@ router.post("/register", (req, res) => {
     console.log(req.body);
     var user = {
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     };
 
     var salt = utilities.getSalt();
 
     var userInstance = {
         email: user.email,
+        roles: user.role,
         salt: salt,
         hash: utilities.getHash(salt, user.password),
     };
 
     db.User.create(userInstance)
-    .then(resp => console.log(resp))
+    .then(resp => {
+        console.log(resp);
+        res
+        .sendStatus(200)
+    })
     .catch(err => console.log(err));
+
+    
 });
 
 module.exports = router;

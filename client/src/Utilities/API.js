@@ -9,5 +9,8 @@ export default {
     },
     getUsers: function(){
         return axios.get("/api/users/all");
+    },
+    checkAuth: function(token){
+        return axios.get("api/auth/verify", token);
     }
 };
