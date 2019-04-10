@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import "./AutoComplete.css";
 
 class Autocomplete extends Component {
   static propTypes = {
     suggestions: PropTypes.instanceOf(Array)
+    
   };
 
   static defaultProps = {
@@ -88,6 +90,7 @@ class Autocomplete extends Component {
     }
   };
 
+  
   render() {
     const {
       onChange,
@@ -144,6 +147,7 @@ class Autocomplete extends Component {
           onKeyDown={onKeyDown}
           value={userInput}
         />
+        <button name="addTenant" onClick={this.props.addSelected} id={userInput} className="btn btn-primary">Add</button>
         {suggestionsListComponent}
       </Fragment>
     );

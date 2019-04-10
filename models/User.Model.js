@@ -28,8 +28,8 @@ const UserSchema = new Schema({
     lastUpdated: {
         type: Date,
     },
-    role: {
-        type: String,
+    roles: {
+        type:Array
     },
     managed_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
     leased_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
