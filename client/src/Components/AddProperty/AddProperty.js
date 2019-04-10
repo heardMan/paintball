@@ -7,11 +7,30 @@ class AddProperty extends Component {
         autoCompleteUsers: [],
         newTenants: []
     }
-    
+
     addSelected = event => {
         event.preventDefault();
         console.log(event.target.id);
-        this.state.newTenants.push(event.target.id);
+        let arr = [];
+        let oldTenants = this.state.newTenants;
+        oldTenants.forEach(tenant => {
+            arr.push(tenant);
+        });
+        arr.push(event.target.id);
+        this.setState({
+            newTenants: arr
+        })
+
+        
+    }
+    removeTenant = event => {
+        console.log(event.target.id.split("-")[1])
+        let removed = this.state.newTenants.filter((tenant,i)=>{
+            return tenant !== event.target.id.split("-")[1]
+        });
+        this.setState({
+            newTenants: removed
+        })
     }
     componentDidMount() {
         API.getUsers()
@@ -28,6 +47,7 @@ class AddProperty extends Component {
             .catch(err => console.log(err));
     }
     render() {
+        const tenants = this.state.newTenants;
         return (
             <div>
                 <form>
@@ -37,10 +57,26 @@ class AddProperty extends Component {
                     <div className="form-group">
                         <div className="row">
                             <div className="col-12">
-                                {this.state.newTenants.map((tenant, i) =>{
-                                    console.log(`LOGGING: ${tenant}`);
-                                    return(
-                                        <div className="card">{tenant}</div>
+                                {tenants.map((tenant) => {
+
+                                    return (
+                                        <div className="card">
+                                        <div className="card-title">
+                                        <span>
+                                                <button name="removeTenant"  type="button" onClick={this.removeTenant} class="close" aria-label="Close">
+                                                    <span id={`remove-${tenant}`} aria-hidden="true">&times;</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div className="card-body">
+                                            <span>
+                                                {tenant}
+                                            </span>
+
+                                        </div>
+                                            
+                                            
+                                        </div>
                                     );
                                 })}
                             </div>
