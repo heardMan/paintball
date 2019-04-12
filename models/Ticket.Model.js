@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const TicketSchema = new Schema({
+    subject: String,
+    description: String,
+    
     property: [{ type: Schema.ObjectId, ref: 'Property' }],
     requester: String,
-    propertyManager: [{ type: Schema.ObjectId, ref: 'User' }],
     requestDate: {type: Date},
     resolved: Boolean,
     resolvedDate: Date,
