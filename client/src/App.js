@@ -11,28 +11,37 @@ import Welcome from "./Components/Welcome/Welcome";
 import API from "./Utilities/API";
 import { withCookies } from 'react-cookie';
 
-
 class App extends Component {
   
   state = {
+    //currentUser
+    userEmail: "",
+    userId:"",
     roles: [],
+    //login
+    
     email: "",
+    password: "",
+    //register
     newEmail: "",
     newRole: "",
     password1: "",
     password2: "",
-    signInEmail:"",
-    signInPassword: ""
-    
-
+    //create ticket
+    ticketSubject: "",
+    ticketLocation: "",
+    ticketDescription: "",
     
   };
 
   componentDidMount(){
     API.checkAuth(this.props.cookies.token)
     .then(resp => {
+      console.log(resp.data);
       const data = resp.data.roles;
       this.setState({
+        userEmail: resp.data.email,
+        userId: resp.data.id,
         roles: data
       })
     })
@@ -47,41 +56,66 @@ class App extends Component {
     })
   };
 
+  registerUser = () => {
+    if(
+      this.state.password1 === this.state.password2 &&
+      this.state.newEmail !== '' && 
+      this.state.newRole !== '' && 
+      this.state.password1.length > 2 
+      ){
+      const newUser = {
+        email: this.state.newEmail,
+        password: this.state.password1,
+        role: this.state.newRole
+      }
+      //console.log(newUser);
+      API.registerUser(newUser)
+      .then(resp => {
+        console.log(resp)
+        
+      })
+      .catch(err => console.log(err));
+    } else {
+      console.log("fill out all fields complteely");
+    }
+  }
+
+  signInUser = () => {
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    
+    API.signInUser(user)
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err));
+  
+  }
+
+  createTicket = () => {
+    const ticket = {
+      requester: this.state.userId,
+      subject: this.state.ticketSubject,
+      location: this.state.ticketLocation,
+      description: this.state.ticketDescription
+    }
+    API.createTicket(ticket)
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err))
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
     const form = event.target.name;
     if(form === "register"){
-      if(
-        this.state.password1 === this.state.password2 &&
-        this.state.newEmail !== '' && 
-        this.state.newRole !== '' && 
-        this.state.password1.length > 2 
-        ){
-        const newUser = {
-          email: this.state.newEmail,
-          password: this.state.password1,
-          role: this.state.newRole
-        }
-        //console.log(newUser);
-        API.registerUser(newUser)
-        .then(resp => {
-          console.log(resp)
-          
-        })
-        .catch(err => console.log(err));
-      } else {
-        console.log("fill out all fields complteely");
-      }
+      this.registerUser();
     } else if(form === "signIn"){
-      const user = {
-        email: this.state.email,
-        password: this.state.password1
-      }
-      API.signInUser(user)
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err));
+      this.signInUser();
     } else if(form === "addNewProperty"){
       console.log(event.target.name)
+    } else if(form === "newTicket"){
+      console.log(event.target.name);
+      this.createTicket();
     } 
 
   };
@@ -92,8 +126,6 @@ class App extends Component {
       <Router>
         <div className="container-fluid with-fixed-nav">
           <Navbar state={this.state}/>
-
-          
 
           <Route exact path="/" render={(routeProps) => {
                                             const manager = this.state.roles.indexOf("manager")>-1? true: false;
@@ -107,6 +139,7 @@ class App extends Component {
                                               handleInputChange={this.handleInputChange}
                                         />
                                         )
+
                                             } else if(tenant) {
 
                                               return(

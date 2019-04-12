@@ -12,5 +12,8 @@ export default {
     },
     checkAuth: function(token){
         return axios.get("api/auth/verify", token);
+    },
+    createTicket: function(ticket){
+        return axios.post("api/tickets", ticket);
     }
 };
