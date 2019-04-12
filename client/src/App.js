@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
+import "../public/styles.scss";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import ManagerView from "./Components/ManagerView/ManagerView";

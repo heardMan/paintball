@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import "SignIn.scss";
 
 class SignIn extends Component {
     render(){
         return(
+        <header class="header">
             <form>
                 <div><h2>Sign In</h2></div>
                 <div className="form-group">
@@ -15,6 +17,7 @@ class SignIn extends Component {
                 </div>
                 <button name="signIn" onClick={this.props.handleFormSubmit} type="submit" className="btn btn-primary">Submit</button>
             </form>
+        </header>
         );
     }
 }
