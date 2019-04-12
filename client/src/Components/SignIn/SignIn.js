@@ -15,10 +15,12 @@ class SignIn extends Component {
                 <div className="form-group">
                     <label >Email address</label>
                     <input name="email" value={this.props.state.email} onChange={this.props.handleInputChange} type="email" className={`form-control ${notEmail} ${isEmail}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                   
                 </div>
                 <div className="form-group">
                     <label >Password</label>
                     <input name="password" value={this.props.state.password} onChange={this.props.handleInputChange} type="password" className={`form-control ${notPassword} ${isPassword}`} id="password" placeholder="Password" />
+                    <small>{}</small>
                 </div>
                 <button name="signIn" disabled={isEnabled} onClick={this.props.handleFormSubmit} type="submit" className="btn btn-primary">Submit</button>
             </form>
