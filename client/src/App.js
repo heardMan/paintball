@@ -113,6 +113,8 @@ class App extends Component {
       this.signInUser();
     } else if(form === "addNewProperty"){
       console.log(event.target.name)
+    } else if(form === "addNewLease"){
+        console.log(event.target.name)
     } else if(form === "newTicket"){
       console.log(event.target.name);
       this.createTicket();

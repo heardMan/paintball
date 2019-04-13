@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import AutoComplete from "../AutoComplete/AutoComplete";
 import API from "../../Utilities/API";
+import AddLease from "../AddLease/AddLease";
 
 class AddProperty extends Component {
     state = {
         autoCompleteUsers: [],
-        newTenants: []
+        newTenants: [], 
+        showResults: false
     }
 
     addSelected = event => {
@@ -45,6 +47,14 @@ class AddProperty extends Component {
                 console.log(this.state.autoCompleteUsers);
             })
             .catch(err => console.log(err));
+    }
+    onClick= event => {
+        event.preventDefault();
+        console.log(this.state.showResults)
+        
+        this.setState({
+             showResults: true 
+            });
     }
     render() {
         const tenants = this.state.newTenants;
@@ -96,6 +106,12 @@ class AddProperty extends Component {
 
                     <button onClick={this.props.handleFormSubmit} name="addNewProperty" type="submit" className="btn btn-primary">Submit</button>
                 </form>
+
+                <div>
+                <button onClick={this.onClick}>Add Lease</button>
+                { this.state.showResults ? <AddLease /> : null }
+                
+            </div>
             </div>
         );
     }
