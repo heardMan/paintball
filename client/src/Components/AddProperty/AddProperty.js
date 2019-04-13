@@ -17,11 +17,15 @@ class AddProperty extends Component {
         let oldTenants = this.state.newTenants;
         oldTenants.forEach(tenant => {
             arr.push(tenant);
+
         });
         arr.push(event.target.id);
         this.setState({
             newTenants: arr
-        })
+        });
+       this.props.state.tenants.push(event.target.id);
+      console.log( this.props.state)
+        
 
         
     }
@@ -48,7 +52,7 @@ class AddProperty extends Component {
             })
             .catch(err => console.log(err));
     }
-    onClick= event => {
+    onClick1 = event => {
         event.preventDefault();
         console.log(this.state.showResults)
         
@@ -56,13 +60,15 @@ class AddProperty extends Component {
              showResults: true 
             });
     }
+
+
     render() {
         const tenants = this.state.newTenants;
         return (
             <div>
                 <form>
                     <div className="form-group">
-                        <input type="text" className="form-control" id="propertyAddress" placeholder="Enter Address" />
+                        <input type="text" name="PropertyAddress" onChange={this.props.handleInputChange} value={this.props.state.PropertyAddress} className="form-control" id="PropertyAddress" placeholder="Enter Address" />
                     </div>
                     <div className="form-group">
                         <div className="row">
@@ -84,8 +90,7 @@ class AddProperty extends Component {
                                             </span>
 
                                         </div>
-                                            
-                                            
+                                             
                                         </div>
                                     );
                                 })}
@@ -108,7 +113,7 @@ class AddProperty extends Component {
                 </form>
 
                 <div>
-                <button onClick={this.onClick}>Add Lease</button>
+                <button onClick={this.onClick1}>Add Lease</button>
                 { this.state.showResults ? <AddLease /> : null }
                 
             </div>
