@@ -31,6 +31,10 @@ class App extends Component {
     ticketSubject: "",
     ticketLocation: "",
     ticketDescription: "",
+    //property
+    PropertyAddress: "",
+    tenants:[],
+
     
   };
 
@@ -104,6 +108,17 @@ class App extends Component {
     .catch(err => console.log(err))
   }
 
+  createProp = () => {
+    const Property = {
+      address: this.state.PropertyAddress,
+      tenants: this.state.tenants
+    }
+    console.log(Property)
+    API.createProp(Property)
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err))
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
     const form = event.target.name;
@@ -113,6 +128,9 @@ class App extends Component {
       this.signInUser();
     } else if(form === "addNewProperty"){
       console.log(event.target.name)
+      this.createProp();
+      console.log(this.state.PropertyAddress);
+      console.log(this.state.tenants);
     } else if(form === "addNewLease"){
         console.log(event.target.name)
     } else if(form === "newTicket"){

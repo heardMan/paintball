@@ -17,6 +17,6 @@ export default {
         return axios.post("api/tickets", ticket);
     }, 
     createProp: function(token){
-        return axios.post("api/auth/properties", token);
+        return axios.post("api/Properties", token);
     }
 };
