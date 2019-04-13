@@ -12,5 +12,8 @@ export default {
     },
     checkAuth: function(token){
         return axios.get("api/auth/verify", token);
+    },
+    createProp: function(token){
+        return axios.post("api/auth/properties", token);
     }
 };

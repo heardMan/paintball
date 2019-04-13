@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import AutoComplete from "../AutoComplete/AutoComplete";
 import API from "../../Utilities/API";
+import AddLease from "../AddLease/AddLease";
 
 class AddProperty extends Component {
     state = {
         autoCompleteUsers: [],
-        newTenants: []
+        newTenants: [],
+        showResults: false
     }
 
     addSelected = event => {
@@ -21,11 +23,18 @@ class AddProperty extends Component {
             newTenants: arr
         })
 
-        
+
+    }
+
+    viewFormEvent = event => {
+        event.preventDefault();
+        this.setState({
+            viewForm: true
+        })
     }
     removeTenant = event => {
         console.log(event.target.id.split("-")[1])
-        let removed = this.state.newTenants.filter((tenant,i)=>{
+        let removed = this.state.newTenants.filter((tenant, i) => {
             return tenant !== event.target.id.split("-")[1]
         });
         this.setState({
@@ -46,9 +55,19 @@ class AddProperty extends Component {
             })
             .catch(err => console.log(err));
     }
+    onClick= event => {
+        event.preventDefault();
+        console.log(this.state.showResults)
+        
+        this.setState({
+             showResults: true 
+            });
+    }
     render() {
         const tenants = this.state.newTenants;
+        console.log(this.state.showResults)
         return (
+
             <div>
                 <form>
                     <div className="form-group">
@@ -61,21 +80,21 @@ class AddProperty extends Component {
 
                                     return (
                                         <div className="card">
-                                        <div className="card-title">
-                                        <span>
-                                                <button name="removeTenant"  type="button" onClick={this.removeTenant} class="close" aria-label="Close">
-                                                    <span id={`remove-${tenant}`} aria-hidden="true">&times;</span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <div className="card-body">
-                                            <span>
-                                                {tenant}
-                                            </span>
+                                            <div className="card-title">
+                                                <span>
+                                                    <button name="removeTenant" type="button" onClick={this.removeTenant} class="close" aria-label="Close">
+                                                        <span id={`remove-${tenant}`} aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <div className="card-body">
+                                                <span>
+                                                    {tenant}
+                                                </span>
 
-                                        </div>
-                                            
-                                            
+                                            </div>
+
+
                                         </div>
                                     );
                                 })}
@@ -96,8 +115,20 @@ class AddProperty extends Component {
 
                     <button onClick={this.props.handleFormSubmit} name="addNewProperty" type="submit" className="btn btn-primary">Submit</button>
                 </form>
+                {/* <form >
+                    <button onClick={this.viewFormEvent} name="addNewLease" type="submit" className="btn btn-primary">Add Lease</button>
+                </form> */}
+                <div>
+                <button onClick={this.onClick}>Add Lease</button>
+                { this.state.showResults ? <AddLease /> : null }
+                
+            </div>
+
             </div>
         );
     }
+
+   
 }
 export default AddProperty;
+

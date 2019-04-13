@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import AddProperty from "../AddProperty/AddProperty";
+import AddLease from "../AddLease/AddLease";
 
 class ManagerView extends Component {
     render(){

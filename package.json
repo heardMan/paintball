@@ -25,8 +25,12 @@
     "express": "^4.16.3",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
+    "mdbreact": "^4.12.0",
     "mongoose": "^5.4.21",
+    "react-bootstrap": "^1.0.0-beta.6",
+    "react-bootstrap-dropdown-menu": "^1.1.15",
     "react-cookie": "^3.1.2",
+    "react-day-picker": "^7.3.0",
     "react-router-dom": "^5.0.0"
   }
 }

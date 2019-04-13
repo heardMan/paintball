@@ -83,6 +83,9 @@ class App extends Component {
     } else if(form === "addNewProperty"){
       console.log(event.target.name)
     } 
+    else if(form === "addNewLease"){
+    console.log(event.target.name)
+  } 
 
   };
 
