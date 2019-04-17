@@ -1,3 +1,5 @@
+
+//not in use
 const db = require("../models");
 
 const Prop = {

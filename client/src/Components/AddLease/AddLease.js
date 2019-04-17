@@ -52,10 +52,11 @@ class AddLease extends Component {
 
     render() {
         //let stateTest = this.state.test;
+        const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
         return (
             <div>
-                <form>
-                    {/* <div className="form-group">
+                {/* <form>
+                    <div className="form-group">
                         <div className="row">
                             <div className="col-12">
                                 {tenants.map((tenant) => {
@@ -93,8 +94,8 @@ class AddLease extends Component {
                             </div>
                         </div>
 
-                    </div> */}
-                    </form>
+                    </div>
+                    </form> */}
 
                     <form className="row">
                         <label>Monthly Rate: </label>
@@ -105,48 +106,12 @@ class AddLease extends Component {
                         <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
                         $<input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
                         <label>Reoccurring Due Date: Rent is due on the  </label>
-                        <div style={{margin: '16px', position: 'relative'}}>
-                            <SelectBox
-                            state={this.props.state.selectedItem} 
-                            onChange={this.props.handleInputChange} 
-                            value={this.props.state.dueDate}
-                            name="dueDate"
-                            items={[
-                                { value: '1st', id: 1 },
-                                { value: '2nd', id: 2 },
-                                { value: '3rd', id: 3 },
-                                { value: '4th', id: 4 },
-                                { value: '5th', id: 5 },
-                                { value: '6th', id: 6 },
-                                { value: '7th', id: 7 },
-                                { value: '8th', id: 8 },
-                                { value: '9th', id: 9 },
-                                { value: '10th', id: 10 },
-                                { value: '11th', id: 11 },
-                                { value: '12th', id: 12 },
-                                { value: '13th', id: 13 },
-                                { value: '14th', id: 14 },
-                                { value: '15th', id: 15 },
-                                { value: '16th', id: 16 },
-                                { value: '17th', id: 17 },
-                                { value: '18th', id: 18 },
-                                { value: '19th', id: 19 },
-                                { value: '20th', id: 20 },
-                                { value: '21st', id: 21 },
-                                { value: '22nd', id: 22 },
-                                { value: '23rd', id: 23 },
-                                { value: '24th', id: 24 },
-                                { value: '25th', id: 25 },
-                                { value: '26th', id: 26 },
-                                { value: '27th', id: 27 },
-                                { value: '28th', id: 28 },
-                                { value: '29th', id: 29 },
-                                { value: '30th', id: 30 },
-
-                            ]}
-                            />
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Day of Month</label>
+                            <select class="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
+                            {days.map(day=><option key={day}value={day}>{day}</option>)}
+                            </select>
                         </div>
-                        {/* <input type="text" className="form-control" id="dayOfMonth" placeholder="15"/> */}
                         <label>of the month.</label>
                         <div>-------------------------------------</div>
                         <div>Move In Date: </div>
