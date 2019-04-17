@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import AddTicket from "../AddTicket/AddTicket"
 
 class TenantView extends Component {
+    componentDidMount(){
+       this.props.state.redirect = false;
+    }
     render(){
         const tenant = this.props.state.roles.indexOf("tenant")>-1? true: false;
         if(tenant){
@@ -15,7 +18,7 @@ class TenantView extends Component {
             </div>
         );
     } else {
-        return(<div><img src="https://media.giphy.com/media/wSSooF0fJM97W/giphy.gif" className="img-fluid"/></div>)
+        return(<div><img src="https://media.giphy.com/media/wSSooF0fJM97W/giphy.gif" alt="" className="img-fluid"/></div>)
     }
     }
 }
