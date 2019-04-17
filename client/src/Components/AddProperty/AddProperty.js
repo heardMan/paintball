@@ -119,7 +119,10 @@ class AddProperty extends Component {
 
                 <div>
                 <button onClick={this.onClick1}>Add Lease</button>
-                { this.state.showResults ? <AddLease /> : null }
+                { this.state.showResults ? <AddLease 
+                state={this.props.state}
+                handleFormSubmit={this.props.handleFormSubmit}
+                handleInputChange={this.props.handleInputChange}/> : null }
                 
             </div>
             </div>

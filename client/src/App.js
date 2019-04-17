@@ -38,8 +38,17 @@ class App extends Component {
     //property
     PropertyAddress: "",
     managers: [],
+    //lease
+    rate: "",
+    secDep: "",
+    misc: "",
+    miscFee: "",
+    dueDate: "",
+    moveIn: "", 
+    moveOut: "",
     //sign out
-    userSignedIn: false,
+    userSignedIn: false
+
 
 
   };
@@ -154,8 +163,25 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+  createLease = () => {
+    const Lease = {
+      rate: this.state.rate,
+      secDep: this.state.secDep, 
+      misc: this.state.misc, 
+      miscFee: this.state.miscFee, 
+      dueDate: this.state.dueDate, 
+      moveIn: this.state.moveIn, 
+      moveOut: this.state.moveOut
+    }
+    console.log(Lease);
+    API.createLease(Lease)
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err))
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
+    console.log("handle form");
     const form = event.target.name;
     if (form === "register") {
       this.registerUser();
@@ -167,6 +193,7 @@ class App extends Component {
       console.log(this.state.PropertyAddress);
       console.log(this.state.tenants);
     } else if (form === "addNewLease") {
+      this.createLease();
       console.log(event.target.name)
     } else if (form === "newTicket") {
       console.log(event.target.name);

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const PropertySchema = new Schema({
     owner: String,
-    managers: [{ type: Schema.ObjectId, ref: 'User' }],
+    managers: [{ type: Array }],
     tenants: [{ type: Schema.ObjectId, ref: 'User' }],
     tickets: [{ type: Schema.ObjectId, ref: 'Ticket' }],
     leases: [{ type: Schema.ObjectId, ref: 'Lease' }],

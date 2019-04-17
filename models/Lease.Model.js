@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const LeaseSchema = new Schema({
     rate: Number,
-    frequency: Number,
-    frequencyUnits: String,
-    dateDue: String,
+    secDep: Number,
+    misc: [{feeType: String, fee: Number}],
+    dateDue: Number,
+    leaseStart: Date,
+    leaseEnd: Date,
     payments: [{ type: Schema.ObjectId, ref: 'Payment' }],
     
 });

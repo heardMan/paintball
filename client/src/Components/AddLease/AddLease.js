@@ -98,16 +98,19 @@ class AddLease extends Component {
 
                     <form className="row">
                         <label>Monthly Rate: </label>
-                        $<input type="text" className="form-control" id="monthlyRate" placeholder="1500.00" />
+                        $<input type="text" name="rate" className="form-control" id="monthlyRate" onChange={this.props.handleInputChange} value={this.props.state.rate} placeholder="1500.00" />
                         <label>Security Deposit: </label>
-                        $<input type="text" className="form-control" id="securityDep" placeholder="500.00" />
+                        $<input type="text" name="secDep" className="form-control" id="securityDep" onChange={this.props.handleInputChange} value={this.props.state.secDep} placeholder="500.00" />
                         <label>Miscellaneous Fees: </label>
-                        <input type="text" className="form-control" id="addFee" placeholder="Pet Deposit" />
-                        $<input type="text" className="form-control" id="feeAmount" placeholder="200.00" />
+                        <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
+                        $<input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
                         <label>Reoccurring Due Date: Rent is due on the  </label>
                         <div style={{margin: '16px', position: 'relative'}}>
                             <SelectBox
-                            name="venue[country_id]"
+                            state={this.props.state.selectedItem} 
+                            onChange={this.props.handleInputChange} 
+                            value={this.props.state.dueDate}
+                            name="dueDate"
                             items={[
                                 { value: '1st', id: 1 },
                                 { value: '2nd', id: 2 },
@@ -150,13 +153,13 @@ class AddLease extends Component {
                         <div class="form-group row" className="dateBox">
                             <label for="moveIn" class="col-2 col-form-label">Move-In Date</label>
                             <div class="col-10">
-                                <input class="form-control" type="date" id="moveIn"></input>
+                                <input name="moveIn" class="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
                             </div>
                         </div>
                         <div class="form-group row" className="dateBox">
                         <label for="leaseEnd" class="col-2 col-form-label">Lease End Date: </label>
                             <div class="col-10">
-                                <input class="form-control" type="date" id="leaseEnd"></input>
+                                <input name="moveOut" class="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
                             </div>
                         </div>
                         <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>

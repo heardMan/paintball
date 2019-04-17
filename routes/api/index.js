@@ -8,6 +8,6 @@ const propRoutes = require("./Property.routes");
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
 router.use("/tickets", ticketRoutes);
-router.use("./Properties", propRoutes);
+router.use("/Properties", propRoutes);
 
 module.exports = router;
