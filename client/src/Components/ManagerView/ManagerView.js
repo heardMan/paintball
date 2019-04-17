@@ -4,6 +4,7 @@ import AddProperty from "../AddProperty/AddProperty";
 class ManagerView extends Component {
     componentDidMount(){
         console.log(this.props.state.roles);
+        
 
       }
     render(){
@@ -20,7 +21,7 @@ class ManagerView extends Component {
             </div>
         );
     } else{
-        return(<div><img src="https://media.giphy.com/media/wSSooF0fJM97W/giphy.gif" className="img-fluid"/></div>)
+        return(<div><img src="https://media.giphy.com/media/wSSooF0fJM97W/giphy.gif" alt="" className="img-fluid"/></div>)
     }
     }
 }

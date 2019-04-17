@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AutoComplete from "../AutoComplete/AutoComplete";
 import API from "../../Utilities/API";
 import './AddLease.css';
 import SelectBox from './selectBox'
@@ -52,7 +51,7 @@ class AddLease extends Component {
     }
 
     render() {
-        let stateTest = this.state.test;
+        //let stateTest = this.state.test;
         return (
             <div>
                 <form>

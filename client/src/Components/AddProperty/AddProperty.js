@@ -6,7 +6,7 @@ import AddLease from "../AddLease/AddLease";
 class AddProperty extends Component {
     state = {
         autoCompleteUsers: [],
-        newTenants: [], 
+        newManagers: [], 
         showResults: false
     }
 
@@ -14,29 +14,30 @@ class AddProperty extends Component {
         event.preventDefault();
         console.log(event.target.id);
         let arr = [];
-        let oldTenants = this.state.newTenants;
-        oldTenants.forEach(tenant => {
-            arr.push(tenant);
+        let oldManagers = this.state.newManagers;
+        oldManagers.forEach(manager => {
+            arr.push(manager);
 
         });
         arr.push(event.target.id);
         this.setState({
-            newTenants: arr
+            newManagers: arr
         });
-       this.props.state.tenants.push(event.target.id);
-      console.log( this.props.state)
-        
-
+       this.props.state.managers.push(event.target.id);
+      console.log( this.props.state);
         
     }
-    removeTenant = event => {
+    removeManager = event => {
         console.log(event.target.id.split("-")[1])
-        let removed = this.state.newTenants.filter((tenant,i)=>{
-            return tenant !== event.target.id.split("-")[1]
+        let removed = this.state.newManagers.filter((manager,i)=>{
+            return manager !== event.target.id.split("-")[1];
         });
+        console.log(removed);
         this.setState({
-            newTenants: removed
+            newManagers: removed
         })
+        
+        console.log(this.state.newManagers);
     }
     componentDidMount() {
         API.getUsers()
@@ -63,7 +64,7 @@ class AddProperty extends Component {
 
 
     render() {
-        const tenants = this.state.newTenants;
+        const managers = this.state.newManagers;
         return (
             <div>
                 <form>
@@ -72,21 +73,24 @@ class AddProperty extends Component {
                     </div>
                     <div className="form-group">
                         <div className="row">
+                        <div className="col-12">
+                            Add Managers
+                        </div>
                             <div className="col-12">
-                                {tenants.map((tenant) => {
+                                {managers.map((manager) => {
 
                                     return (
                                         <div className="card">
                                         <div className="card-title">
                                         <span>
-                                                <button name="removeTenant"  type="button" onClick={this.removeTenant} class="close" aria-label="Close">
-                                                    <span id={`remove-${tenant}`} aria-hidden="true">&times;</span>
+                                                <button name="removeManager"  type="button" onClick={this.removeManager} class="close" aria-label="Close">
+                                                    <span id={`remove-${manager}`} aria-hidden="true">&times;</span>
                                                 </button>
                                             </span>
                                         </div>
                                         <div className="card-body">
                                             <span>
-                                                {tenant}
+                                                {manager}
                                             </span>
 
                                         </div>
@@ -98,6 +102,7 @@ class AddProperty extends Component {
                         </div>
                         <div className="row">
                             <div className="col-12">
+                            
                                 <span>
                                     <AutoComplete
                                         suggestions={this.state.autoCompleteUsers}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 class Register extends Component {
     render() {
+        const succesfulRegistration = this.props.state.successfulRegistration;
         const isEnabled = this.props.state.newEmail.match(/.+@.+\../) !== null && this.props.state.password1.length > 5 && this.props.state.password2.length > 5 && this.props.state.newRole !== "";
         const notEmail = this.props.state.newEmail.match(/.+@.+\../) === null && this.props.state.newEmail.length > 0  ? "border border-danger" : "";
         const notEmailText = this.props.state.newEmail.match(/.+@.+\../) === null && this.props.state.newEmail.length > 0  ? "Please enter a more believable email" : "";
@@ -13,6 +15,9 @@ class Register extends Component {
         const isPassword = this.props.state.password1.length > 5 && this.props.state.password1 === this.props.state.password2 && this.props.state.password1.length > 5? "border border-success" : "";
         const roleSelect = this.props.state.newRole === "" ? "" : "border border-success";
         const roleSelectText = this.props.state.newRole === "" ? "Please select a role" : "";
+        if(succesfulRegistration === true){
+            return (<Redirect to={{ pathname: "/signIn" }} />);
+        } else {
         return (
             <div>
                 <div><h2>Register</h2></div>
@@ -45,6 +50,7 @@ class Register extends Component {
                 <button disabled={!isEnabled} name="register" onClick={this.props.handleFormSubmit} className="btn btn-primary">Submit</button>
             </div>
         );
+    }
     }
 }
 

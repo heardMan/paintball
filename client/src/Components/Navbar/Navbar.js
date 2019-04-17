@@ -20,11 +20,15 @@ class Navbar extends Component {
                     {this.props.state.roles.map((role, i) => {
                         let roleName = role === "manager" ? "Manager View" : "Tenant View";
                         return (
-                            <li className="nav-item active">
+                            <li key={i} className="nav-item active">
                                 <a className="nav-link" href={`/${role}`}>{roleName}</a>
                             </li>
                         )
-                    })}
+                    }
+                    )}
+                    <li>
+                        <a className="nav-link" onClick={this.props.signOut} href="/signOut">Sign Out</a>
+                    </li>
                 </ul>
             )
         }
