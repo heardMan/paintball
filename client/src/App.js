@@ -38,6 +38,7 @@ class App extends Component {
     //property
     PropertyAddress: "",
     managers: [],
+  
     //sign out
     userSignedIn: false,
 
@@ -45,27 +46,27 @@ class App extends Component {
   };
 
   componentDidMount() {
-      
-      API.checkAuth(this.props.allCookies.token)
-        .then(resp => {
-          console.log(resp.data);
-          const data = resp.data.roles;
-          this.setState({
-            userEmail: resp.data.email,
-            userId: resp.data.id,
-            roles: data,
-            userSignedIn: true
-          })
-        })
-        .catch(err => {
-          console.log(err.status);
-          if(this.props.allCookies.token === undefined){
-            this.setState({userSignedIn: false});
-          }
-        })
-        
 
-    
+    API.checkAuth(this.props.allCookies.token)
+      .then(resp => {
+        console.log(resp.data);
+        const data = resp.data.roles;
+        this.setState({
+          userEmail: resp.data.email,
+          userId: resp.data.id,
+          roles: data,
+          userSignedIn: true
+        })
+      })
+      .catch(err => {
+        console.log(err.status);
+        if (this.props.allCookies.token === undefined) {
+          this.setState({ userSignedIn: false });
+        }
+      })
+
+
+
   }
 
   handleInputChange = event => {
@@ -144,14 +145,59 @@ class App extends Component {
   }
 
   createProp = () => {
-    const Property = {
-      address: this.state.PropertyAddress,
-      tenants: this.state.tenants
+    const managers = this.state.managers;
+    const owner = this.state.userId;
+    const address = this.state.PropertyAddress;
+    function getManagerIds(cb) {
+      const managerIds = [];
+
+      managers.forEach((manager, i) => {
+        console.log(manager);
+        const email = { email: manager }
+        //console.log(managers.length);
+        //console.log(i);
+
+        API.getUserByEmail(email)
+          .then(resp => {
+
+            console.log(`RESP MOFO:`);
+            console.log(resp.data);
+            managerIds.push(resp.data[0]._id);
+            if (i + 1 === managers.length) {
+              cb(managerIds);
+            }
+          })
+
+          .catch(err => console.log(err))
+
+
+      });
+      console.log(managerIds);
+      
+
     }
-    console.log(Property)
-    API.createProp(Property)
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err))
+    function createProperty(managerIds) {
+      const Property = {
+        owner: owner,
+        address: address,
+        managers: managerIds,
+        isVacant: true
+      }
+      console.log(Property)
+      API.createProp(Property)
+        .then(resp => {
+          console.log(resp);
+          this.setState({
+            PropertyAddress: "",
+            managers: [],
+            
+
+          })
+        })
+        .catch(err => console.log(err))
+    }
+    getManagerIds(createProperty);
+
   }
 
   handleFormSubmit = event => {
@@ -246,7 +292,7 @@ class App extends Component {
           />
           <Route exact path="/signOut" render={(routeProps) => (<SignOut {...routeProps}
             state={this.state}
-            
+
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
