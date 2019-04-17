@@ -5,8 +5,8 @@ import AddLease from "../AddLease/AddLease";
 
 class AddProperty extends Component {
     state = {
-        autoCompleteUsers: [],
-        newManagers: [], 
+        allManagers: [],
+        managers: [], 
         showResults: false
     }
 
@@ -14,14 +14,14 @@ class AddProperty extends Component {
         event.preventDefault();
         console.log(event.target.id);
         let arr = [];
-        let oldManagers = this.state.newManagers;
+        let oldManagers = this.props.state.managers;
         oldManagers.forEach(manager => {
             arr.push(manager);
 
         });
         arr.push(event.target.id);
         this.setState({
-            newManagers: arr
+            managers: arr
         });
        this.props.state.managers.push(event.target.id);
       console.log( this.props.state);
@@ -29,29 +29,34 @@ class AddProperty extends Component {
     }
     removeManager = event => {
         console.log(event.target.id.split("-")[1])
-        let removed = this.state.newManagers.filter((manager,i)=>{
+        let removed = this.props.state.managers.filter((manager,i)=>{
             return manager !== event.target.id.split("-")[1];
         });
-        console.log(removed);
+        console.log(`REMOVED: ${removed}`);
         this.setState({
-            newManagers: removed
+            managers: removed
         })
+        this.props.state.managers = removed;
         
-        console.log(this.state.newManagers);
+        console.log(this.props.state.managers);
     }
     componentDidMount() {
         API.getUsers()
             .then(resp => {
                 const arr = [];
+                
                 resp.data.forEach(user => {
                     arr.push(user.email);
                 })
+                
                 this.setState({
-                    autoCompleteUsers: arr
+                    allManagers: arr
                 })
-                console.log(this.state.autoCompleteUsers);
+                console.log(this.state.allManagers);
             })
             .catch(err => console.log(err));
+           
+        
     }
     onClick1 = event => {
         event.preventDefault();
@@ -64,7 +69,7 @@ class AddProperty extends Component {
 
 
     render() {
-        const managers = this.state.newManagers;
+        const managers = this.props.state.managers;
         return (
             <div>
                 <form>
@@ -105,7 +110,7 @@ class AddProperty extends Component {
                             
                                 <span>
                                     <AutoComplete
-                                        suggestions={this.state.autoCompleteUsers}
+                                        suggestions={this.state.allManagers}
                                         addSelected={this.addSelected}
                                     />
                                 </span>
