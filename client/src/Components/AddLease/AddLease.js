@@ -23,11 +23,11 @@ class AddLease extends Component {
             newTenants: arr
         })
 
-        
+
     }
     removeTenant = event => {
         console.log(event.target.id.split("-")[1])
-        let removed = this.state.newTenants.filter((tenant,i)=>{
+        let removed = this.state.newTenants.filter((tenant, i) => {
             return tenant !== event.target.id.split("-")[1]
         });
         this.setState({
@@ -51,6 +51,7 @@ class AddLease extends Component {
     }
 
     render() {
+        const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
         //let stateTest = this.state.test;
         return (
             <div>
@@ -94,80 +95,45 @@ class AddLease extends Component {
                         </div>
 
                     </div> */}
-                    </form>
+                </form>
 
-                    <form className="row">
-                        <label>Monthly Rate: </label>
-                        $<input type="text" className="form-control" id="monthlyRate" placeholder="1500.00" />
-                        <label>Security Deposit: </label>
-                        $<input type="text" className="form-control" id="securityDep" placeholder="500.00" />
-                        <label>Miscellaneous Fees: </label>
-                        <input type="text" className="form-control" id="addFee" placeholder="Pet Deposit" />
-                        $<input type="text" className="form-control" id="feeAmount" placeholder="200.00" />
-                        <label>Reoccurring Due Date: Rent is due on the  </label>
-                        <div style={{margin: '16px', position: 'relative'}}>
-                            <SelectBox
-                            name="venue[country_id]"
-                            items={[
-                                { value: '1st', id: 1 },
-                                { value: '2nd', id: 2 },
-                                { value: '3rd', id: 3 },
-                                { value: '4th', id: 4 },
-                                { value: '5th', id: 5 },
-                                { value: '6th', id: 6 },
-                                { value: '7th', id: 7 },
-                                { value: '8th', id: 8 },
-                                { value: '9th', id: 9 },
-                                { value: '10th', id: 10 },
-                                { value: '11th', id: 11 },
-                                { value: '12th', id: 12 },
-                                { value: '13th', id: 13 },
-                                { value: '14th', id: 14 },
-                                { value: '15th', id: 15 },
-                                { value: '16th', id: 16 },
-                                { value: '17th', id: 17 },
-                                { value: '18th', id: 18 },
-                                { value: '19th', id: 19 },
-                                { value: '20th', id: 20 },
-                                { value: '21st', id: 21 },
-                                { value: '22nd', id: 22 },
-                                { value: '23rd', id: 23 },
-                                { value: '24th', id: 24 },
-                                { value: '25th', id: 25 },
-                                { value: '26th', id: 26 },
-                                { value: '27th', id: 27 },
-                                { value: '28th', id: 28 },
-                                { value: '29th', id: 29 },
-                                { value: '30th', id: 30 },
-
-                            ]}
-                            />
+                <form className="row">
+                    <label>Monthly Rate: </label>
+                    $<input type="text" name="rate" pattern="[0-9]*" className="form-control" id="monthlyRate" onChange={this.props.handleInputChange} value={this.props.state.rate} placeholder="1500.00" />
+                    <label>Security Deposit: </label>
+                    $<input type="text" name="secDep" className="form-control" id="securityDep" onChange={this.props.handleInputChange} value={this.props.state.secDep} placeholder="500.00" />
+                    <label>Miscellaneous Fees: </label>
+                    <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
+                    $<input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
+                    <label>Reoccurring Due Date: Rent is due on the  </label>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Day of Month</label>
+                        <select class="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
+                            {days.map(day => <option key={day} value={day}>{day}</option>)}
+                        </select>
+                    </div>
+                    <label>of the month.</label>
+                    <div>-------------------------------------</div>
+                    <div>Move In Date: </div>
+                    <div class="form-group row" className="dateBox">
+                        <label for="moveIn" class="col-2 col-form-label">Move-In Date</label>
+                        <div class="col-10">
+                            <input name="moveIn" class="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
                         </div>
-                        {/* <input type="text" className="form-control" id="dayOfMonth" placeholder="15"/> */}
-                        <label>of the month.</label>
-                        <div>-------------------------------------</div>
-                        <div>Move In Date: </div>
-                        <div class="form-group row" className="dateBox">
-                            <label for="moveIn" class="col-2 col-form-label">Move-In Date</label>
-                            <div class="col-10">
-                                <input class="form-control" type="date" id="moveIn"></input>
-                            </div>
-                        </div>
-                        <div class="form-group row" className="dateBox">
+                    </div>
+                    <div class="form-group row" className="dateBox">
                         <label for="leaseEnd" class="col-2 col-form-label">Lease End Date: </label>
-                            <div class="col-10">
-                                <input class="form-control" type="date" id="leaseEnd"></input>
-                            </div>
+                        <div class="col-10">
+                            <input name="moveOut" class="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
                         </div>
-                        <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
+                    </div>
+                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
                     </form>
-
-                    
                    
                     
                 
             </div>
-        );
-    }
-}
+                );
+            }
+        }
 export default AddLease;

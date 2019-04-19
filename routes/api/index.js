@@ -4,6 +4,7 @@ const userRoutes = require('./user.routes');
 const ticketRoutes = require('./ticket.routes');
 const stripeRoute = require("./stripe.charge");
 const propRoutes = require("./Property.routes");
+const leaseRoutes = require('./lease.routes');
 
 
 // Auth routes
@@ -12,6 +13,7 @@ router.use("/users", userRoutes);
 router.use("/tickets", ticketRoutes);
 router.use("/stripe", stripeRoute);
 router.use("/properties", propRoutes);
+router.use("/leases", leaseRoutes);
 
 
 module.exports = router;

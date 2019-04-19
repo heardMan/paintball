@@ -39,7 +39,14 @@ class App extends Component {
     //property
     PropertyAddress: "",
     managers: [],
-  
+    //lease
+    rate: "",
+    secDep: "",
+    misc: "",
+    miscFee: "",
+    dueDate: "",
+    moveIn: "",
+    moveOut: "",
     //sign out
     userSignedIn: false,
 
@@ -174,7 +181,7 @@ class App extends Component {
 
       });
       console.log(managerIds);
-      
+
 
     }
     function createProperty(managerIds) {
@@ -191,7 +198,7 @@ class App extends Component {
           this.setState({
             PropertyAddress: "",
             managers: [],
-            
+
 
           })
         })
@@ -199,6 +206,37 @@ class App extends Component {
     }
     getManagerIds(createProperty);
 
+  }
+
+  createLease = () => {
+    const rateCurrency =
+    parseFloat(this.state.rate.replace(/,/g, ""))
+    .toFixed(2)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const securityDep =
+    parseFloat(this.state.secDep.replace(/,/g, ""))
+    .toFixed(2)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const miscPay =
+    parseFloat(this.state.secDep.replace(/,/g, ""))
+    .toFixed(2)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const Lease = {
+      rate: rateCurrency,
+      secDep: securityDep,
+      misc: this.state.misc,
+      miscFee: miscPay,
+      dueDate: this.state.dueDate,
+      moveIn: this.state.moveIn,
+      moveOut: this.state.moveOut
+    }
+    console.log(Lease);
+    API.createLease(Lease)
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err))
   }
 
   handleFormSubmit = event => {
@@ -214,6 +252,7 @@ class App extends Component {
       console.log(this.state.PropertyAddress);
       console.log(this.state.tenants);
     } else if (form === "addNewLease") {
+      this.createLease();
       console.log(event.target.name)
     } else if (form === "newTicket") {
       console.log(event.target.name);

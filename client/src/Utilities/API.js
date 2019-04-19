@@ -25,6 +25,9 @@ export default {
     }, 
     createProp: function(property){
         return axios.post("/api/properties", property);
+    },
+    createLease: function(token){
+        return axios.post("api/Leases", token);
     }
 
 };
