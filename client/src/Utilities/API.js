@@ -20,9 +20,11 @@ export default {
         return axios.get("/api/auth/verify", token);
     },
     createTicket: function(ticket){
+
         return axios.post("/api/tickets", ticket);
     }, 
     createProp: function(property){
         return axios.post("/api/properties", property);
     }
+
 };
