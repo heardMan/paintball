@@ -6,7 +6,7 @@ import AddLease from "../AddLease/AddLease";
 class AddProperty extends Component {
     state = {
         allManagers: [],
-        managers: [], 
+        managers: [],
         showResults: false
     }
 
@@ -23,13 +23,13 @@ class AddProperty extends Component {
         this.setState({
             managers: arr
         });
-       this.props.state.managers.push(event.target.id);
-      console.log( this.props.state);
-        
+        this.props.state.managers.push(event.target.id);
+        console.log(this.props.state);
+
     }
     removeManager = event => {
         console.log(event.target.id.split("-")[1])
-        let removed = this.props.state.managers.filter((manager,i)=>{
+        let removed = this.props.state.managers.filter((manager, i) => {
             return manager !== event.target.id.split("-")[1];
         });
         console.log(`REMOVED: ${removed}`);
@@ -37,34 +37,34 @@ class AddProperty extends Component {
             managers: removed
         })
         this.props.state.managers = removed;
-        
+
         console.log(this.props.state.managers);
     }
     componentDidMount() {
         API.getUsers()
             .then(resp => {
                 const arr = [];
-                
+
                 resp.data.forEach(user => {
                     arr.push(user.email);
                 })
-                
+
                 this.setState({
                     allManagers: arr
                 })
                 console.log(this.state.allManagers);
             })
             .catch(err => console.log(err));
-           
-        
+
+
     }
     onClick1 = event => {
         event.preventDefault();
         console.log(this.state.showResults)
-        
+
         this.setState({
-             showResults: true 
-            });
+            showResults: true
+        });
     }
 
 
@@ -78,28 +78,28 @@ class AddProperty extends Component {
                     </div>
                     <div className="form-group">
                         <div className="row">
-                        <div className="col-12">
-                            Add Managers
+                            <div className="col-12">
+                                Add Managers
                         </div>
                             <div className="col-12">
                                 {managers.map((manager) => {
 
                                     return (
                                         <div className="card">
-                                        <div className="card-title">
-                                        <span>
-                                                <button name="removeManager"  type="button" onClick={this.removeManager} class="close" aria-label="Close">
-                                                    <span id={`remove-${manager}`} aria-hidden="true">&times;</span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <div className="card-body">
-                                            <span>
-                                                {manager}
-                                            </span>
+                                            <div className="card-title">
+                                                <span>
+                                                    <button name="removeManager" type="button" onClick={this.removeManager} class="close" aria-label="Close">
+                                                        <span id={`remove-${manager}`} aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <div className="card-body">
+                                                <span>
+                                                    {manager}
+                                                </span>
 
-                                        </div>
-                                             
+                                            </div>
+
                                         </div>
                                     );
                                 })}
@@ -107,7 +107,7 @@ class AddProperty extends Component {
                         </div>
                         <div className="row">
                             <div className="col-12">
-                            
+
                                 <span>
                                     <AutoComplete
                                         suggestions={this.state.allManagers}
@@ -123,10 +123,12 @@ class AddProperty extends Component {
                 </form>
 
                 <div>
-                <button onClick={this.onClick1}>Add Lease</button>
-                { this.state.showResults ? <AddLease /> : null }
-                
-            </div>
+                    <button onClick={this.onClick1}>Add Lease</button>
+                    {this.state.showResults ? <AddLease
+                        state={this.props.state}
+                        handleFormSubmit={this.props.handleFormSubmit}
+                        handleInputChange={this.props.handleInputChange} /> : null}
+                </div>
             </div>
         );
     }
