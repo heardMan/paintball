@@ -40,6 +40,7 @@ class App extends Component {
     PropertyAddress: "",
     managers: [],
     //lease
+    tenants: [],
     rate: "",
     secDep: "",
     misc: "",
@@ -210,34 +211,76 @@ class App extends Component {
 
   createLease = () => {
     const rateCurrency =
-    parseFloat(this.state.rate.replace(/,/g, ""))
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      parseFloat(this.state.rate.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const securityDep =
-    parseFloat(this.state.secDep.replace(/,/g, ""))
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      parseFloat(this.state.secDep.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const miscPay =
-    parseFloat(this.state.secDep.replace(/,/g, ""))
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const Lease = {
-      rate: rateCurrency,
-      secDep: securityDep,
-      misc: this.state.misc,
-      miscFee: miscPay,
-      dueDate: this.state.dueDate,
-      moveIn: this.state.moveIn,
-      moveOut: this.state.moveOut
+      parseFloat(this.state.secDep.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const tenants = this.state.tenants;
+    const misc = this.state.misc;
+    const dueDate = this.state.dueDate;
+    const moveIn = this.state.moveIn;
+    const moveOut = this.state.moveOut;
+    function getTenantIds(cb) {
+      const tenantIds = [];
+
+      tenants.forEach((tenant, i) => {
+        console.log(tenant);
+        const email = { email: tenant }
+        //console.log(tenants.length);
+        //console.log(i);
+
+        API.getUserByEmail(email)
+          .then(resp => {
+
+            console.log(`RESP MOFO:`);
+            console.log(resp.data);
+            tenantIds.push(resp.data[0]._id);
+            if (i + 1 === tenants.length) {
+              cb(tenantIds);
+            }
+          })
+
+          .catch(err => console.log(err))
+
+
+      });
+      console.log(tenantIds);
+
+
     }
-    console.log(Lease);
-    API.createLease(Lease)
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err))
+    function createLeaseObj(tenantIds) {
+
+      const Lease = {
+        tenants: tenantIds,
+        rate: rateCurrency,
+        secDep: securityDep,
+        misc: misc,
+        miscFee: miscPay,
+        dueDate: dueDate,
+        moveIn: moveIn,
+        moveOut: moveOut
+      }
+      console.log(Lease);
+      API.createLease(Lease)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
+    }
+
+    getTenantIds(createLeaseObj);
+
   }
+
+
 
   handleFormSubmit = event => {
     event.preventDefault();
