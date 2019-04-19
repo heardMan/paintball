@@ -8,6 +8,7 @@ import SignIn from "./Components/SignIn/SignIn";
 import Register from "./Components/Register/Register";
 import Footer from "./Components/Footer/Footer";
 import Welcome from "./Components/Welcome/Welcome";
+import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
 import { withCookies } from 'react-cookie';
 
