@@ -1,63 +1,74 @@
 import React, { Component } from "react";
 import API from "../../Utilities/API";
 import './AddLease.css';
-import SelectBox from './selectBox'
+import AutoComplete from "../AutoComplete/AutoComplete";
 
 class AddLease extends Component {
 
     state = {
-        autoCompleteUsers: [],
-        newTenants: []
+        allTenants: [],
+        tenants: []
     }
 
     addSelected = event => {
         event.preventDefault();
         console.log(event.target.id);
         let arr = [];
-        let oldTenants = this.state.newTenants;
+        let oldTenants = this.state.tenants;
         oldTenants.forEach(tenant => {
             arr.push(tenant);
         });
         arr.push(event.target.id);
         this.setState({
-            newTenants: arr
-        })
+            tenants: arr
+        });
+        this.props.state.tenants.push(event.target.id);
+        console.log(this.props.state);
+        
 
 
     }
     removeTenant = event => {
         console.log(event.target.id.split("-")[1])
-        let removed = this.state.newTenants.filter((tenant, i) => {
+        let removed = this.state.tenants.filter((tenant, i) => {
             return tenant !== event.target.id.split("-")[1]
         });
+        console.log(`REMOVED: ${removed}`);
         this.setState({
-            newTenants: removed
+            tenants: removed
         })
+        this.props.state.tenants = removed;
+
+        console.log(this.props.state.tenants);
     }
 
     componentDidMount() {
         API.getUsers()
             .then(resp => {
                 const arr = [];
+
                 resp.data.forEach(user => {
                     arr.push(user.email);
                 })
                 this.setState({
-                    autoCompleteUsers: arr
+                    allTenants: arr
                 })
-                console.log(this.state.autoCompleteUsers);
+                console.log(this.state.allTenants);
             })
             .catch(err => console.log(err));
     }
 
     render() {
         const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
-        //let stateTest = this.state.test;
+        const tenants = this.props.state.tenants;
         return (
             <div>
                 <form>
-                    {/* <div className="form-group">
+                    <div className="form-group">
                         <div className="row">
+                        <div className="col-12">
+                                Add Tenants
+                            </div>
                             <div className="col-12">
                                 {tenants.map((tenant) => {
 
@@ -87,14 +98,14 @@ class AddLease extends Component {
                             <div className="col-12">
                                 <span>
                                     <AutoComplete
-                                        suggestions={this.state.autoCompleteUsers}
+                                        suggestions={this.state.allTenants}
                                         addSelected={this.addSelected}
                                     />
                                 </span>
                             </div>
                         </div>
 
-                    </div> */}
+                    </div>
                 </form>
 
                 <form className="row">

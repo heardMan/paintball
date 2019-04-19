@@ -80,7 +80,7 @@ class AddProperty extends Component {
                         <div className="row">
                             <div className="col-12">
                                 Add Managers
-                        </div>
+                            </div>
                             <div className="col-12">
                                 {managers.map((manager) => {
 

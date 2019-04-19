@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const LeaseSchema = new Schema({
+    tenants: [{ type: Schema.ObjectId, ref: 'User' }],
     rate: String,
     secDep: String,
-    //misc: [{feeType: String, fee: Number}],
     misc: String,
     miscFee: String,
     dateDue: String,
