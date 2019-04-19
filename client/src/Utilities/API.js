@@ -10,11 +10,21 @@ export default {
     getUsers: function(){
         return axios.get("/api/users/all");
     },
+    getUserByEmail: function(email){
+        return axios.post("/api/users/byEmail", email);
+    },
+    getManagers: function(){
+        return axios.get("/api/users/managers");
+    },
     checkAuth: function(token){
-        return axios.get("api/auth/verify", token);
+        return axios.get("/api/auth/verify", token);
     },
     createTicket: function(ticket){
-        return axios.post("api/tickets", ticket);
-    },
-    //stripeCharge: function
+
+        return axios.post("/api/tickets", ticket);
+    }, 
+    createProp: function(property){
+        return axios.post("/api/properties", property);
+    }
+
 };

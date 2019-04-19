@@ -5,48 +5,69 @@ import Navbar from "./Components/Navbar/Navbar";
 import ManagerView from "./Components/ManagerView/ManagerView";
 import TenantView from "./Components/TenantView/TenantView";
 import SignIn from "./Components/SignIn/SignIn";
+import SignOut from "./Components/SignOut/SignOut";
 import Register from "./Components/Register/Register";
 import Footer from "./Components/Footer/Footer";
 import Welcome from "./Components/Welcome/Welcome";
 import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
-import { withCookies } from 'react-cookie';
+import { withCookies, useCookies } from 'react-cookie';
 
 class App extends Component {
-  
+
   state = {
+
     //currentUser
     userEmail: "",
-    userId:"",
+    userId: "",
     roles: [],
-    //login
-    
+    //signin
     email: "",
     password: "",
+    redirect: false,
+    signOutSuccessful: false,
     //register
     newEmail: "",
     newRole: "",
     password1: "",
     password2: "",
+    successfulRegistration: false,
     //create ticket
     ticketSubject: "",
     ticketLocation: "",
     ticketDescription: "",
-    
+    //property
+    PropertyAddress: "",
+    managers: [],
+  
+    //sign out
+    userSignedIn: false,
+
+
   };
 
-  componentDidMount(){
-    API.checkAuth(this.props.cookies.token)
-    .then(resp => {
-      console.log(resp.data);
-      const data = resp.data.roles;
-      this.setState({
-        userEmail: resp.data.email,
-        userId: resp.data.id,
-        roles: data
+  componentDidMount() {
+
+    API.checkAuth(this.props.allCookies.token)
+      .then(resp => {
+        console.log(resp.data);
+        const data = resp.data.roles;
+        this.setState({
+          userEmail: resp.data.email,
+          userId: resp.data.id,
+          roles: data,
+          userSignedIn: true
+        })
       })
-    })
-    .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err.status);
+        if (this.props.allCookies.token === undefined) {
+          this.setState({ userSignedIn: false });
+        }
+      })
+
+
+
   }
 
   handleInputChange = event => {
@@ -57,13 +78,19 @@ class App extends Component {
     })
   };
 
+
+  signOut = () => {
+    console.log(this.state.userSignOut);
+    this.props.cookies.remove("token");
+  }
+
   registerUser = () => {
-    if(
+    if (
       this.state.password1 === this.state.password2 &&
-      this.state.newEmail !== '' && 
-      this.state.newRole !== '' && 
-      this.state.password1.length > 2 
-      ){
+      this.state.newEmail !== '' &&
+      this.state.newRole !== '' &&
+      this.state.password1.length > 2
+    ) {
       const newUser = {
         email: this.state.newEmail,
         password: this.state.password1,
@@ -71,11 +98,13 @@ class App extends Component {
       }
       //console.log(newUser);
       API.registerUser(newUser)
-      .then(resp => {
-        console.log(resp)
-        
-      })
-      .catch(err => console.log(err));
+        .then(resp => {
+          console.log(resp)
+          this.setState({
+            successfulRegistration: true
+          })
+        })
+        .catch(err => console.log(err));
     } else {
       console.log("fill out all fields complteely");
     }
@@ -86,12 +115,23 @@ class App extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    
+
     API.signInUser(user)
-    .then(resp => console.log(resp))
-    .catch(err => console.log(err));
-  
+      .then(resp => {
+        console.log(resp);
+        this.setState({
+          userEmail: resp.data.email,
+          userId: resp.data.userID,
+          roles: resp.data.roles
+        })
+
+        //this.setState({ redirect: true })
+
+      })
+      .catch(err => console.log(`ERROR: ${err}`));
+
   }
+
 
   createTicket = () => {
     const ticket = {
@@ -101,99 +141,168 @@ class App extends Component {
       description: this.state.ticketDescription
     }
     API.createTicket(ticket)
-    .then(resp => console.log(resp))
-    .catch(err => console.log(err))
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err))
+  }
+
+  createProp = () => {
+    const managers = this.state.managers;
+    const owner = this.state.userId;
+    const address = this.state.PropertyAddress;
+    function getManagerIds(cb) {
+      const managerIds = [];
+
+      managers.forEach((manager, i) => {
+        console.log(manager);
+        const email = { email: manager }
+        //console.log(managers.length);
+        //console.log(i);
+
+        API.getUserByEmail(email)
+          .then(resp => {
+
+            console.log(`RESP MOFO:`);
+            console.log(resp.data);
+            managerIds.push(resp.data[0]._id);
+            if (i + 1 === managers.length) {
+              cb(managerIds);
+            }
+          })
+
+          .catch(err => console.log(err))
+
+
+      });
+      console.log(managerIds);
+      
+
+    }
+    function createProperty(managerIds) {
+      const Property = {
+        owner: owner,
+        address: address,
+        managers: managerIds,
+        isVacant: true
+      }
+      console.log(Property)
+      API.createProp(Property)
+        .then(resp => {
+          console.log(resp);
+          this.setState({
+            PropertyAddress: "",
+            managers: [],
+            
+
+          })
+        })
+        .catch(err => console.log(err))
+    }
+    getManagerIds(createProperty);
+
   }
 
   handleFormSubmit = event => {
     event.preventDefault();
     const form = event.target.name;
-    if(form === "register"){
+    if (form === "register") {
       this.registerUser();
-    } else if(form === "signIn"){
+    } else if (form === "signIn") {
       this.signInUser();
-    } else if(form === "addNewProperty"){
+    } else if (form === "addNewProperty") {
       console.log(event.target.name)
-    } else if(form === "newTicket"){
+      this.createProp();
+      console.log(this.state.PropertyAddress);
+      console.log(this.state.tenants);
+    } else if (form === "addNewLease") {
+      console.log(event.target.name)
+    } else if (form === "newTicket") {
       console.log(event.target.name);
       this.createTicket();
-    } 
+    }
 
   };
 
   render() {
+
     return (
-      
+
       <Router>
         <div className="container-fluid with-fixed-nav">
-          <Navbar state={this.state}/>
+          <Navbar signOut={this.signOut} state={this.state} />
 
           <Route exact path="/" render={(routeProps) => {
-                                            const manager = this.state.roles.indexOf("manager")>-1? true: false;
-                                            const tenant = this.state.roles.indexOf("tenant")>-1? true: false;
-                                            
-                                            if(manager){
-                                              return(
-                                              <ManagerView {...routeProps} 
-                                              state={this.state}
-                                              handleFormSubmit={this.handleFormSubmit}
-                                              handleInputChange={this.handleInputChange}
-                                        />
-                                        )
+            const manager = this.state.roles.indexOf("manager") > -1 ? true : false;
+            const tenant = this.state.roles.indexOf("tenant") > -1 ? true : false;
 
-                                            } else if(tenant) {
+            if (manager) {
+              return (
+                <ManagerView {...routeProps}
+                  state={this.state}
+                  handleFormSubmit={this.handleFormSubmit}
+                  handleInputChange={this.handleInputChange}
+                />
+              )
 
-                                              return(
-                                                <TenantView {...routeProps} 
-                                                  state={this.state}
-                                                  handleFormSubmit={this.handleFormSubmit}
-                                                  handleInputChange={this.handleInputChange}
-                                                />
-                                                )
-                                            } else {
+            } else if (tenant) {
 
-                                              return(
-                                                <Welcome {...routeProps} 
-                                                  state={this.state}
-                                                  handleFormSubmit={this.handleFormSubmit}
-                                                  handleInputChange={this.handleInputChange}
-                                                />
-                                                )
-                                            }
-                                            
-                                      }}
-            />
+              return (
+                <TenantView {...routeProps}
+                  state={this.state}
+                  handleFormSubmit={this.handleFormSubmit}
+                  handleInputChange={this.handleInputChange}
+                />
+              )
+            } else {
 
-          <Route exact path="/tenant" render={(routeProps) => (<TenantView {...routeProps} 
-                                              state={this.state}
-                                              handleFormSubmit={this.handleFormSubmit}
-                                              handleInputChange={this.handleInputChange}
-                                        />)}
-             />
+              return (
+                <Welcome {...routeProps}
+                  state={this.state}
+                  handleFormSubmit={this.handleFormSubmit}
+                  handleInputChange={this.handleInputChange}
+                />
+              )
+            }
 
-          <Route exact path="/manager" render={(routeProps) => (<ManagerView {...routeProps} 
-                                              state={this.state}
-                                              handleFormSubmit={this.handleFormSubmit}
-                                              handleInputChange={this.handleInputChange}
-                                        />)}
-             />
-          <Route exact path="/register" render={(routeProps) => (<Register {...routeProps} 
-                                              state={this.state}
-                                              handleFormSubmit={this.handleFormSubmit}
-                                              handleInputChange={this.handleInputChange}
-                                        />)}
-             />
-          <Route exact path="/signIn" render={(routeProps) => (<SignIn {...routeProps} 
-                                              state={this.state}
-                                              handleFormSubmit={this.handleFormSubmit}
-                                              handleInputChange={this.handleInputChange}
-                                        />)}
+          }}
           />
 
-          <Footer/>
+          <Route exact path="/tenant" render={(routeProps) => (<TenantView {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manager" render={(routeProps) => (<ManagerView {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+          <Route exact path="/register" render={(routeProps) => (<Register {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+          <Route exact path="/signIn" render={(routeProps) => (<SignIn {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+          <Route exact path="/signOut" render={(routeProps) => (<SignOut {...routeProps}
+            state={this.state}
+
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Footer />
         </div>
       </Router>
-      
+
     );
   }
 }
