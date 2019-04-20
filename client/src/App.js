@@ -49,6 +49,9 @@ class App extends Component {
     dueDate: "",
     moveIn: "",
     moveOut: "",
+    //announcements
+    announceTitle: "",
+    announceDescription: "",
     //sign out
     userSignedIn: false,
 
@@ -283,6 +286,20 @@ class App extends Component {
 
   }
 
+
+  createAnnounce = () => {
+    const announce = {
+      creator: this.state.userId,
+      announceTitle: this.state.announceTitle,
+      announceDescription: this.state.announceDescription
+    }
+    API.createAnnounce(announce)
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err))
+  }
+
+
+
   handleFormSubmit = event => {
     event.preventDefault();
     const form = event.target.name;
@@ -301,6 +318,9 @@ class App extends Component {
     } else if (form === "newTicket") {
       console.log(event.target.name);
       this.createTicket();
+    } else if (form === "newAnnounce") {
+      console.log(event.target.name);
+      this.createAnnounce();
     }
 
   };
