@@ -28,6 +28,9 @@ export default {
     },
     createLease: function(token){
         return axios.post("api/Leases", token);
+    }, 
+    createAnnounce: function(token){
+        return axios.post("api/announcements", token);
     }
 
 };
