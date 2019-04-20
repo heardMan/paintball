@@ -13,6 +13,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
 import { withCookies, useCookies } from 'react-cookie';
+import AddBill from "./Components/AddBill/AddBill";
 
 class App extends Component {
 
@@ -49,6 +50,13 @@ class App extends Component {
     dueDate: "",
     moveIn: "",
     moveOut: "",
+    //Create bill
+    rent: "",
+    repair: "",
+    repairFee: "",
+    billDue: "",
+    billStart: "",
+    billEnd: "",
     //announcements
     announceTitle: "",
     announceDescription: "",
@@ -286,6 +294,71 @@ class App extends Component {
 
   }
 
+  createBill = () => {
+    const rentCurrency =
+      parseFloat(this.state.rent.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const repairFee =
+      parseFloat(this.state.repairFee.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const tenants = this.state.tenants;
+    const repair = this.state.repair;
+    const billDue = this.state.billDue;
+    const billStart = this.state.billStart;
+    const billEnd = this.state.billEnd;
+    function getTenantIds(cb) {
+      const tenantIds = [];
+
+      tenants.forEach((tenant, i) => {
+        console.log(tenant);
+        const email = { email: tenant }
+        //console.log(tenants.length);
+        //console.log(i);
+
+        API.getUserByEmail(email)
+          .then(resp => {
+
+            console.log(`RESP MOFO:`);
+            console.log(resp.data);
+            tenantIds.push(resp.data[0]._id);
+            if (i + 1 === tenants.length) {
+              cb(tenantIds);
+            }
+          })
+
+          .catch(err => console.log(err))
+
+
+      });
+      console.log(tenantIds);
+
+
+    }
+    function createBillObj(tenantIds) {
+
+      const Bill = {
+        tenants: tenantIds,
+        rent: rentCurrency,
+        repair: repair,
+        repairFee: repairFee,
+        billDue: billDue,
+        billStart: billStart,
+        billEnd: billEnd
+      }
+      console.log(Bill);
+      API.createBill(Bill)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
+    }
+
+    getTenantIds(createBillObj);
+
+  }
+
 
   createAnnounce = () => {
     const announce = {
@@ -314,6 +387,9 @@ class App extends Component {
       console.log(this.state.tenants);
     } else if (form === "addNewLease") {
       this.createLease();
+      console.log(event.target.name)
+    } else if (form === "addBill") {
+      this.createBill();
       console.log(event.target.name)
     } else if (form === "newTicket") {
       console.log(event.target.name);
@@ -363,6 +439,13 @@ class App extends Component {
           />
 
           <Route exact path="/manager" render={(routeProps) => (<ManagerView {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+<Route exact path="/billcreate" render={(routeProps) => (<AddBill {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
