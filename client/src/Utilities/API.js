@@ -31,6 +31,9 @@ export default {
     }, 
     createAnnounce: function(token){
         return axios.post("api/announcements", token);
-    }
+    },
 
+    createBill: function(token){
+        return axios.post("api/bills", token);
+    }
 };
