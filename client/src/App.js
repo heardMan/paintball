@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import ManagerView from "./Components/ManagerView/ManagerView";
 import TenantView from "./Components/TenantView/TenantView";
@@ -9,6 +9,7 @@ import SignOut from "./Components/SignOut/SignOut";
 import Register from "./Components/Register/Register";
 import Footer from "./Components/Footer/Footer";
 import Welcome from "./Components/Welcome/Welcome";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
 import { withCookies, useCookies } from 'react-cookie';
@@ -76,9 +77,6 @@ class App extends Component {
           this.setState({ userSignedIn: false });
         }
       })
-
-
-
   }
 
   handleInputChange = event => {
@@ -92,7 +90,11 @@ class App extends Component {
 
   signOut = () => {
     console.log(this.state.userSignOut);
+
     this.props.cookies.remove("token");
+    this.setState({
+      userSignedIn: false
+    })
   }
 
   registerUser = () => {
@@ -133,7 +135,8 @@ class App extends Component {
         this.setState({
           userEmail: resp.data.email,
           userId: resp.data.userID,
-          roles: resp.data.roles
+          roles: resp.data.roles,
+          userSignedIn: true
         })
 
         //this.setState({ redirect: true })
@@ -283,6 +286,7 @@ class App extends Component {
 
   }
 
+
   createAnnounce = () => {
     const announce = {
       creator: this.state.userId,
@@ -293,6 +297,7 @@ class App extends Component {
       .then(resp => console.log(resp))
       .catch(err => console.log(err))
   }
+
 
 
   handleFormSubmit = event => {
@@ -327,41 +332,27 @@ class App extends Component {
       <Router>
         <div className="container-fluid with-fixed-nav">
           <Navbar signOut={this.signOut} state={this.state} />
+          {/* <Sidebar signOut={this.signOut} state={this.state} /> */}
 
           <Route exact path="/" render={(routeProps) => {
-            const manager = this.state.roles.indexOf("manager") > -1 ? true : false;
-            const tenant = this.state.roles.indexOf("tenant") > -1 ? true : false;
-
-            if (manager) {
-              return (
-                <ManagerView {...routeProps}
-                  state={this.state}
-                  handleFormSubmit={this.handleFormSubmit}
-                  handleInputChange={this.handleInputChange}
-                />
-              )
-
-            } else if (tenant) {
-
-              return (
-                <TenantView {...routeProps}
-                  state={this.state}
-                  handleFormSubmit={this.handleFormSubmit}
-                  handleInputChange={this.handleInputChange}
-                />
-              )
-            } else {
-
-              return (
-                <Welcome {...routeProps}
-                  state={this.state}
-                  handleFormSubmit={this.handleFormSubmit}
-                  handleInputChange={this.handleInputChange}
-                />
-              )
-            }
-
+            const signedIn = this.state.userSignedIn;
+            if (signedIn === true) return <Redirect to={{ pathname: "/dashboard" }} />
+            else return <Redirect to={{ pathname: "/welcome" }} />
           }}
+          />
+
+          <Route exact path="/welcome" render={(routeProps) => (<Welcome {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/dashboard" render={(routeProps) => (<Dashboard {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
           />
 
           <Route exact path="/tenant" render={(routeProps) => (<TenantView {...routeProps}
@@ -377,21 +368,23 @@ class App extends Component {
             handleInputChange={this.handleInputChange}
           />)}
           />
+
           <Route exact path="/register" render={(routeProps) => (<Register {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
           />
+
           <Route exact path="/signIn" render={(routeProps) => (<SignIn {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
           />
+
           <Route exact path="/signOut" render={(routeProps) => (<SignOut {...routeProps}
             state={this.state}
-
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
