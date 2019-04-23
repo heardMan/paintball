@@ -46,6 +46,7 @@ class App extends Component {
     rate: "",
     secDep: "",
     misc: "",
+    miscFees:[],
     miscFee: "",
     dueDate: "",
     moveIn: "",
@@ -224,6 +225,7 @@ class App extends Component {
   }
 
   createLease = () => {
+    
     const rateCurrency =
       parseFloat(this.state.rate.replace(/,/g, ""))
         .toFixed(2)
@@ -244,9 +246,11 @@ class App extends Component {
     const dueDate = this.state.dueDate;
     const moveIn = this.state.moveIn;
     const moveOut = this.state.moveOut;
+    const feeArr = this.state.miscFees;
     function getTenantIds(cb) {
+      
       const tenantIds = [];
-
+      console.log(`tenants: ${tenants}`)
       tenants.forEach((tenant, i) => {
         console.log(tenant);
         const email = { email: tenant }
@@ -273,20 +277,22 @@ class App extends Component {
 
     }
     function createLeaseObj(tenantIds) {
-
+      console.log("working");
       const Lease = {
         tenants: tenantIds,
         rate: rateCurrency,
         secDep: securityDep,
-        misc: misc,
-        miscFee: miscPay,
+        miscStuff: feeArr,
         dueDate: dueDate,
         moveIn: moveIn,
         moveOut: moveOut
       }
       console.log(Lease);
       API.createLease(Lease)
-        .then(resp => console.log(resp))
+        .then(resp => {
+          console.log("lease made successfully")
+          console.log(resp)
+        })
         .catch(err => console.log(err))
     }
 

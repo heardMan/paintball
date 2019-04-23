@@ -1,6 +1,7 @@
 const db = require("../models");
 const Lease = {
     create: function(req, res) {
+        console.log(req);
         db.Lease
           .create(req.body)
           .then(dbModel => res.json(dbModel))
