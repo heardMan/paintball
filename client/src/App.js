@@ -306,7 +306,8 @@ class App extends Component {
 
   }
 
-  createBill = () => {
+ createBill = () => {
+    console.log("hello");
     const rentCurrency =
       parseFloat(this.state.rent.replace(/,/g, ""))
         .toFixed(2)
@@ -322,9 +323,10 @@ class App extends Component {
     const billDue = this.state.billDue;
     const billStart = this.state.billStart;
     const billEnd = this.state.billEnd;
+    const feeArr = this.state.repairFees;
     function getTenantIds(cb) {
       const tenantIds = [];
-
+console.log("hello 2");
       tenants.forEach((tenant, i) => {
         console.log(tenant);
         const email = { email: tenant }
@@ -354,6 +356,7 @@ class App extends Component {
 
       const Bill = {
         tenants: tenantIds,
+        repairStuff: feeArr,
         rent: rentCurrency,
         repair: repair,
         repairFee: repairFee,
@@ -370,6 +373,7 @@ class App extends Component {
     getTenantIds(createBillObj);
 
   }
+
 
 
   createAnnounce = () => {
