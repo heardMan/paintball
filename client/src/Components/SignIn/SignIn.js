@@ -1,40 +1,75 @@
+/**
+ * SIGNIN.JS
+ * this component renders the sign in form
+ * FEATURES:
+ * -email text pattern validation
+ * -password length validation
+ * -form submit is not enabled until all fields are validated
+ * NEEDS:
+ * -additional error handling for incorrect user email submission
+ * -additional error handling for incorrect user password submission
+ */
 import React, { Component } from "react";
-
 import { Redirect } from "react-router-dom";
 
 
 class SignIn extends Component {
-    
 
     render() {
-        const manager = this.props.state.roles.indexOf("manager") > -1 ? true : false;
-        const tenant = this.props.state.roles.indexOf("tenant") > -1 ? true : false;
-        const isEnabled = this.props.state.email.match(/.+@.+\../) !== null && this.props.state.password.length > 6;
-        const notEmail = this.props.state.email.match(/.+@.+\../) == null && this.props.state.email.length > 0 ? "border border-danger" : "";
-        const notPassword = this.props.state.password.length < 6 && this.props.state.password.length > 0 ? "border border-danger" : "";
-        const isEmail = this.props.state.email.match(/.+@.+\../) !== null && this.props.state.email.length > 0 ? "border border-success" : "";
-        const isPassword = this.props.state.password.length > 6 ? "border border-success" : "";
-        const notPasswordTextLength = this.props.state.password.length < 6 && this.props.state.password.length > 0  ? "Password must be at least 6 character long" : "";
+        //submit enabling variables
+        const passCheck = this.props.state.password.length < 6 ? "":false;
+        const emailCheck = this.props.state.email.match(/.+@.+\../) === null;
+        //email validation varibles
+        const notEmailBorder = this.props.state.email.match(/.+@.+\../) == null && this.props.state.email.length > 0 ? "border border-danger" : "";
+        const isEmailBorder = this.props.state.email.match(/.+@.+\../) !== null && this.props.state.email.length > 0 ? "border border-success" : "";
         const notEmailText = this.props.state.email.match(/.+@.+\../) === null && this.props.state.email.length > 0  ? "Please enter a more believable email" : "";
-        if (manager === true) {
-            return (<Redirect to={{ pathname: "/manager" }} />);
-        } else if (tenant === true) {
-            return (<Redirect to={{ pathname: "/tenant" }} />);
-        } else {
+        //password validation varibles
+        const notPasswordBorder = this.props.state.password.length < 6 && this.props.state.password.length > 0 ? "border border-danger" : "";
+        const isPasswordBorder = this.props.state.password.length > 5 ? "border border-success" : "";
+        const passwordTooShortText = this.props.state.password.length < 6 && this.props.state.password.length > 0  ? "Password must be at least 6 character long" : "";
+        //on successful sign in redirect to the index page
+        if (this.props.state.userSignedIn === true ) return <Redirect to={{ pathname: "/" }} /> 
+        //render the sign in form
+        else {
             return (
                 <form>
                     <div><h2>Sign In</h2></div>
+
                     <div className="form-group">
+
                         <label >Email address</label>
-                        <input name="email" value={this.props.state.email} onChange={this.props.handleInputChange} type="email" className={`form-control ${notEmail} ${isEmail}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+
+                        <input name="email" 
+                               value={this.props.state.email} 
+                               onChange={this.props.handleInputChange} 
+                               type="email" className={`form-control ${notEmailBorder} ${isEmailBorder}`} 
+                               id="exampleInputEmail1" aria-describedby="emailHelp" 
+                               placeholder="Enter email" />
+
                         <small className={`d-block text-danger`}>{notEmailText}</small>
+
                     </div>
+
                     <div className="form-group">
+
                         <label >Password</label>
-                        <input name="password" value={this.props.state.password} onChange={this.props.handleInputChange} type="password" className={`form-control ${notPassword} ${isPassword}`} id="password" placeholder="Password" />
-                        <small className={`d-block text-danger`}>{notPasswordTextLength}</small>
+
+                        <input name="password" 
+                               value={this.props.state.password} 
+                               onChange={this.props.handleInputChange} 
+                               type="password" className={`form-control ${notPasswordBorder} ${isPasswordBorder}`} 
+                               id="password" placeholder="Password" />
+
+                        <small className={`d-block text-danger`}>{passwordTooShortText}</small>
+
                     </div>
-                    <button name="signIn" disabled={isEnabled} onClick={this.props.handleFormSubmit} type="submit" className="btn btn-primary">Submit</button>
+
+                    <button name="signIn" 
+                            disabled={emailCheck + passCheck} 
+                            onClick={this.props.handleFormSubmit} 
+                            type="submit" 
+                            className="btn btn-primary">Submit</button>
+                
                 </form>
             );
         }

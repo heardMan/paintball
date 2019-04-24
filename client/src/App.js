@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import ManagerView from "./Components/ManagerView/ManagerView";
 import TenantView from "./Components/TenantView/TenantView";
@@ -9,9 +9,16 @@ import SignOut from "./Components/SignOut/SignOut";
 import Register from "./Components/Register/Register";
 import Footer from "./Components/Footer/Footer";
 import Welcome from "./Components/Welcome/Welcome";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
 import { withCookies, useCookies } from 'react-cookie';
+import AddBill from "./Components/AddBill/AddBill";
+import ManageAnnouncements from "./Components/ManageAnnouncements/ManageAnnouncements";
+import ManageProperties from "./Components/ManageProperties/ManageProperties";
+import ManagePayments from "./Components/ManagePayments/ManagePayments";
+import ManageLeases from "./Components/ManageLeases/ManageLeases";
+import ManageTickets from "./Components/ManageTickets/ManageTickets";
 
 class App extends Component {
 
@@ -40,13 +47,26 @@ class App extends Component {
     PropertyAddress: "",
     managers: [],
     //lease
+    tenants: [],
     rate: "",
     secDep: "",
     misc: "",
+    miscFees:[],
     miscFee: "",
     dueDate: "",
     moveIn: "",
     moveOut: "",
+    //Create bill
+    rent: "",
+    repair: "",
+    repairFee: "",
+    repairFes: [],
+    billDue: "",
+    billStart: "",
+    billEnd: "",
+    //announcements
+    announceTitle: "",
+    announceDescription: "",
     //sign out
     userSignedIn: false,
 
@@ -72,9 +92,6 @@ class App extends Component {
           this.setState({ userSignedIn: false });
         }
       })
-
-
-
   }
 
   handleInputChange = event => {
@@ -88,7 +105,11 @@ class App extends Component {
 
   signOut = () => {
     console.log(this.state.userSignOut);
+
     this.props.cookies.remove("token");
+    this.setState({
+      userSignedIn: false
+    })
   }
 
   registerUser = () => {
@@ -129,7 +150,8 @@ class App extends Component {
         this.setState({
           userEmail: resp.data.email,
           userId: resp.data.userID,
-          roles: resp.data.roles
+          roles: resp.data.roles,
+          userSignedIn: true
         })
 
         //this.setState({ redirect: true })
@@ -209,35 +231,163 @@ class App extends Component {
   }
 
   createLease = () => {
+    
     const rateCurrency =
-    parseFloat(this.state.rate.replace(/,/g, ""))
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      parseFloat(this.state.rate.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const securityDep =
-    parseFloat(this.state.secDep.replace(/,/g, ""))
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      parseFloat(this.state.secDep.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const miscPay =
-    parseFloat(this.state.secDep.replace(/,/g, ""))
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const Lease = {
-      rate: rateCurrency,
-      secDep: securityDep,
-      misc: this.state.misc,
-      miscFee: miscPay,
-      dueDate: this.state.dueDate,
-      moveIn: this.state.moveIn,
-      moveOut: this.state.moveOut
+      parseFloat(this.state.secDep.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const tenants = this.state.tenants;
+    const misc = this.state.misc;
+    const dueDate = this.state.dueDate;
+    const moveIn = this.state.moveIn;
+    const moveOut = this.state.moveOut;
+    const feeArr = this.state.miscFees;
+    function getTenantIds(cb) {
+      
+      const tenantIds = [];
+      console.log(`tenants: ${tenants}`)
+      tenants.forEach((tenant, i) => {
+        console.log(tenant);
+        const email = { email: tenant }
+        //console.log(tenants.length);
+        //console.log(i);
+
+        API.getUserByEmail(email)
+          .then(resp => {
+
+            console.log(`RESP MOFO:`);
+            console.log(resp.data);
+            tenantIds.push(resp.data[0]._id);
+            if (i + 1 === tenants.length) {
+              cb(tenantIds);
+            }
+          })
+
+          .catch(err => console.log(err))
+
+
+      });
+      console.log(tenantIds);
+
+
     }
-    console.log(Lease);
-    API.createLease(Lease)
+    function createLeaseObj(tenantIds) {
+      console.log("working");
+      const Lease = {
+        tenants: tenantIds,
+        rate: rateCurrency,
+        secDep: securityDep,
+        miscStuff: feeArr,
+        dueDate: dueDate,
+        moveIn: moveIn,
+        moveOut: moveOut
+      }
+      console.log(Lease);
+      API.createLease(Lease)
+        .then(resp => {
+          console.log("lease made successfully")
+          console.log(resp)
+        })
+        .catch(err => console.log(err))
+    }
+
+    getTenantIds(createLeaseObj);
+
+  }
+
+ createBill = () => {
+    console.log("hello");
+    const rentCurrency =
+      parseFloat(this.state.rent.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const repairFee =
+      parseFloat(this.state.repairFee.replace(/,/g, ""))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const tenants = this.state.tenants;
+    const repair = this.state.repair;
+    const billDue = this.state.billDue;
+    const billStart = this.state.billStart;
+    const billEnd = this.state.billEnd;
+    const feeArr = this.state.repairFees;
+    function getTenantIds(cb) {
+      const tenantIds = [];
+console.log("hello 2");
+      tenants.forEach((tenant, i) => {
+        console.log(tenant);
+        const email = { email: tenant }
+        //console.log(tenants.length);
+        //console.log(i);
+
+        API.getUserByEmail(email)
+          .then(resp => {
+
+            console.log(`RESP MOFO:`);
+            console.log(resp.data);
+            tenantIds.push(resp.data[0]._id);
+            if (i + 1 === tenants.length) {
+              cb(tenantIds);
+            }
+          })
+
+          .catch(err => console.log(err))
+
+
+      });
+      console.log(tenantIds);
+
+
+    }
+    function createBillObj(tenantIds) {
+
+      const Bill = {
+        tenants: tenantIds,
+        repairStuff: feeArr,
+        rent: rentCurrency,
+        repair: repair,
+        repairFee: repairFee,
+        billDue: billDue,
+        billStart: billStart,
+        billEnd: billEnd
+      }
+      console.log(Bill);
+      API.createBill(Bill)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
+    }
+
+    getTenantIds(createBillObj);
+
+  }
+
+
+
+  createAnnounce = () => {
+    const announce = {
+      creator: this.state.userId,
+      announceTitle: this.state.announceTitle,
+      announceDescription: this.state.announceDescription
+    }
+    API.createAnnounce(announce)
       .then(resp => console.log(resp))
       .catch(err => console.log(err))
   }
+
+
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -254,9 +404,15 @@ class App extends Component {
     } else if (form === "addNewLease") {
       this.createLease();
       console.log(event.target.name)
+    } else if (form === "addBill") {
+      this.createBill();
+      console.log(event.target.name)
     } else if (form === "newTicket") {
       console.log(event.target.name);
       this.createTicket();
+    } else if (form === "newAnnounce") {
+      console.log(event.target.name);
+      this.createAnnounce();
     }
 
   };
@@ -268,41 +424,27 @@ class App extends Component {
       <Router>
         <div className="container-fluid with-fixed-nav">
           <Navbar signOut={this.signOut} state={this.state} />
+          {/* <Sidebar signOut={this.signOut} state={this.state} /> */}
 
           <Route exact path="/" render={(routeProps) => {
-            const manager = this.state.roles.indexOf("manager") > -1 ? true : false;
-            const tenant = this.state.roles.indexOf("tenant") > -1 ? true : false;
-
-            if (manager) {
-              return (
-                <ManagerView {...routeProps}
-                  state={this.state}
-                  handleFormSubmit={this.handleFormSubmit}
-                  handleInputChange={this.handleInputChange}
-                />
-              )
-
-            } else if (tenant) {
-
-              return (
-                <TenantView {...routeProps}
-                  state={this.state}
-                  handleFormSubmit={this.handleFormSubmit}
-                  handleInputChange={this.handleInputChange}
-                />
-              )
-            } else {
-
-              return (
-                <Welcome {...routeProps}
-                  state={this.state}
-                  handleFormSubmit={this.handleFormSubmit}
-                  handleInputChange={this.handleInputChange}
-                />
-              )
-            }
-
+            const signedIn = this.state.userSignedIn;
+            if (signedIn === true) return <Redirect to={{ pathname: "/dashboard" }} />
+            else return <Redirect to={{ pathname: "/welcome" }} />
           }}
+          />
+
+          <Route exact path="/welcome" render={(routeProps) => (<Welcome {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/dashboard" render={(routeProps) => (<Dashboard {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
           />
 
           <Route exact path="/tenant" render={(routeProps) => (<TenantView {...routeProps}
@@ -318,21 +460,57 @@ class App extends Component {
             handleInputChange={this.handleInputChange}
           />)}
           />
+
+          <Route exact path="/managePayments" render={(routeProps) => (<ManagePayments {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+          <Route exact path="/manageProperties" render={(routeProps) => (<ManageProperties {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageLeases" render={(routeProps) => (<ManageLeases {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageTickets" render={(routeProps) => (<ManageTickets {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageAnnouncements" render={(routeProps) => (<ManageAnnouncements {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
           <Route exact path="/register" render={(routeProps) => (<Register {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
           />
+
           <Route exact path="/signIn" render={(routeProps) => (<SignIn {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
           />
+
           <Route exact path="/signOut" render={(routeProps) => (<SignOut {...routeProps}
             state={this.state}
-
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />)}
