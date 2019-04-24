@@ -18,9 +18,12 @@ class Navbar extends Component {
         } else {
             return (
                 <nav className="navigation__nav">
+
                     <ul className="navigation__list">
                         <li className="navigation__item"><a href="/signout" onClick={this.props.signOut} className="navigation__link"><span>01</span> Sign Out</a></li> 
                     </ul>
+   
+
                 </nav>
             )
         }
@@ -31,7 +34,7 @@ class Navbar extends Component {
             <div className="navigation">
                  <input type="checkbox" className="navigation__checkbox" id="navi-toggle"/>
 
-                    <label for="navi-toggle" className="navigation__button">
+                    <label htmlFor="navi-toggle" className="navigation__button">
                         <span className="navigation__icon">&nbsp;</span>
                     </label>
 

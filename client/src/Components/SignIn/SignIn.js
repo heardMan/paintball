@@ -11,7 +11,6 @@
  */
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-//import "./SingIn.css";
 
 class SignIn extends Component {
 

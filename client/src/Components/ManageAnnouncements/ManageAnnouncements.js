@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import AddAnnouncement from "../AddAnnounce/AddAnnounce";
+
+import AddAnnouncement from "../AddAnnouncement/AddAnnouncement";
 
 class ManageAnnouncements extends Component {
     render() {
@@ -8,11 +9,13 @@ class ManageAnnouncements extends Component {
                 <div className="row">
                 <div className="col-12">
                 ManageAnnouncements
+
                    
                     <AddAnnouncement
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} />
+
                 </div>
 
                 </div>

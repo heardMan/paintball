@@ -9,7 +9,9 @@ class AddBill extends Component {
 
     state = {
         allTenants: [],
-        tenants: []
+        tenants: [],
+        repairFees: []
+
     }
 
     addSelected = event => {
@@ -43,6 +45,40 @@ class AddBill extends Component {
 
         console.log(this.props.state.tenants);
     }
+    
+    removeFeeRow = event => {
+        event.preventDefault();
+        console.log(event.target)
+        let removed = this.state.repairFees.filter((newFee, i) => {
+            return newFee.name !== event.target.id.split("-")[1]
+        });
+        console.log(`REMOVED: ${removed}`);
+        this.setState({
+            repairFees: removed
+        })
+        this.props.state.repairFees = removed;
+
+        console.log(this.props.state.repairFees);
+    }
+
+    addFeeRow = event => {
+        event.preventDefault();
+
+        const newFee = {
+            name: this.props.state.repair,
+            amount: this.props.state.repairFee
+        };
+        console.log(newFee);
+        console.log(this.props.state.repairFees)
+        // this.props.state.repairFees.push(newFee);
+        const arr = this.state.repairFees;
+        arr.push(newFee);
+        this.setState({
+            repairFees: arr
+        })
+        console.log(this.props.state.repairFees);
+
+    }
 
     componentDidMount() {
         API.getUsers()
@@ -60,7 +96,7 @@ class AddBill extends Component {
             .catch(err => console.log(err));
     }
 
-    render() {
+   render() {
         const manager = this.props.state.roles.indexOf("manager") > -1 ? true : false;
         if (manager) {
 
@@ -69,7 +105,11 @@ class AddBill extends Component {
             return (
                 <div>
                     <form>
-                        <h1>Create a Bill</h1>
+                        <div className="row">
+                            <div className="col-12">
+                                <h1>Create a Bill</h1>
+                            </div>
+                        </div>
                         <div className="form-group">
                             <div className="row">
                                 <div className="col-12">
@@ -114,20 +154,64 @@ class AddBill extends Component {
                         </div>
                     </form>
 
-                    <form className="row">
+                    <form>
+                    <div className="form-group">
                         <label>Rent Rate: </label>
                         $<input type="text" name="rent" pattern="[0-9]*" className="form-control" id="rentRate" onChange={this.props.handleInputChange} value={this.props.state.rent} placeholder="1500.00" />
+                        </div>
+                        <div className="form-group">
+
+
+                        <div className="row">
+                            <div name="charges" id="charges" className="col-12">
+                            
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Repair Name</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.repairFees.map((fee, i) => {
+                                            return (
+                                                <tr>
+                                                <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} class="close" aria-label="Close">
+                                                <span>
+                                                <button id={`remove-${fee.name}`} aria-hidden="true">
+                                                &times;
+                                                </button>
+                                                </span>
+                                                </td>
+                                                <td>
+                                                {fee.name}
+                                                
+                                                </td>
+                                                <td>{fee.amount}</td>
+                                            </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
                         <label>Repair Fees: </label>
                         <input type="text" name="repair" className="form-control" id="addRepair" onChange={this.props.handleInputChange} value={this.props.state.repair} placeholder="Key Replacment" />
                         $<input type="text" name="repairFee" className="form-control" id="repairAmount" onChange={this.props.handleInputChange} value={this.props.state.repairFee} placeholder="200.00" />
-                        <div>Bill Cycle Start </div>
+                        <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Add Fee</button>
+                    </div>
+                        <div className="form-group row">
+                        <h4>Bill Cycle Dates</h4>
+                        </div>
                         <div class="form-group row" className="dateBox">
                             <label for="billStart" class="col-2 col-form-label">Bill Cycle Start</label>
                             <div class="col-10">
                                 <input name="billStart" class="form-control" type="date" id="billStart" onChange={this.props.handleInputChange} value={this.props.state.billStart}></input>
                             </div>
                         </div>
-                        <div class="form-group row" className="dateBox">
+                        
+                        <div class="form-group" className="dateBox">
                             <label for="billEnd" class="col-2 col-form-label">Bill Cycle End </label>
                             <div class="col-10">
                                 <input name="billEnd" class="form-control" type="date" id="billEnd" onChange={this.props.handleInputChange} value={this.props.state.billEnd}></input>

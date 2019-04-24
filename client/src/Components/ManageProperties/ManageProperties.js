@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AddProperty from "../AddProperty/AddProperty";
 import ViewManagedProperties from "../ViewManagedProperties/ViewManagedProperties";
 
+
 class ManageProperties extends Component {
     render() {
         return (
@@ -9,6 +10,7 @@ class ManageProperties extends Component {
                 <div className="row">
                 <div className="col-12">
                 ManageProperties
+
                 <ViewManagedProperties
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
@@ -17,6 +19,8 @@ class ManageProperties extends Component {
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} />
+
+
                 </div>
 
                 </div>
