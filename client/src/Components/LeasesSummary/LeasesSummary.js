@@ -8,7 +8,7 @@ class LeasesSummaryCard extends Component {
                 <div className="row">
                 <div className="col-12">
                     
-                    <a href="/manageProperties">Leases Summary Card</a>
+                    <a href="/manageLeases">Leases Summary Card</a>
                     
                 </div>
 
