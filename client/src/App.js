@@ -14,6 +14,11 @@ import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
 import { withCookies, useCookies } from 'react-cookie';
 import AddBill from "./Components/AddBill/AddBill";
+import ManageAnnouncements from "./Components/ManageAnnouncements/ManageAnnouncements";
+import ManageProperties from "./Components/ManageProperties/ManageProperties";
+import ManagePayments from "./Components/ManagePayments/ManagePayments";
+import ManageLeases from "./Components/ManageLeases/ManageLeases";
+import ManageTickets from "./Components/ManageTickets/ManageTickets";
 
 class App extends Component {
 
@@ -445,7 +450,34 @@ class App extends Component {
           />)}
           />
 
-<Route exact path="/billcreate" render={(routeProps) => (<AddBill {...routeProps}
+          <Route exact path="/managePayments" render={(routeProps) => (<ManagePayments {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+          <Route exact path="/manageProperties" render={(routeProps) => (<ManageProperties {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageLeases" render={(routeProps) => (<ManageLeases {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageTickets" render={(routeProps) => (<ManageTickets {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageAnnouncements" render={(routeProps) => (<ManageAnnouncements {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
