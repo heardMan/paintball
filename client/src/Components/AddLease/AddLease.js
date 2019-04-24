@@ -130,7 +130,7 @@ class AddLease extends Component {
                 <form>
 
                     <div className="form-group">
-                        <label>Monthly Rate: </label>
+                        <label>Monthly Rate:</label>
                         $<input type="text" name="rate" pattern="[0-9]*" className="form-control" id="monthlyRate" onChange={this.props.handleInputChange} value={this.props.state.rate} placeholder="1500.00" />
                     </div>
                     <div className="form-group">
