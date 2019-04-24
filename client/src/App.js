@@ -63,7 +63,7 @@ class App extends Component {
     rent: "",
     repair: "",
     repairFee: "",
-    repairFes: [],
+    repairFees: [],
     billDue: "",
     billStart: "",
     billEnd: "",
