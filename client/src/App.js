@@ -16,6 +16,7 @@ import { withCookies, useCookies } from 'react-cookie';
 import AddBill from "./Components/AddBill/AddBill";
 import ManageAnnouncements from "./Components/ManageAnnouncements/ManageAnnouncements";
 import ManageProperties from "./Components/ManageProperties/ManageProperties";
+import ManagePropertyPage from "./Components/ManagedPropertyPage/ManagedPropertyPage";
 import ManagePayments from "./Components/ManagePayments/ManagePayments";
 import ManageLeases from "./Components/ManageLeases/ManageLeases";
 import ManageTickets from "./Components/ManageTickets/ManageTickets";
@@ -28,6 +29,8 @@ class App extends Component {
     userEmail: "",
     userId: "",
     roles: [],
+    managedProperties: [],
+    leasedProperties: [],
     //signin
     email: "",
     password: "",
@@ -73,17 +76,39 @@ class App extends Component {
   };
 
   componentDidMount() {
-
+    
     API.checkAuth(this.props.allCookies.token)
       .then(resp => {
         console.log(resp.data);
         const data = resp.data.roles;
+        // const managed_properties = [];
+        // const leased_properties = [];
+        // resp.data.managed_properties.forEach((property,i)=>{
+
+        //   API.getProperty(property)
+        //   .then(resp=>{
+        //     managed_properties.push(resp.data[0]);
+        //     if(i === managed_properties.length-1){
+        //       console.log(managed_properties);
+        //     }
+        //   })
+        //   .catch(err=>console.log(err));
+          
+
+        // })
+        
         this.setState({
           userEmail: resp.data.email,
           userId: resp.data.id,
           roles: data,
+          managedProperties: resp.data.managed_properties,
+          leasedProperties: resp.data.leased_properties,
           userSignedIn: true
         })
+        
+        
+console.log(this.state);
+        
       })
       .catch(err => {
         console.log(err.status);
@@ -91,6 +116,7 @@ class App extends Component {
           this.setState({ userSignedIn: false });
         }
       })
+
   }
 
   handleInputChange = event => {
@@ -173,23 +199,27 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  createProp = () => {
+  createProperty = () => {
+    
     const managers = this.state.managers;
+    const addCurrentUser = managers.indexOf(this.state.userEmail);
+    
+    if(addCurrentUser < 0) return managers.push(this.state.userEmail);
+    console.log(managers);
     const owner = this.state.userId;
     const address = this.state.PropertyAddress;
-    function getManagerIds(cb) {
+
+    console.log("working");
+
+     const getManagerIds = (cb) => {
       const managerIds = [];
 
       managers.forEach((manager, i) => {
         console.log(manager);
         const email = { email: manager }
-        //console.log(managers.length);
-        //console.log(i);
-
+        
         API.getUserByEmail(email)
           .then(resp => {
-
-            console.log(`RESP MOFO:`);
             console.log(resp.data);
             managerIds.push(resp.data[0]._id);
             if (i + 1 === managers.length) {
@@ -199,13 +229,12 @@ class App extends Component {
 
           .catch(err => console.log(err))
 
-
       });
       console.log(managerIds);
 
 
     }
-    function createProperty(managerIds) {
+    const addPropertytoDB = (managerIds) => {
       const Property = {
         owner: owner,
         address: address,
@@ -216,16 +245,19 @@ class App extends Component {
       API.createProp(Property)
         .then(resp => {
           console.log(resp);
-          this.setState({
-            PropertyAddress: "",
-            managers: [],
 
-
-          })
+          
         })
         .catch(err => console.log(err))
     }
-    getManagerIds(createProperty);
+    getManagerIds(addPropertytoDB);
+    // this.setState({
+    //   PropertyAddress: "",
+    //   managers: [],
+    // },
+    
+    // )
+   
 
   }
 
@@ -392,10 +424,11 @@ class App extends Component {
     } else if (form === "signIn") {
       this.signInUser();
     } else if (form === "addNewProperty") {
-      console.log(event.target.name)
-      this.createProp();
-      console.log(this.state.PropertyAddress);
-      console.log(this.state.tenants);
+      this.createProperty();
+      
+      //console.log(this.state);
+      // console.log(this.state.PropertyAddress);
+      // console.log(this.state.managers);
     } else if (form === "addNewLease") {
       this.createLease();
       console.log(event.target.name)
@@ -463,6 +496,13 @@ class App extends Component {
           />)}
           />
           <Route exact path="/manageProperties" render={(routeProps) => (<ManageProperties {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+<Route exact path="/manageProperty" render={(routeProps) => (<ManagePropertyPage {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}

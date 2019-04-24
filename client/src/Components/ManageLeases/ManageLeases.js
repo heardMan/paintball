@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import AddLease from "../AddLease/AddLease";
 
 class ManageLeases extends Component {
     render() {
@@ -7,8 +7,11 @@ class ManageLeases extends Component {
             
                 <div className="row">
                 <div className="col-12">
-                
-                    
+                Manage Lesaes
+                <AddLease
+                        state={this.props.state}
+                        handleFormSubmit={this.props.handleFormSubmit}
+                        handleInputChange={this.props.handleInputChange} />                  
                 </div>
 
                 </div>

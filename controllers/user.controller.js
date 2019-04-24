@@ -9,6 +9,7 @@ const User = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));
       },
+      
     findByEmail: function(req, res) {
         const query = req.body;
         db.User

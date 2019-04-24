@@ -2,11 +2,7 @@ body {
     font-family: sans-serif;
   }
   
-  input {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    width: 300px;
-  }
+  
   
   .no-suggestions {
     color: #999;
@@ -21,11 +17,15 @@ body {
     max-height: 143px;
     overflow-y: auto;
     padding-left: 0;
-    width: calc(300px + 1rem);
+    width: 88%;
+    position: absolute;
+    left: 6%;
+    background-color: #ffffff;
   }
   
   .suggestions li {
     padding: 0.5rem;
+   
   }
   
   .suggestion-active,

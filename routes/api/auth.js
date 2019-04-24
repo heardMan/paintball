@@ -8,10 +8,23 @@ const utilities = require("../utilities");
 router.get("/verify", utilities.verifyToken, function (req, res) {
     const user = {};
     user.id = req.userId,
-        user.email = req.email,
-        user.roles = req.roles
+    user.email = req.email,
+    user.roles = req.roles
 
-    res.status(200).send(user);
+    const query = {email: req.email}
+    console.log(query);
+    db.User
+        .find(query)
+        .populate('managed_properties')
+        .then(dbModel => {
+            console.log(dbModel);
+
+            user.managed_properties = dbModel[0].managed_properties;
+            user.leased_properties = dbModel[0].leased_properties;
+
+            res.status(200).send(user);
+        })
+    
 })
 
 router.post("/signIn", (req, res) => {
