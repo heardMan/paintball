@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import AddAnnouncement from "../AddAnnouncement/AddAnnouncement";
+import AddAnnouncement from "../AddAnnounce/AddAnnounce";
 
 class ManageAnnouncements extends Component {
     render() {
