@@ -18,9 +18,12 @@ class Navbar extends Component {
         } else {
             return (
                 <nav className="navigation__nav">
-                    {/* <ul className="navigation__list">
-                        <li className="navigation__item"><a href="/signout" className="navigation__link"><span>01</span> Sign Out</a></li> 
-                    </ul> */}
+
+                    <ul className="navigation__list">
+                        <li className="navigation__item"><a href="/signout" onClick={this.props.signOut} className="navigation__link"><span>01</span> Sign Out</a></li> 
+                    </ul>
+   
+
                 </nav>
             )
         }

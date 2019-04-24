@@ -7,4 +7,8 @@ router
 .route("/")
 .post(PropertyController.create)
 
+router
+.route("/:id")
+.get(PropertyController.findOne)
+
 module.exports = router;
