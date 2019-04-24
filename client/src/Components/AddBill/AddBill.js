@@ -46,6 +46,21 @@ class AddBill extends Component {
         console.log(this.props.state.tenants);
     }
     
+    removeFeeRow = event => {
+        event.preventDefault();
+        console.log(event.target)
+        let removed = this.state.repairFees.filter((newFee, i) => {
+            return newFee.name !== event.target.id.split("-")[1]
+        });
+        console.log(`REMOVED: ${removed}`);
+        this.setState({
+            repairFees: removed
+        })
+        this.props.state.repairFees = removed;
+
+        console.log(this.props.state.repairFees);
+    }
+
     addFeeRow = event => {
         event.preventDefault();
 
@@ -55,7 +70,7 @@ class AddBill extends Component {
         };
         console.log(newFee);
         console.log(this.props.state.repairFees)
-        this.props.state.repairFees.push(newFee);
+        // this.props.state.repairFees.push(newFee);
         const arr = this.state.repairFees;
         arr.push(newFee);
         this.setState({
@@ -151,19 +166,28 @@ class AddBill extends Component {
                             <div name="charges" id="charges" className="col-12">
                             
                                 <table>
-                                    <th>
+                                    <thead>
                                         <tr>
                                             <th>Repair Name</th>
                                             <th>Amount</th>
                                         </tr>
-                                    </th>
+                                    </thead>
                                     <tbody>
                                         {this.state.repairFees.map((fee, i) => {
                                             return (
-                                            <tr>
-                                                <td>{fee.name}</td>
+                                                <tr>
+                                                <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} class="close" aria-label="Close">
+                                                <span>
+                                                <button id={`remove-${fee.name}`} aria-hidden="true">
+                                                &times;
+                                                </button>
+                                                </span>
+                                                </td>
+                                                <td>
+                                                {fee.name}
+                                                
+                                                </td>
                                                 <td>{fee.amount}</td>
-                                            
                                             </tr>
                                             )
                                         })}

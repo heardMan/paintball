@@ -8,7 +8,8 @@ class AddLease extends Component {
     state = {
         allTenants: [],
         tenants: [],
-        miscFees: []
+        miscFees: [], 
+
 
     }
 
@@ -43,6 +44,22 @@ class AddLease extends Component {
 
         console.log(this.props.state.tenants);
     }
+
+    removeFeeRow = event => {
+        event.preventDefault();
+        console.log(event.target)
+        let removed = this.state.miscFees.filter((newFee, i) => {
+            return newFee.name !== event.target.id.split("-")[1]
+        });
+        console.log(`REMOVED: ${removed}`);
+        this.setState({
+            miscFees: removed
+        })
+        this.props.state.miscFees = removed;
+
+        console.log(this.props.state.miscFees);
+    }
+
     addFeeRow = event => {
         event.preventDefault();
 
@@ -50,7 +67,7 @@ class AddLease extends Component {
             name: this.props.state.misc,
             amount: this.props.state.miscFee
         };
-        this.props.state.miscFees.push(newFee);
+        //this.props.state.miscFees.push(newFee);
         const arr = this.state.miscFees;
         arr.push(newFee);
         this.setState({
@@ -144,20 +161,31 @@ class AddLease extends Component {
                             <div name="charges" id="charges" className="col-12">
                             
                                 <table>
-                                    <th>
+                                    <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Amount</th>
                                         </tr>
-                                    </th>
+                                    </thead>
                                     <tbody>
                                         {this.state.miscFees.map((fee, i) => {
                                             return (
+
                                             <tr>
-                                                <td>{fee.name}</td>
+                                                <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} class="close" aria-label="Close">
+                                                <span>
+                                                <button id={`remove-${fee.name}`} aria-hidden="true">
+                                                &times;
+                                                </button>
+                                                </span>
+                                                </td>
+                                                <td>
+                                                {fee.name}
+                                                
+                                                </td>
                                                 <td>{fee.amount}</td>
-                                            
                                             </tr>
+                                           
                                             )
                                         })}
                                     </tbody>
