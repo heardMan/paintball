@@ -8,7 +8,7 @@ const LeaseSchema = new Schema({
     tenants: [{ type: Schema.ObjectId, ref: 'User' }],
     rate: String,
     secDep: String,
-    miscStuff: [miscFeeSchema],
+    miscStuff: Array,
     misc: String,
     miscFee: String,
     dueDate: String,

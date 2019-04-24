@@ -14,6 +14,11 @@ import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
 import { withCookies, useCookies } from 'react-cookie';
 import AddBill from "./Components/AddBill/AddBill";
+import ManageAnnouncements from "./Components/ManageAnnouncements/ManageAnnouncements";
+import ManageProperties from "./Components/ManageProperties/ManageProperties";
+import ManagePayments from "./Components/ManagePayments/ManagePayments";
+import ManageLeases from "./Components/ManageLeases/ManageLeases";
+import ManageTickets from "./Components/ManageTickets/ManageTickets";
 
 class App extends Component {
 
@@ -46,6 +51,7 @@ class App extends Component {
     rate: "",
     secDep: "",
     misc: "",
+    miscFees:[],
     miscFee: "",
     dueDate: "",
     moveIn: "",
@@ -54,6 +60,7 @@ class App extends Component {
     rent: "",
     repair: "",
     repairFee: "",
+    repairFes: [],
     billDue: "",
     billStart: "",
     billEnd: "",
@@ -224,6 +231,7 @@ class App extends Component {
   }
 
   createLease = () => {
+    
     const rateCurrency =
       parseFloat(this.state.rate.replace(/,/g, ""))
         .toFixed(2)
@@ -244,9 +252,11 @@ class App extends Component {
     const dueDate = this.state.dueDate;
     const moveIn = this.state.moveIn;
     const moveOut = this.state.moveOut;
+    const feeArr = this.state.miscFees;
     function getTenantIds(cb) {
+      
       const tenantIds = [];
-
+      console.log(`tenants: ${tenants}`)
       tenants.forEach((tenant, i) => {
         console.log(tenant);
         const email = { email: tenant }
@@ -273,20 +283,22 @@ class App extends Component {
 
     }
     function createLeaseObj(tenantIds) {
-
+      console.log("working");
       const Lease = {
         tenants: tenantIds,
         rate: rateCurrency,
         secDep: securityDep,
-        misc: misc,
-        miscFee: miscPay,
+        miscStuff: feeArr,
         dueDate: dueDate,
         moveIn: moveIn,
         moveOut: moveOut
       }
       console.log(Lease);
       API.createLease(Lease)
-        .then(resp => console.log(resp))
+        .then(resp => {
+          console.log("lease made successfully")
+          console.log(resp)
+        })
         .catch(err => console.log(err))
     }
 
@@ -294,7 +306,8 @@ class App extends Component {
 
   }
 
-  createBill = () => {
+ createBill = () => {
+    console.log("hello");
     const rentCurrency =
       parseFloat(this.state.rent.replace(/,/g, ""))
         .toFixed(2)
@@ -310,9 +323,10 @@ class App extends Component {
     const billDue = this.state.billDue;
     const billStart = this.state.billStart;
     const billEnd = this.state.billEnd;
+    const feeArr = this.state.repairFees;
     function getTenantIds(cb) {
       const tenantIds = [];
-
+console.log("hello 2");
       tenants.forEach((tenant, i) => {
         console.log(tenant);
         const email = { email: tenant }
@@ -342,6 +356,7 @@ class App extends Component {
 
       const Bill = {
         tenants: tenantIds,
+        repairStuff: feeArr,
         rent: rentCurrency,
         repair: repair,
         repairFee: repairFee,
@@ -358,6 +373,7 @@ class App extends Component {
     getTenantIds(createBillObj);
 
   }
+
 
 
   createAnnounce = () => {
@@ -445,7 +461,34 @@ class App extends Component {
           />)}
           />
 
-<Route exact path="/billcreate" render={(routeProps) => (<AddBill {...routeProps}
+          <Route exact path="/managePayments" render={(routeProps) => (<ManagePayments {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+          <Route exact path="/manageProperties" render={(routeProps) => (<ManageProperties {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageLeases" render={(routeProps) => (<ManageLeases {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageTickets" render={(routeProps) => (<ManageTickets {...routeProps}
+            state={this.state}
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />)}
+          />
+
+          <Route exact path="/manageAnnouncements" render={(routeProps) => (<ManageAnnouncements {...routeProps}
             state={this.state}
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
