@@ -41,7 +41,7 @@ class AddProperty extends Component {
         console.log(this.props.state.managers);
     }
     componentDidMount() {
-        API.getUsers()
+        API.getManagers()
             .then(resp => {
                 const arr = [];
 
@@ -72,6 +72,10 @@ class AddProperty extends Component {
         const managers = this.props.state.managers;
         return (
             <div className="card rounded-0 mb-5 p-3">
+            <div className="card-title">
+            <h5>Add Property -only for managers</h5>
+            </div>
+            <div className="card-body">
                 <form>
                     <div className="form-group">
                         <input type="text" name="PropertyAddress" onChange={this.props.handleInputChange} value={this.props.state.PropertyAddress} className="form-control" id="PropertyAddress" placeholder="Enter Address" />
@@ -128,6 +132,7 @@ class AddProperty extends Component {
                         type="submit" 
                         className="btn btn-primary">Submit</button>
                 </form>
+                </div>
 
                 {/* <div>
                     <button onClick={this.onClick1}>Add Lease</button>

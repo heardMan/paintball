@@ -3,14 +3,13 @@ import React, { Component } from "react";
 class AddTicket extends Component {
     render() {
         return (
-            <div>
-                <div className="row">
-                    <div className="col-12">
-                        <h3>Submit a Service Ticket</h3>
-                    </div>
-                </div>
-                <div className="row">
-                <div className="col-12">
+            <div className="card rounded-0 p-3 my-3">
+            <div className="card-title">
+            <h5>Submit a Service Ticket</h5>
+            </div>
+                
+                
+                <div className="card-body">
                 <form>
                     <div className="form-group">
                         <label >Subject</label>
@@ -31,7 +30,7 @@ class AddTicket extends Component {
                         <button name="newTicket" onClick={this.props.handleFormSubmit} type="button" className="btn btn-primary">Submit</button>
                 </form>
                 </div>
-                </div>
+                
             </div>
                 );
             }

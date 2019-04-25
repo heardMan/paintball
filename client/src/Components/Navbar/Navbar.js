@@ -4,11 +4,15 @@ import "./Navbar.css";
 
 
 class Navbar extends Component {
-    loggedIn = () => {
+    state = {
+        checked: ""
+    }
+    loggedIn = (toggled) => {
+        console.log(toggled);
         if (this.props.state.roles.length < 1) {
             return (
                 <nav className="navigation__nav">
-                    <ul className="navigation__list">
+                    <ul className={`navigation__list ${toggled}`}>
                         <li className="navigation__item"><a href="/signin" className="navigation__link"><span>01</span> Sign In</a></li>
                         <li className="navigation__item"><a href="/register" className="navigation__link"><span>02</span> Register</a></li>
                     </ul>
@@ -19,7 +23,7 @@ class Navbar extends Component {
             return (
                 <nav className="navigation__nav">
 
-                    <ul className="navigation__list">
+                    <ul className={`navigation__list ${toggled}`}>
                         <li className="navigation__item"><a href="/signout" onClick={this.props.signOut} className="navigation__link"><span>01</span> Sign Out</a></li> 
                     </ul>
    
@@ -30,16 +34,18 @@ class Navbar extends Component {
     }
         
     render() {
+        const toggled = this.props.state.menuToggle === true ? "" : "hide" ;
+        
         return (
             <div className="navigation">
-                 <input type="checkbox" className="navigation__checkbox" id="navi-toggle"/>
+                 <input name="menuToggle" value={this.state.menuToggle} onChange={this.props.handleInputChange} type="checkbox" className="navigation__checkbox" id="navi-toggle"/>
 
                     <label htmlFor="navi-toggle" className="navigation__button">
                         <span className="navigation__icon">&nbsp;</span>
                     </label>
 
                 <div className="navigation__background">&nbsp;</div>
-                {this.loggedIn()}
+                {this.loggedIn(toggled)}
             </div>
         );
     }

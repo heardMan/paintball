@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 
 
-class ManagedProperty extends Component {
+class ViewAnnouncement extends Component {
     render() {
         console.log(this.props.state);
         return (
 
             <div className="row">
                 <div className="col-12">
-                    <a href="/manageProperties"> <h5>Back to Manage Properties</h5> </a>
+                    <a href="/dashboard"> <h5>Back to Dashboard</h5> </a>
                 </div>
                 <div className="col-12">
                     <div className="card rounded-0">
                         <div className="card-title">
-
+                           Anouncement Title
                         </div>
                         <div className="card-body">
-                            {this.props.state.currentViewProperty.address}
+                            Words and moreinformation
                         </div>
                     </div>
 
@@ -29,4 +29,4 @@ class ManagedProperty extends Component {
     }
 }
 
-export default ManagedProperty;
+export default ViewAnnouncement;
