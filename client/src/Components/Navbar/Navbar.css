@@ -48,6 +48,10 @@ nav {
     text-align: center;
     width: 100%;
   }
+  .hide {
+    display: none!important;
+  }
+
   .navigation__item {
     margin: 1rem;
   }
