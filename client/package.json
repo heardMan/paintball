@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "paintball",
   "private": true,
+  "engines" : {
+    "node": "11.10.1",
+    "npm" : "6.9.0"
+  },
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "node-sass": "^4.11.0",

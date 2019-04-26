@@ -141,14 +141,21 @@ class Autocomplete extends Component {
 
     return (
       <Fragment>
+        <div className="row">
+        <div className="col-10">
         <input
           type="text"
+          className="form-control"
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={userInput}
         />
-        <button name="addTenant" onClick={this.props.addSelected} id={userInput} className="btn btn-primary">Add</button>
         {suggestionsListComponent}
+        </div>
+        <div className="col-2">
+        <button name="addTenant" onClick={this.props.addSelected} id={userInput} className="btn btn-primary m-0">Add</button>
+        </div>
+        </div>
       </Fragment>
     );
   }

@@ -41,7 +41,7 @@ class AddProperty extends Component {
         console.log(this.props.state.managers);
     }
     componentDidMount() {
-        API.getUsers()
+        API.getManagers()
             .then(resp => {
                 const arr = [];
 
@@ -71,7 +71,11 @@ class AddProperty extends Component {
     render() {
         const managers = this.props.state.managers;
         return (
-            <div>
+            <div className="card rounded-0 mb-5 p-3">
+            <div className="card-title">
+            <h5>Add Property -only for managers</h5>
+            </div>
+            <div className="card-body">
                 <form>
                     <div className="form-group">
                         <input type="text" name="PropertyAddress" onChange={this.props.handleInputChange} value={this.props.state.PropertyAddress} className="form-control" id="PropertyAddress" placeholder="Enter Address" />
@@ -82,31 +86,33 @@ class AddProperty extends Component {
                                 Add Managers
                             </div>
                             <div className="col-12">
-                                {managers.map((manager) => {
+                            <ul className="list-group mb-3">
+                                {managers.map((manager,i) => {
+                                    if(manager === this.props.state.userEmail){
+                                        //do nothin
+                                    } else {
 
+                                    
                                     return (
-                                        <div className="card">
-                                            <div className="card-title">
+                                        <li key={i} className="list-group-item">
+                                            <span>
+                                                    {manager}
+                                                </span>
                                                 <span>
                                                     <button name="removeManager" type="button" onClick={this.removeManager} class="close" aria-label="Close">
                                                         <span id={`remove-${manager}`} aria-hidden="true">&times;</span>
                                                     </button>
                                                 </span>
-                                            </div>
-                                            <div className="card-body">
-                                                <span>
-                                                    {manager}
-                                                </span>
-
-                                            </div>
-
-                                        </div>
+                                            
+                                        </li>
                                     );
+                                }
                                 })}
+                                </ul>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-11">
 
                                 <span>
                                     <AutoComplete
@@ -115,20 +121,26 @@ class AddProperty extends Component {
                                     />
                                 </span>
                             </div>
+                            <div className="col-1"></div>
                         </div>
 
                     </div>
-
-                    <button onClick={this.props.handleFormSubmit} name="addNewProperty" type="submit" className="btn btn-primary">Submit</button>
+                    
+                    <button 
+                        onClick={this.props.handleFormSubmit} 
+                        name="addNewProperty" 
+                        type="submit" 
+                        className="btn btn-primary">Submit</button>
                 </form>
+                </div>
 
-                <div>
+                {/* <div>
                     <button onClick={this.onClick1}>Add Lease</button>
                     {this.state.showResults ? <AddLease
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} /> : null}
-                </div>
+                </div> */}
             </div>
         );
     }

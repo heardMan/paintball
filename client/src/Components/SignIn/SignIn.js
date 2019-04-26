@@ -11,14 +11,14 @@
  */
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import "./SignIn.css";
 
 class SignIn extends Component {
 
     render() {
         //submit enabling variables
-        const passCheck = this.props.state.password.length < 6 ? "":false;
+        const passCheck = this.props.state.password.length < 6 ? null:false;
         const emailCheck = this.props.state.email.match(/.+@.+\../) === null;
+        const enabled = passCheck === true && emailCheck === true ? true: false;
         //email validation varibles
         const notEmailBorder = this.props.state.email.match(/.+@.+\../) == null && this.props.state.email.length > 0 ? "border border-danger" : "";
         const isEmailBorder = this.props.state.email.match(/.+@.+\../) !== null && this.props.state.email.length > 0 ? "border border-success" : "";

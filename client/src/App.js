@@ -7,13 +7,27 @@ import TenantView from "./Components/TenantView/TenantView";
 import SignIn from "./Components/SignIn/SignIn";
 import SignOut from "./Components/SignOut/SignOut";
 import Register from "./Components/Register/Register";
-import Footer from "./Components/Footer/Footer";
+//import Footer from "./Components/Footer/Footer";
 import Welcome from "./Components/Welcome/Welcome";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import StripeForm from "./Components/StripeForm/StripeCard";
+//import StripeForm from "./Components/StripeForm/StripeCard";
 import API from "./Utilities/API";
-import { withCookies, useCookies } from 'react-cookie';
-import AddBill from "./Components/AddBill/AddBill";
+import { withCookies } from 'react-cookie';
+//import AddBill from "./Components/AddBill/AddBill";
+import ManageAnnouncements from "./Components/ManageAnnouncements/ManageAnnouncements";
+import ManageAnnouncementPage from "./Components/ManageAnnouncementPage/ManageAnnouncementPage";
+import ViewAnnouncement from "./Components/ViewAnnouncement/ViewAnnouncement";
+import ManageProperties from "./Components/ManageProperties/ManageProperties";
+import ManagePropertyPage from "./Components/ManagedPropertyPage/ManagedPropertyPage";
+import ManageLeasedProperty from "./Components/ManageLeasedProperty/ManageLeasedProperty";
+import ManageLeaseManager from "./Components/ManageLeaseManager/ManageLeaseManager";
+import ManageLeaseTenant from "./Components/ManageLeaseTenant/ManageLeaseTenant";
+import ManagePayments from "./Components/ManagePayments/ManagePayments";
+import ManageLeases from "./Components/ManageLeases/ManageLeases";
+import ManageTickets from "./Components/ManageTickets/ManageTickets";
+import ManageAssignedTicket from "./Components/ManageAssignedTicket/ManageAssignedTicket";
+import ManageCreatedTicket from "./Components/ManageCreatedTicket/ManageCreatedTicket";
+
 
 class App extends Component {
 
@@ -23,6 +37,11 @@ class App extends Component {
     userEmail: "",
     userId: "",
     roles: [],
+    managedProperties: [],
+    leasedProperties: [],
+    currentViewProperty: {},
+    menuToggle: false,
+    lastPage: "",
     //signin
     email: "",
     password: "",
@@ -46,6 +65,7 @@ class App extends Component {
     rate: "",
     secDep: "",
     misc: "",
+    miscFees: [],
     miscFee: "",
     dueDate: "",
     moveIn: "",
@@ -54,6 +74,7 @@ class App extends Component {
     rent: "",
     repair: "",
     repairFee: "",
+    repairFees: [],
     billDue: "",
     billStart: "",
     billEnd: "",
@@ -61,7 +82,9 @@ class App extends Component {
     announceTitle: "",
     announceDescription: "",
     //sign out
-    userSignedIn: false,
+    userSignedIn: "",
+    //redirects
+    managedPropertyRedirect: false,
 
 
   };
@@ -72,12 +95,18 @@ class App extends Component {
       .then(resp => {
         console.log(resp.data);
         const data = resp.data.roles;
+
         this.setState({
           userEmail: resp.data.email,
           userId: resp.data.id,
           roles: data,
+          managedProperties: resp.data.managed_properties,
+          leasedProperties: resp.data.leased_properties,
           userSignedIn: true
         })
+
+        console.log(this.state);
+
       })
       .catch(err => {
         console.log(err.status);
@@ -85,10 +114,12 @@ class App extends Component {
           this.setState({ userSignedIn: false });
         }
       })
+
   }
 
   handleInputChange = event => {
-    const value = event.target.value;
+    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    //const value = event.target.value;
     const name = event.target.name;
     this.setState({
       [name]: value
@@ -167,23 +198,27 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  createProp = () => {
+  createProperty = () => {
+
     const managers = this.state.managers;
+    const addCurrentUser = managers.indexOf(this.state.userEmail);
+
+    if (addCurrentUser < 0) return managers.push(this.state.userEmail);
+    console.log(managers);
     const owner = this.state.userId;
     const address = this.state.PropertyAddress;
-    function getManagerIds(cb) {
+
+    console.log("working");
+
+    const getManagerIds = (cb) => {
       const managerIds = [];
 
       managers.forEach((manager, i) => {
         console.log(manager);
         const email = { email: manager }
-        //console.log(managers.length);
-        //console.log(i);
 
         API.getUserByEmail(email)
           .then(resp => {
-
-            console.log(`RESP MOFO:`);
             console.log(resp.data);
             managerIds.push(resp.data[0]._id);
             if (i + 1 === managers.length) {
@@ -193,13 +228,12 @@ class App extends Component {
 
           .catch(err => console.log(err))
 
-
       });
       console.log(managerIds);
 
 
     }
-    function createProperty(managerIds) {
+    const addPropertytoDB = (managerIds) => {
       const Property = {
         owner: owner,
         address: address,
@@ -210,20 +244,17 @@ class App extends Component {
       API.createProp(Property)
         .then(resp => {
           console.log(resp);
-          this.setState({
-            PropertyAddress: "",
-            managers: [],
 
 
-          })
         })
         .catch(err => console.log(err))
     }
-    getManagerIds(createProperty);
+    getManagerIds(addPropertytoDB);
 
   }
 
   createLease = () => {
+
     const rateCurrency =
       parseFloat(this.state.rate.replace(/,/g, ""))
         .toFixed(2)
@@ -244,9 +275,11 @@ class App extends Component {
     const dueDate = this.state.dueDate;
     const moveIn = this.state.moveIn;
     const moveOut = this.state.moveOut;
+    const feeArr = this.state.miscFees;
     function getTenantIds(cb) {
-      const tenantIds = [];
 
+      const tenantIds = [];
+      console.log(`tenants: ${tenants}`)
       tenants.forEach((tenant, i) => {
         console.log(tenant);
         const email = { email: tenant }
@@ -273,20 +306,22 @@ class App extends Component {
 
     }
     function createLeaseObj(tenantIds) {
-
+      console.log("working");
       const Lease = {
         tenants: tenantIds,
         rate: rateCurrency,
         secDep: securityDep,
-        misc: misc,
-        miscFee: miscPay,
+        miscStuff: feeArr,
         dueDate: dueDate,
         moveIn: moveIn,
         moveOut: moveOut
       }
       console.log(Lease);
       API.createLease(Lease)
-        .then(resp => console.log(resp))
+        .then(resp => {
+          console.log("lease made successfully")
+          console.log(resp)
+        })
         .catch(err => console.log(err))
     }
 
@@ -295,6 +330,7 @@ class App extends Component {
   }
 
   createBill = () => {
+    console.log("hello");
     const rentCurrency =
       parseFloat(this.state.rent.replace(/,/g, ""))
         .toFixed(2)
@@ -310,9 +346,10 @@ class App extends Component {
     const billDue = this.state.billDue;
     const billStart = this.state.billStart;
     const billEnd = this.state.billEnd;
+    const feeArr = this.state.repairFees;
     function getTenantIds(cb) {
       const tenantIds = [];
-
+      console.log("hello 2");
       tenants.forEach((tenant, i) => {
         console.log(tenant);
         const email = { email: tenant }
@@ -342,6 +379,7 @@ class App extends Component {
 
       const Bill = {
         tenants: tenantIds,
+        repairStuff: feeArr,
         rent: rentCurrency,
         repair: repair,
         repairFee: repairFee,
@@ -358,6 +396,7 @@ class App extends Component {
     getTenantIds(createBillObj);
 
   }
+
 
 
   createAnnounce = () => {
@@ -381,10 +420,11 @@ class App extends Component {
     } else if (form === "signIn") {
       this.signInUser();
     } else if (form === "addNewProperty") {
-      console.log(event.target.name)
-      this.createProp();
-      console.log(this.state.PropertyAddress);
-      console.log(this.state.tenants);
+      this.createProperty();
+
+      //console.log(this.state);
+      // console.log(this.state.PropertyAddress);
+      // console.log(this.state.managers);
     } else if (form === "addNewLease") {
       this.createLease();
       console.log(event.target.name)
@@ -397,6 +437,16 @@ class App extends Component {
     } else if (form === "newAnnounce") {
       console.log(event.target.name);
       this.createAnnounce();
+    } else if (form === "setProperty") {
+      console.log(form);
+      const propertyEnum = event.target.id.split("-")[1];
+
+      console.log(propertyEnum);
+      console.log(this.props.state.managedProperties[propertyEnum]);
+      this.setState({
+        currentViewProperty: this.state.managedProperties[propertyEnum]
+      });
+      console.log(this.props.state);
     }
 
   };
@@ -406,74 +456,166 @@ class App extends Component {
     return (
 
       <Router>
-        <div className="container-fluid with-fixed-nav">
-          <Navbar signOut={this.signOut} state={this.state} />
-          {/* <Sidebar signOut={this.signOut} state={this.state} /> */}
+        <div>
+          <div name="spacer" style={{ height: "8rem" }}></div>
 
-          <Route exact path="/" render={(routeProps) => {
-            const signedIn = this.state.userSignedIn;
-            if (signedIn === true) return <Redirect to={{ pathname: "/dashboard" }} />
-            else return <Redirect to={{ pathname: "/welcome" }} />
-          }}
-          />
 
-          <Route exact path="/welcome" render={(routeProps) => (<Welcome {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+          <Navbar signOut={this.signOut} state={this.state} handleInputChange={this.handleInputChange} />
+          <div className="container-fluid">
+            {/* <Sidebar signOut={this.signOut} state={this.state} /> */}
 
-          <Route exact path="/dashboard" render={(routeProps) => (<Dashboard {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+            <Route exact path="/" render={(routeProps) => {
+              const signedIn = this.state.userSignedIn;
+              console.log(signedIn);
+              if (this.state.userSignedIn === true) return <Redirect to={{ pathname: "/dashboard" }} />
+              else if (this.state.managedPropertyRedirect === true) return <Redirect to={{ pathname: "/manageProperty", info: this.state.currentViewProperty }} />
+              else return <Redirect to={{ pathname: "/welcome" }} />
+            }}
+            />
 
-          <Route exact path="/tenant" render={(routeProps) => (<TenantView {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
 
-          <Route exact path="/manager" render={(routeProps) => (<ManagerView {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+            <Route exact path="/welcome" render={(routeProps) => (<Welcome {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
 
-<Route exact path="/billcreate" render={(routeProps) => (<AddBill {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+            <Route exact path="/dashboard" render={(routeProps) => (<Dashboard {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
 
-          <Route exact path="/register" render={(routeProps) => (<Register {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+            <Route exact path="/tenant" render={(routeProps) => (<TenantView {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
 
-          <Route exact path="/signIn" render={(routeProps) => (<SignIn {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+            <Route exact path="/manager" render={(routeProps) => (<ManagerView {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
 
-          <Route exact path="/signOut" render={(routeProps) => (<SignOut {...routeProps}
-            state={this.state}
-            handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
-          />)}
-          />
+            <Route exact path="/managePayments" render={(routeProps) => (<ManagePayments {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+            <Route exact path="/manageProperties" render={(routeProps) => (<ManageProperties {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
 
-          <Footer />
+            <Route exact path="/manageProperty" render={(routeProps) => (<ManagePropertyPage {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageLeasedProperty" render={(routeProps) => (<ManageLeasedProperty {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+
+
+            <Route exact path="/manageLeases" render={(routeProps) => (<ManageLeases {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageLeaseManager" render={(routeProps) => (<ManageLeaseManager {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageLeaseTenant" render={(routeProps) => (<ManageLeaseTenant {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageTickets" render={(routeProps) => (<ManageTickets {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageAssignedTicket" render={(routeProps) => (<ManageAssignedTicket {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageCreatedTicket" render={(routeProps) => (<ManageCreatedTicket {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageAnnouncements" render={(routeProps) => (<ManageAnnouncements {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/manageAnnouncement" render={(routeProps) => (<ManageAnnouncementPage {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/viewAnnouncement" render={(routeProps) => (<ViewAnnouncement {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/register" render={(routeProps) => (<Register {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/signIn" render={(routeProps) => (<SignIn {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+
+            <Route exact path="/signOut" render={(routeProps) => (<SignOut {...routeProps}
+              state={this.state}
+              handleFormSubmit={this.handleFormSubmit}
+              handleInputChange={this.handleInputChange}
+            />)}
+            />
+          </div>
+          {/* <Footer /> */}
         </div>
       </Router>
 

@@ -9,6 +9,7 @@ const BillSchema = new Schema({
         default: Date.now
     },
     repair: String,
+    repairStuff: Array, 
     repairFee: String,
     billDue: String,
     billStart: String,

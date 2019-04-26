@@ -26,14 +26,18 @@ export default {
     createProp: function(property){
         return axios.post("/api/properties", property);
     },
+    getProperty: function(propertyId){
+        return axios.get(`/api/properties/${propertyId}`)
+    },
     createLease: function(token){
-        return axios.post("api/Leases", token);
+        console.log(`Util/API: ${token}`)
+        return axios.post("api/leases", token);
     }, 
     createAnnounce: function(token){
         return axios.post("api/announcements", token);
     },
-
     createBill: function(token){
         return axios.post("api/bills", token);
-    }
+    },
+
 };

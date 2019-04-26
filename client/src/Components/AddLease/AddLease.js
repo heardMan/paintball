@@ -7,7 +7,10 @@ class AddLease extends Component {
 
     state = {
         allTenants: [],
-        tenants: []
+        tenants: [],
+        miscFees: [], 
+
+
     }
 
     addSelected = event => {
@@ -24,7 +27,7 @@ class AddLease extends Component {
         });
         this.props.state.tenants.push(event.target.id);
         console.log(this.props.state);
-        
+
 
 
     }
@@ -40,6 +43,38 @@ class AddLease extends Component {
         this.props.state.tenants = removed;
 
         console.log(this.props.state.tenants);
+    }
+
+    removeFeeRow = event => {
+        event.preventDefault();
+        console.log(event.target)
+        let removed = this.state.miscFees.filter((newFee, i) => {
+            return newFee.name !== event.target.id.split("-")[1]
+        });
+        console.log(`REMOVED: ${removed}`);
+        this.setState({
+            miscFees: removed
+        })
+        this.props.state.miscFees = removed;
+
+        console.log(this.props.state.miscFees);
+    }
+
+    addFeeRow = event => {
+        event.preventDefault();
+
+        const newFee = {
+            name: this.props.state.misc,
+            amount: this.props.state.miscFee
+        };
+        //this.props.state.miscFees.push(newFee);
+        const arr = this.state.miscFees;
+        arr.push(newFee);
+        this.setState({
+            miscFees: arr
+        })
+        console.log(this.props.state.miscFees);
+
     }
 
     componentDidMount() {
@@ -59,14 +94,19 @@ class AddLease extends Component {
     }
 
     render() {
-        const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+        
+        const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         const tenants = this.props.state.tenants;
         return (
-            <div>
+            <div className="card rounded-0 p-3">
+            <div className="card-title">
+            <h5>Add A Lease -only for  managers</h5>
+            </div>
+            <div className="card-body">
                 <form>
                     <div className="form-group">
                         <div className="row">
-                        <div className="col-12">
+                            <div className="col-12">
                                 Add Tenants
                             </div>
                             <div className="col-12">
@@ -74,21 +114,21 @@ class AddLease extends Component {
 
                                     return (
                                         <div className="card">
-                                        <div className="card-title">
-                                        <span>
-                                                <button name="removeTenant"  type="button" onClick={this.removeTenant} class="close" aria-label="Close">
-                                                    <span id={`remove-${tenant}`} aria-hidden="true">&times;</span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                        <div className="card-body">
-                                            <span>
-                                                {tenant}
-                                            </span>
+                                            <div className="card-title">
+                                                <span>
+                                                    <button name="removeTenant" type="button" onClick={this.removeTenant} className="close" aria-label="Close">
+                                                        <span id={`remove-${tenant}`} aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <div className="card-body">
+                                                <span>
+                                                    {tenant}
+                                                </span>
 
-                                        </div>
-                                            
-                                            
+                                            </div>
+
+
                                         </div>
                                     );
                                 })}
@@ -108,43 +148,93 @@ class AddLease extends Component {
                     </div>
                 </form>
 
-                <form className="row">
-                    <label>Monthly Rate: </label>
-                    $<input type="text" name="rate" pattern="[0-9]*" className="form-control" id="monthlyRate" onChange={this.props.handleInputChange} value={this.props.state.rate} placeholder="1500.00" />
-                    <label>Security Deposit: </label>
-                    $<input type="text" name="secDep" className="form-control" id="securityDep" onChange={this.props.handleInputChange} value={this.props.state.secDep} placeholder="500.00" />
-                    <label>Miscellaneous Fees: </label>
-                    <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
-                    $<input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
-                    <label>Reoccurring Due Date: Rent is due on the  </label>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Day of Month</label>
-                        <select class="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
+                <form>
+
+
+                    <div className="form-group">
+                        <label>Monthly Rate:</label>
+                        $<input type="text" name="rate" pattern="[0-9]*" className="form-control" id="monthlyRate" onChange={this.props.handleInputChange} value={this.props.state.rate} placeholder="1500.00" />
+                    </div>
+                    <div className="form-group">
+                        <label>Security Deposit: </label>
+                        $<input type="text" name="secDep" className="form-control" id="securityDep" onChange={this.props.handleInputChange} value={this.props.state.secDep} placeholder="500.00" />
+                    </div>
+                    <div className="form-group">
+
+
+                        <div className="row">
+                            <div name="charges" id="charges" className="col-12">
+                            
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.miscFees.map((fee, i) => {
+                                            return (
+
+                                            <tr>
+                                                <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} className="close" aria-label="Close">
+                                                <span>
+                                                <button id={`remove-${fee.name}`} aria-hidden="true">
+                                                &times;
+                                                </button>
+                                                </span>
+                                                </td>
+                                                <td>
+                                                {fee.name}
+                                                
+                                                </td>
+                                                <td>{fee.amount}</td>
+                                            </tr>
+                                           
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <label>Miscellaneous Fees: </label>
+                        <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
+                        <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
+                        <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Button</button>
+                    </div>
+
+
+                    <div className="form-group">
+                        <label>Reoccurring Due Date: Rent is due on the  </label>
+                        <label htmlFor="exampleFormControlSelect1">Day of Month</label>
+                        <select className="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
                             {days.map(day => <option key={day} value={day}>{day}</option>)}
                         </select>
                     </div>
+
                     <label>of the month.</label>
                     <div>-------------------------------------</div>
                     <div>Move In Date: </div>
-                    <div class="form-group row" className="dateBox">
-                        <label for="moveIn" class="col-2 col-form-label">Move-In Date</label>
-                        <div class="col-10">
-                            <input name="moveIn" class="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
+                    <div className="form-group row" className="dateBox">
+                        <label htmlFor="moveIn" className="col-2 col-form-label">Move-In Date</label>
+                        <div className="col-10">
+                            <input name="moveIn" className="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
                         </div>
                     </div>
-                    <div class="form-group row" className="dateBox">
-                        <label for="leaseEnd" class="col-2 col-form-label">Lease End Date: </label>
-                        <div class="col-10">
-                            <input name="moveOut" class="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
+                    <div className="form-group row" className="dateBox">
+                        <label htmlFor="leaseEnd" className="col-2 col-form-label">Lease End Date: </label>
+                        <div className="col-10">
+                            <input name="moveOut" className="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
                         </div>
                     </div>
                     <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
-                    </form>
-                   
-                    
-                
+                </form>
+
+</div>
+
             </div>
-                );
-            }
-        }
+        );
+    }
+}
 export default AddLease;

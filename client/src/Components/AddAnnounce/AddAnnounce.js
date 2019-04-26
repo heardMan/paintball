@@ -3,14 +3,14 @@ import React, { Component } from "react";
 class AddAnnounce extends Component {
     render() {
         return (
-            <div>
-                <div className="row">
-                    <div className="col-12">
+            <div className="card rounded-0 p-3 my-3">
+                
+                    <div className="card-title">
                         <h3>Add an Announcement</h3>
                     </div>
-                </div>
-                <div className="row">
-                <div className="col-12">
+                
+                <div className="card-body">
+                
                 <form>
                     <div className="form-group">
                         <label >Title</label>
@@ -22,7 +22,7 @@ class AddAnnounce extends Component {
                     </div> 
                     <button name="newAnnounce" onClick={this.props.handleFormSubmit} type="button" className="btn btn-primary">Submit</button>
                 </form>
-                </div>
+                
                 </div>
             </div>
                 );
