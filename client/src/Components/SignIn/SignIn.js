@@ -32,7 +32,8 @@ class SignIn extends Component {
         //render the sign in form
         else {
             return (
-                <form>
+                <div className="header col-6 mx-auto">
+                <form className="form-box">
                     <div><h2>Sign In</h2></div>
 
                     <div className="form-group">
@@ -71,6 +72,8 @@ class SignIn extends Component {
                             className="btn btn-primary">Submit</button>
                 
                 </form>
+                
+                </div>
             );
         }
     }
