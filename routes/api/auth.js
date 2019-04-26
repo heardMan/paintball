@@ -95,4 +95,15 @@ router.post("/register", (req, res) => {
 
 });
 
+router.get("/manageLeaseTenant", utilities.verifyToken, function(req,res){
+    console.log("router get lease tenants");
+    db.leases.findAll({
+       where:{tenants: req._id}
+  }).then(res => {
+    console.log(res);
+  });
+});
+
+
+
 module.exports = router;

@@ -441,7 +441,7 @@ class App extends Component {
       console.log(form);
       const propertyEnum = event.target.id.split("-")[1];
 
-      console.log(propertyEnum);
+      console.log("propertyEnum", propertyEnum);
       console.log(this.props.state.managedProperties[propertyEnum]);
       this.setState({
         currentViewProperty: this.state.managedProperties[propertyEnum]

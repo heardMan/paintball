@@ -12,6 +12,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
+import "./SignIn.css";
+
 class SignIn extends Component {
 
     render() {
@@ -32,38 +34,28 @@ class SignIn extends Component {
         //render the sign in form
         else {
             return (
-                <form>
+            <div className="header col-6 mx-auto">
+                <form className="form-box">
                     <div><h2>Sign In</h2></div>
-
                     <div className="form-group">
-
                         <label >Email address</label>
-
                         <input name="email" 
                                value={this.props.state.email} 
                                onChange={this.props.handleInputChange} 
                                type="email" className={`form-control ${notEmailBorder} ${isEmailBorder}`} 
                                id="exampleInputEmail1" aria-describedby="emailHelp" 
                                placeholder="Enter email" />
-
                         <small className={`d-block text-danger`}>{notEmailText}</small>
-
                     </div>
-
                     <div className="form-group">
-
                         <label >Password</label>
-
                         <input name="password" 
                                value={this.props.state.password} 
                                onChange={this.props.handleInputChange} 
                                type="password" className={`form-control ${notPasswordBorder} ${isPasswordBorder}`} 
                                id="password" placeholder="Password" />
-
                         <small className={`d-block text-danger`}>{passwordTooShortText}</small>
-
                     </div>
-
                     <button name="signIn" 
                             disabled={emailCheck + passCheck} 
                             onClick={this.props.handleFormSubmit} 
@@ -71,6 +63,48 @@ class SignIn extends Component {
                             className="btn btn-primary">Submit</button>
                 
                 </form>
+                
+                </div>
+
+                // <form>
+                //     <div><h2>Sign In</h2></div>
+
+                //     <div className="form-group">
+
+                //         <label >Email address</label>
+
+                //         <input name="email" 
+                //                value={this.props.state.email} 
+                //                onChange={this.props.handleInputChange} 
+                //                type="email" className={`form-control ${notEmailBorder} ${isEmailBorder}`} 
+                //                id="exampleInputEmail1" aria-describedby="emailHelp" 
+                //                placeholder="Enter email" />
+
+                //         <small className={`d-block text-danger`}>{notEmailText}</small>
+
+                //     </div>
+
+                //     <div className="form-group">
+
+                //         <label >Password</label>
+
+                //         <input name="password" 
+                //                value={this.props.state.password} 
+                //                onChange={this.props.handleInputChange} 
+                //                type="password" className={`form-control ${notPasswordBorder} ${isPasswordBorder}`} 
+                //                id="password" placeholder="Password" />
+
+                //         <small className={`d-block text-danger`}>{passwordTooShortText}</small>
+
+                //     </div>
+
+                //     <button name="signIn" 
+                //             disabled={emailCheck + passCheck} 
+                //             onClick={this.props.handleFormSubmit} 
+                //             type="submit" 
+                //             className="btn btn-primary">Submit</button>
+                
+                // </form>
             );
         }
     }

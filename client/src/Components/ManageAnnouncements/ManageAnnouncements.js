@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import AddAnnouncement from "../AddAnnounce/AddAnnounce";
+import AddAnnouncement from "../AddAnnouncement/AddAnnouncement";
 import ViewAnnouncements from "../ViewAnnouncements/ViewAnnouncements";
 import "./ManageAnnouncement.css";
 

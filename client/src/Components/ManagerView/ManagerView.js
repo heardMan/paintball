@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import AddProperty from "../AddProperty/AddProperty";
-import AddAnnounce from "../AddAnnounce/AddAnnounce";
+import AddAnnouncement from "../AddAnnouncement/AddAnnouncement";
 
 class ManagerView extends Component {
     componentDidMount(){
@@ -13,7 +13,7 @@ class ManagerView extends Component {
         if(manager){
         return(
             <div>
-                <AddAnnounce 
+                <AddAnnouncement 
                     state={this.props.state}
                     handleFormSubmit={this.props.handleFormSubmit}
                     handleInputChange={this.props.handleInputChange}
