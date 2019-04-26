@@ -1,0 +1,20 @@
+.manageTickets_card {
+    background-color: rgb(141, 206, 218);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 180px;
+    background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url();
+    background-size: 100%;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba(255, 155, 155, 0.2);
+}
+
+.manageTickets_btn {
+    background-color: #001d43;
+    color: white;
+}
+
+.manageTickets_btn:hover {
+    background-color: #14498d;
+    color: white;
+}

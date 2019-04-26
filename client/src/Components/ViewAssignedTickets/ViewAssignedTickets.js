@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./ViewAssignedTickets.css";
 
 class ViewAssignedTickets extends Component {
     render(){
         return(
-            <div className="card rounded-0 p-3 my-3">
+            <div className="viewAssignedTickets_card shadow">
                 <div className="card-title">
                 <h5>Manage Assigned Tickets - for managers</h5>
                 </div>

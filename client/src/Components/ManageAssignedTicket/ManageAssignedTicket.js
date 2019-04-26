@@ -6,9 +6,9 @@ class ManageAssignedTickets extends Component {
         console.log(this.props.state);
         return (
 
-            <div className="row">
+            <div className="col col-md-8 mx-auto universal_card shadow">
                 <div className="col-12">
-                    <a href="/manageTickets"> <h5>Back to Manage Tickets</h5> </a>
+                    <a href="/manageTickets"> <h5 className="btn btn-light border border-secondary mb-3">Back to Manage Tickets</h5> </a>
                 </div>
                 <div className="col-12">
                     <div className="card rounded-0">

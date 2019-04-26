@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./ViewLeasedPropterties.css";
 
 class ViewLeasedProperties extends Component {
     render(){
         return(
-            <div className="card rounded-0 p-3 my-3">
+            <div className="viewLeasedProperties_card shadow">
                 <div className="card-title">
                 <h5>Manage Leased Properties - for tenants</h5>
                 </div>

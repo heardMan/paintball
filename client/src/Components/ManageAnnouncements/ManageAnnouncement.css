@@ -1,9 +1,5 @@
-.blueman{
-    background-color: blue!important;
-}
-
-.addProperty_card {
-    background-color: rgb(116, 172, 218);
+.manageAnnouncement_card {
+    background-color: rgb(76, 108, 114);
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 30px;
@@ -13,12 +9,12 @@
     box-shadow: 0 1.5rem 4rem rgba(255, 155, 155, 0.2);
 }
 
-.addProperty_btn {
+.manageProperties_btn {
     background-color: #001d43;
     color: white;
 }
 
-.addProperty_btn:hover {
+.manageProperties_btn:hover {
     background-color: #14498d;
     color: white;
 }

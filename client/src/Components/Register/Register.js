@@ -11,6 +11,7 @@
  */
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import "./Register.css";
 
 class Register extends Component {
     render() {
@@ -39,8 +40,8 @@ class Register extends Component {
         else {
             return (
                 <div>
-
-                    <div><h2>Register</h2></div>
+                    <div className="col col-md-6 mx-auto shadow register_card book">
+                    <div><h2 className="register_title text-center">Register</h2></div>
 
                     <div className="form-group">
 
@@ -94,7 +95,7 @@ class Register extends Component {
                     </div>
 
                     <div className="form-group">
-
+                        <label>Role</label>
                         <select name="newRole" 
                                 className={`form-control ${roleSelectedBorder}`} 
                                 value={this.props.state.newRole} 
@@ -115,8 +116,8 @@ class Register extends Component {
                     <button disabled={ passCheck1 + passCheck2 + emailCheck + roleCheck } 
                             name="register" 
                             onClick={this.props.handleFormSubmit} 
-                            className="btn btn-primary">Submit</button>
-                
+                            className="btn register_btn">Submit</button>
+                </div>
                 </div>
             );
         }
