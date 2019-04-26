@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./AddTicket.css";
 
 class AddTicket extends Component {
     render() {
         return (
-            <div className="card rounded-0 p-3 my-3">
+            <div className="AddTicket_card shadow">
             <div className="card-title">
             <h5>Submit a Service Ticket</h5>
             </div>
@@ -27,7 +28,7 @@ class AddTicket extends Component {
                             <small >Please provide a brief description of the problem you need resolved and we will get back to you as soon  as possible.</small>
                             <textarea name="ticketDescription"  onChange={this.props.handleInputChange} value={this.props.state.ticketDescription} className="form-control" id="ticketDescription" rows="3"></textarea>
                         </div> 
-                        <button name="newTicket" onClick={this.props.handleFormSubmit} type="button" className="btn btn-primary">Submit</button>
+                        <button name="newTicket" onClick={this.props.handleFormSubmit} type="button" className="btn AddTicket_btn">Submit</button>
                 </form>
                 </div>
                 

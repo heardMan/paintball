@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./ViewManagedLeases.css";
 
 class ViewManagedLeases extends Component {
     render(){
         return(
-            <div className="card rounded-0 p-3 my-3">
+            <div className="col viewManagedLeases_card shadow">
                 <div className="card-title">
                 <h5>Manage Leases - only for managers</h5>
                 </div>

@@ -1,9 +1,5 @@
-.blueman{
-    background-color: blue!important;
-}
-
-.addProperty_card {
-    background-color: rgb(116, 172, 218);
+.AddTicket_card {
+    background-color: rgb(216, 69, 69);
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 30px;
@@ -13,12 +9,12 @@
     box-shadow: 0 1.5rem 4rem rgba(255, 155, 155, 0.2);
 }
 
-.addProperty_btn {
+.AddTicket_btn {
     background-color: #001d43;
     color: white;
 }
 
-.addProperty_btn:hover {
+.AddTicket_btn:hover {
     background-color: #14498d;
     color: white;
 }

@@ -49,13 +49,13 @@ export default class PayForm extends React.Component {
         // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
         // useful if you're using React-Tap-Event-Plugin
         triggerEvent="onClick"
+        >
         
-       //  <button className="btn btn-primary">
-       //    Use your own child component, which gets wrapped in whatever
-       //    component you pass into as "ComponentClass" (defaults to span)
-       //  </button>
-
-      />
+       <button className="btn btn-primary">
+       
+       </button>
+      </StripeCheckout>
+      
     )
   }
 }

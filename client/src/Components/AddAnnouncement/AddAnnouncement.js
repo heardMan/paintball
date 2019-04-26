@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./AddAnnounce.css";
 
 class AddAnnounce extends Component {
     render() {
         return (
-            <div className="card rounded-0 p-3 my-3">
+            <div className="col mx-auto announcement_card book shadow">
                 
                     <div className="card-title">
                         <h3>Add an Announcement</h3>
@@ -20,7 +21,7 @@ class AddAnnounce extends Component {
                         <small >Announcement Description</small>
                         <textarea name="announceDescription"  onChange={this.props.handleInputChange} value={this.props.state.announceDescription} className="form-control" id="annouceDescription" rows="3"></textarea>
                     </div> 
-                    <button name="newAnnounce" onClick={this.props.handleFormSubmit} type="button" className="btn btn-primary">Submit</button>
+                    <button name="newAnnounce" onClick={this.props.handleFormSubmit} type="button" className="btn announcement_btn">Submit</button>
                 </form>
                 
                 </div>
