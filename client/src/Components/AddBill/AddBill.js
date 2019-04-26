@@ -196,34 +196,35 @@ class AddBill extends Component {
 
                             </div>
                         </div>
-                        <label>Repair Fees: </label>
-                        <input type="text" name="repair" className="form-control" id="addRepair" onChange={this.props.handleInputChange} value={this.props.state.repair} placeholder="Key Replacment" />
-                        $<input type="text" name="repairFee" className="form-control" id="repairAmount" onChange={this.props.handleInputChange} value={this.props.state.repairFee} placeholder="200.00" />
-                        <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Add Fee</button>
-                    </div>
-                        <div className="form-group row">
-                        <h4>Bill Cycle Dates</h4>
+                        <div className="form-group">
+                            <label>Repair Fees: </label>
+                            <input type="text" name="repair" className="form-control" id="addRepair" onChange={this.props.handleInputChange} value={this.props.state.repair} placeholder="Key Replacment" />
                         </div>
-                        <div class="form-group row" className="dateBox">
-                            <label for="billStart" class="col-2 col-form-label">Bill Cycle Start</label>
-                            <div class="col-10">
+                        <div className="form-group">
+                            <label>Amount</label>
+                            <input type="text" name="repairFee" className="form-control" id="repairAmount" onChange={this.props.handleInputChange} value={this.props.state.repairFee} placeholder="200.00" />
+                        </div>
+                        <div>
+                            <button onClick={this.addFeeRow} name="" type="submit" className="btn managePayments_btn">Add Fee</button>
+                        </div>
+                    </div>
+                        <h4>Bill Cycle Dates</h4>
+
+                        <div class="form-group">
+                            <label for="billStart">Bill Cycle Start</label>
                                 <input name="billStart" class="form-control" type="date" id="billStart" onChange={this.props.handleInputChange} value={this.props.state.billStart}></input>
-                            </div>
+
                         </div>
                         
-                        <div class="form-group" className="dateBox">
-                            <label for="billEnd" class="col-2 col-form-label">Bill Cycle End </label>
-                            <div class="col-10">
-                                <input name="billEnd" class="form-control" type="date" id="billEnd" onChange={this.props.handleInputChange} value={this.props.state.billEnd}></input>
-                            </div>
+                        <div class="form-group">
+                            <label for="billEnd">Bill Cycle End </label>
+                            <input name="billEnd" class="form-control" type="date" id="billEnd" onChange={this.props.handleInputChange} value={this.props.state.billEnd}></input>
                         </div>
-                        <div class="form-group row" className="dateBox">
-                            <label for="billDue" class="col-2 col-form-label">Due Date </label>
-                            <div class="col-10">
-                                <input name="billDue" class="form-control" type="date" id="billDue" onChange={this.props.handleInputChange} value={this.props.state.billDue}></input>
-                            </div>
+                        <div class="form-group">
+                            <label for="billDue">Due Date </label>
+                            <input name="billDue" class="form-control" type="date" id="billDue" onChange={this.props.handleInputChange} value={this.props.state.billDue}></input>
                         </div>
-                        <button onClick={this.props.handleFormSubmit} name="addBill" type="submit" className="btn btn-primary">Create Bill</button>
+                        <button onClick={this.props.handleFormSubmit} name="addBill" type="submit" className="btn managePayments_btn">Create Bill</button>
                     </form>
 
 

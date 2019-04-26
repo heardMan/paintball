@@ -1,0 +1,25 @@
+html {
+    min-height: 100%;
+    position: relative;
+  }
+  html body {
+    margin-bottom: 60px;
+  }
+  html #footer {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    height: 180px;
+    background-color: #363636;
+  }
+  /* html #footer .footer-block {
+    margin: 20px 0;
+  }
+   */
+.footer_terms {
+    margin-bottom: 0;
+}
+
+.footer_copyright {
+    font-size: .7rem;
+}

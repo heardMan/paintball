@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./ViewCreatedTickets.css";
 
 class ViewManagedLeases extends Component {
     render(){
         return(
-            <div className="card rounded-0 p-3 my-3">
+            <div className="viewCreatedTickets_card shadow">
                 <div className="card-title">
                 <h5>Manage Created Tickets - for tenants</h5>
                 </div>
