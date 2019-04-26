@@ -6,6 +6,7 @@ const miscFeeSchema = new Schema({
 });
 const LeaseSchema = new Schema({
     tenants: [{ type: Schema.ObjectId, ref: 'User' }],
+    property: [{ type: Schema.ObjectId, ref: 'Property' }],
     rate: String,
     secDep: String,
     miscStuff: Array,

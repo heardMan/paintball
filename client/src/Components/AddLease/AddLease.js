@@ -8,9 +8,7 @@ class AddLease extends Component {
     state = {
         allTenants: [],
         tenants: [],
-        miscFees: [], 
-
-
+        miscFees: []
     }
 
     addSelected = event => {

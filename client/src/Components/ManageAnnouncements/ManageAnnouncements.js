@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import AddAnnouncement from "../AddAnnounce/AddAnnounce";
+import AddAnnouncement from "../AddAnnouncement/AddAnnouncement";
 import ViewAnnouncements from "../ViewAnnouncements/ViewAnnouncements";
 
 class ManageAnnouncements extends Component {
@@ -24,7 +24,6 @@ class ManageAnnouncements extends Component {
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} />
-
                 </div>
 
                 </div>
