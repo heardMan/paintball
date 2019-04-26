@@ -196,34 +196,31 @@ class AddLease extends Component {
                         <label>Miscellaneous Fees: </label>
                         <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
                         <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
-                        <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Button</button>
+                        <button onClick={this.addFeeRow} name="" type="submit" className="btn manageLeases_btn ">Button</button>
                     </div>
 
+                    <hr></hr>
 
                     <div class="form-group">
-                        <label>Reoccurring Due Date: Rent is due on the  </label>
-                        <label for="exampleFormControlSelect1">Day of Month</label>
+                        <h4>Reoccurring Rent Due Date</h4>
+                        <label for="exampleFormControlSelect1">Choose A Day of the Month</label>
                         <select class="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
                             {days.map(day => <option key={day} value={day}>{day}</option>)}
                         </select>
                     </div>
 
-                    <label>of the month.</label>
-                    <div>-------------------------------------</div>
-                    <div>Move In Date: </div>
-                    <div class="form-group row" className="dateBox">
-                        <label for="moveIn" class="col-2 col-form-label">Move-In Date</label>
-                        <div class="col-10">
-                            <input name="moveIn" class="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
-                        </div>
+                    <div className="form-group">
+                        <label for="moveIn">Move-In Date</label>
+                        <input name="moveIn" class="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
                     </div>
-                    <div class="form-group row" className="dateBox">
-                        <label for="leaseEnd" class="col-2 col-form-label">Lease End Date: </label>
-                        <div class="col-10">
-                            <input name="moveOut" class="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
-                        </div>
+
+                    <div className="form-group">
+                        <label for="leaseEnd">Lease End Date: </label>
+                        <input name="moveOut" class="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>     
                     </div>
-                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
+                    
+                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn manageLeases_btn">Submit Lease</button>
+                
                 </form>
 
 

@@ -158,72 +158,78 @@ class AddBill extends Component {
                     <div className="form-group">
                         <label>Rent Rate: </label>
                         $<input type="text" name="rent" pattern="[0-9]*" className="form-control" id="rentRate" onChange={this.props.handleInputChange} value={this.props.state.rent} placeholder="1500.00" />
-                        </div>
+                    </div>
+
                         <div className="form-group">
 
-
-                        <div className="row">
-                            <div name="charges" id="charges" className="col-12">
-                            
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Repair Name</th>
-                                            <th>Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.state.repairFees.map((fee, i) => {
-                                            return (
-                                                <tr>
-                                                <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} class="close" aria-label="Close">
-                                                <span>
-                                                <button id={`remove-${fee.name}`} aria-hidden="true">
-                                                &times;
-                                                </button>
-                                                </span>
-                                                </td>
-                                                <td>
-                                                {fee.name}
-                                                
-                                                </td>
-                                                <td>{fee.amount}</td>
+                            <div className="row">
+                                <div name="charges" id="charges" className="col-12">
+                                
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Repair Name</th>
+                                                <th>Amount</th>
                                             </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {this.state.repairFees.map((fee, i) => {
+                                                return (
+                                                    <tr>
+                                                    <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} class="close" aria-label="Close">
+                                                    <span>
+                                                    <button id={`remove-${fee.name}`} aria-hidden="true">
+                                                    &times;
+                                                    </button>
+                                                    </span>
+                                                    </td>
+                                                    <td>
+                                                    {fee.name}
+                                                    
+                                                    </td>
+                                                    <td>{fee.amount}</td>
+                                                </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
 
+                                </div>
+                            </div>
+                            <div className="form-group dateBox">
+                                <label>Repair Description:</label>
+                                <input type="text" name="repair" className="form-control" id="addRepair" onChange={this.props.handleInputChange} value={this.props.state.repair} placeholder="Key Replacment" />
+                            </div>
+                            <div className="form-group dateBox">
+                                <label>Amount:</label>
+                                <input type="text" name="repairFee" className="form-control" id="repairAmount" onChange={this.props.handleInputChange} value={this.props.state.repairFee} placeholder="200.00"/>
+                            </div>
+                            <div className="form-group dateBox">
+                                <button onClick={this.addFeeRow} name="" type="submit" className="btn managePayments_btn">Add Fee</button>
                             </div>
                         </div>
-                        <label>Repair Fees: </label>
-                        <input type="text" name="repair" className="form-control" id="addRepair" onChange={this.props.handleInputChange} value={this.props.state.repair} placeholder="Key Replacment" />
-                        $<input type="text" name="repairFee" className="form-control" id="repairAmount" onChange={this.props.handleInputChange} value={this.props.state.repairFee} placeholder="200.00" />
-                        <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Add Fee</button>
-                    </div>
-                        <div className="form-group row">
+
+                        <hr></hr>
+                        
                         <h4>Bill Cycle Dates</h4>
-                        </div>
-                        <div class="form-group row" className="dateBox">
-                            <label for="billStart" class="col-2 col-form-label">Bill Cycle Start</label>
-                            <div class="col-10">
-                                <input name="billStart" class="form-control" type="date" id="billStart" onChange={this.props.handleInputChange} value={this.props.state.billStart}></input>
-                            </div>
+                        
+                        <div class="form-group" className="dateBox">
+                            <label for="billStart">Bill Cycle Start</label>
+                            <input name="billStart" class="form-control" type="date" id="billStart" onChange={this.props.handleInputChange} value={this.props.state.billStart}></input> 
                         </div>
                         
                         <div class="form-group" className="dateBox">
-                            <label for="billEnd" class="col-2 col-form-label">Bill Cycle End </label>
-                            <div class="col-10">
-                                <input name="billEnd" class="form-control" type="date" id="billEnd" onChange={this.props.handleInputChange} value={this.props.state.billEnd}></input>
-                            </div>
+                            <label for="billEnd">Bill Cycle End </label>                           
+                            <input name="billEnd" class="form-control" type="date" id="billEnd" onChange={this.props.handleInputChange} value={this.props.state.billEnd}></input>
                         </div>
-                        <div class="form-group row" className="dateBox">
-                            <label for="billDue" class="col-2 col-form-label">Due Date </label>
-                            <div class="col-10">
-                                <input name="billDue" class="form-control" type="date" id="billDue" onChange={this.props.handleInputChange} value={this.props.state.billDue}></input>
-                            </div>
+
+                        <div class="form-group" className="dateBox">
+                            <label for="billDue">Due Date </label>                           
+                            <input name="billDue" class="form-control" type="date" id="billDue" onChange={this.props.handleInputChange} value={this.props.state.billDue}></input>                           
                         </div>
-                        <button onClick={this.props.handleFormSubmit} name="addBill" type="submit" className="btn btn-primary">Create Bill</button>
+                        <div className="form-group dateBox">
+                        <button onClick={this.props.handleFormSubmit} name="addBill" type="submit" className="btn managePayments_btn">Create Bill</button>
+                        </div>
                     </form>
 
 

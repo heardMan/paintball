@@ -556,8 +556,9 @@ console.log("hello 2");
           />)}
           />
 
-          <Footer />
+          
         </div>
+        <Footer />
       </Router>
 
     );

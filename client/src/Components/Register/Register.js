@@ -11,6 +11,7 @@
  */
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import "./Register.css";
 
 class Register extends Component {
     render() {
@@ -39,84 +40,84 @@ class Register extends Component {
         else {
             return (
                 <div>
+                    <div className="col col-md-6 mx-auto shadow register_card book">
+                        <div><h1 className="register_title text-center">Register</h1></div>
 
-                    <div><h2>Register</h2></div>
+                        <div className="form-group">
 
-                    <div className="form-group">
+                            <label >Email address</label>
 
-                        <label >Email address</label>
+                            <input name="newEmail" 
+                                value={this.props.state.newEmail} 
+                                onChange={this.props.handleInputChange} 
+                                type="email" className={`form-control ${notEmailBorder} ${isEmailBorder}`} 
+                                id="newEmail" aria-describedby="emailHelp" 
+                                placeholder="Enter email" />
 
-                        <input name="newEmail" 
-                               value={this.props.state.newEmail} 
-                               onChange={this.props.handleInputChange} 
-                               type="email" className={`form-control ${notEmailBorder} ${isEmailBorder}`} 
-                               id="newEmail" aria-describedby="emailHelp" 
-                               placeholder="Enter email" />
+                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                            
+                            <small className={`d-block text-danger`}>{notEmailText}</small>
 
-                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+
+                        <div className="form-group">
+
+                            <label >Password</label>
+
+                            <input name="password1" 
+                                value={this.props.state.password1} 
+                                onChange={this.props.handleInputChange} 
+                                type="password" 
+                                className={`form-control ${notPasswordBorder} ${isPassword} ${passwordsNoMatchBorder}`} 
+                                id="password1" 
+                                placeholder="Password" />
+
+                            <small className={`d-block text-danger`}>{notPasswordTextLength}</small>
+
+                            <small className={`d-block text-danger`}>{passwordsNoMatchText}</small>
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label >Re-Enter Password</label>
+
+                            <input name="password2" 
+                                value={this.props.state.password2} 
+                                onChange={this.props.handleInputChange} 
+                                type="password" className={`form-control ${notPasswordBorder} ${isPassword} ${passwordsNoMatchBorder}`} 
+                                id="password2" placeholder="Password" />
+
+                            <small className={`d-block text-danger`}>{notPasswordTextLength}</small>
+
+                            <small className={`d-block text-danger`}>{passwordsNoMatchText}</small>
+
+                        </div>
+
+                        <div className="form-group">
+                            <label >Role</label>
+                            <select name="newRole" 
+                                    className={`form-control ${roleSelectedBorder}`} 
+                                    value={this.props.state.newRole} 
+                                    onChange={this.props.handleInputChange}>
+
+                                <option disabled value="">Select One</option>
+
+                                <option value="tenant">Tenant</option>
+
+                                <option value="manager">Manager</option>
+
+                            </select>
+
+                            <small className={`d-block text-danger`}>{roleNotSelectedText}</small>
                         
-                        <small className={`d-block text-danger`}>{notEmailText}</small>
+                        </div>
 
+                        <button disabled={ passCheck1 + passCheck2 + emailCheck + roleCheck } 
+                                name="register" 
+                                onClick={this.props.handleFormSubmit} 
+                                className="btn register_btn">Submit</button>
                     </div>
-
-                    <div className="form-group">
-
-                        <label >Password</label>
-
-                        <input name="password1" 
-                               value={this.props.state.password1} 
-                               onChange={this.props.handleInputChange} 
-                               type="password" 
-                               className={`form-control ${notPasswordBorder} ${isPassword} ${passwordsNoMatchBorder}`} 
-                               id="password1" 
-                               placeholder="Password" />
-
-                        <small className={`d-block text-danger`}>{notPasswordTextLength}</small>
-
-                        <small className={`d-block text-danger`}>{passwordsNoMatchText}</small>
-
-                    </div>
-
-                    <div className="form-group">
-
-                        <label >Re-Enter Password</label>
-
-                        <input name="password2" 
-                               value={this.props.state.password2} 
-                               onChange={this.props.handleInputChange} 
-                               type="password" className={`form-control ${notPasswordBorder} ${isPassword} ${passwordsNoMatchBorder}`} 
-                               id="password2" placeholder="Password" />
-
-                        <small className={`d-block text-danger`}>{notPasswordTextLength}</small>
-
-                        <small className={`d-block text-danger`}>{passwordsNoMatchText}</small>
-
-                    </div>
-
-                    <div className="form-group">
-
-                        <select name="newRole" 
-                                className={`form-control ${roleSelectedBorder}`} 
-                                value={this.props.state.newRole} 
-                                onChange={this.props.handleInputChange}>
-
-                            <option disabled value="">Select One</option>
-
-                            <option value="tenant">Tenant</option>
-
-                            <option value="manager">Manager</option>
-
-                        </select>
-
-                        <small className={`d-block text-danger`}>{roleNotSelectedText}</small>
-                    
-                    </div>
-
-                    <button disabled={ passCheck1 + passCheck2 + emailCheck + roleCheck } 
-                            name="register" 
-                            onClick={this.props.handleFormSubmit} 
-                            className="btn btn-primary">Submit</button>
-                
                 </div>
             );
         }

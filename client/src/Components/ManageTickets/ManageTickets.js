@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AddTicket from "../AddTicket/AddTicket"
+import "./ManageTickets.css";
 
 
 class ManageTickets extends Component {
@@ -7,20 +8,14 @@ class ManageTickets extends Component {
         return (
             
                 <div className="row">
-                <div className="col-12">
-                ManageTickets
-
-                <AddTicket
-                        state={this.props.state}
-                        handleFormSubmit={this.props.handleFormSubmit}
-                        handleInputChange={this.props.handleInputChange} />
-
-
+                    <div className="col col-md-8 mx-auto shadow manageTickets_card">
+                        <AddTicket
+                            state={this.props.state}
+                            handleFormSubmit={this.props.handleFormSubmit}
+                            handleInputChange={this.props.handleInputChange} 
+                        />
+                    </div>
                 </div>
-
-                </div>
-           
-
         );
     }
 }

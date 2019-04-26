@@ -71,10 +71,11 @@ class AddProperty extends Component {
     render() {
         const managers = this.props.state.managers;
         return (
-            <div className="card rounded-0 mb-5 p-3">
+            <div>
                 <form>
                     <div className="form-group">
-                        <input type="text" name="PropertyAddress" onChange={this.props.handleInputChange} value={this.props.state.PropertyAddress} className="form-control" id="PropertyAddress" placeholder="Enter Address" />
+                        <label>Enter Address</label>
+                        <input type="text" name="PropertyAddress" onChange={this.props.handleInputChange} value={this.props.state.PropertyAddress} className="form-control" id="PropertyAddress" placeholder="Address" />
                     </div>
                     <div className="form-group">
                         <div className="row">
@@ -126,7 +127,7 @@ class AddProperty extends Component {
                         onClick={this.props.handleFormSubmit} 
                         name="addNewProperty" 
                         type="submit" 
-                        className="btn btn-primary">Submit</button>
+                        className="btn manageProperties_btn">Submit</button>
                 </form>
 
                 {/* <div>
