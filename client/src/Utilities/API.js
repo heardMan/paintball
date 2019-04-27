@@ -26,8 +26,8 @@ export default {
     createProp: function(property){
         return axios.post("/api/properties", property);
     },
-    getProperty: function(propertyId){
-        return axios.get(`/api/properties/${propertyId}`)
+    getProperty: function(property){
+        return axios.get("/api/properties/", property)
     },
     getOwnedProperties: function(userId){
         const data = {userId : userId}
