@@ -70,15 +70,15 @@ class AddProperty extends Component {
 
 
     render() {
-        //  if(this.props.state.roles.indexOf("manager") < 0) {
-        //     return(null)
-        // } else {
+         if(this.props.state.roles.indexOf("manager") < 0) {
+            return(null)
+        } else {
         const managers = this.props.state.managers;
         return (
             <div className="universal_card shadow">
 
             <div className="col">
-            <h5>Add Property -only for managers</h5>
+            <h5>Add Property</h5>
             </div>
             <div className="card-body">
                 <form>
@@ -149,6 +149,6 @@ class AddProperty extends Component {
             </div>
         );
     }
-    //}
+    }
 }
 export default AddProperty;

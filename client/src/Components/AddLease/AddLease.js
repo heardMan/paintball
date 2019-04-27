@@ -32,7 +32,7 @@ class AddLease extends Component {
                 tenants: arr
             });
             this.props.state.tenants.push(event.target.id);
-          //  console.log(this.props.state);
+            //  console.log(this.props.state);
         }
 
         //console.log(this.props.state.propertyToLease);
@@ -109,21 +109,21 @@ class AddLease extends Component {
 
 
     render() {
-        
+
 
         const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         const tenants = this.props.state.tenants;
 
-console.log(this.state.miscFees);
-console.log(this.props.state);
-// if(this.props.state.roles.indexOf("manager") < 0){
-//     return(null)
-// } else{
+        console.log(this.state.miscFees);
+        console.log(this.props.state);
+        if(this.props.state.roles.indexOf("manager") < 0){
+            return(null)
+        } else{
         return (
 
             <div className="universal_card shadow">
                 <div className="card-title">
-                    <h5>Add A Lease -only for  managers</h5>
+                    <h5>Add A Lease</h5>
                 </div>
                 <div className="card-body">
                     <form>
@@ -131,7 +131,7 @@ console.log(this.props.state);
                             <div className="row">
                                 <div className="col-12">
                                     Add Tenants
-  
+
                             </div>
                                 <div className="col-12">
                                     {tenants.map((tenant) => {
@@ -173,14 +173,10 @@ console.log(this.props.state);
                                     </span>
                                 </div>
                             </div>
-
-
-
                             <div className="row">
                                 <div className="col-12">
                                     <p>Add Property</p>
                                     <span>
-
                                         <AutoComplete
                                             suggestions={this.props.state.ownedPropertyList}
                                             addSelected={this.addSelected}
@@ -193,10 +189,7 @@ console.log(this.props.state);
 
                         </div>
                     </form>
-
                     <form>
-
-
                         <div className="form-group">
                             <label>Monthly Rate:</label>
                             $<input type="text" name="rate" pattern="[0-9]*" className="form-control" id="monthlyRate" onChange={this.props.handleInputChange} value={this.props.state.rate} placeholder="1500.00" />
@@ -206,8 +199,6 @@ console.log(this.props.state);
                             $<input type="text" name="secDep" className="form-control" id="securityDep" onChange={this.props.handleInputChange} value={this.props.state.secDep} placeholder="500.00" />
                         </div>
                         <div className="form-group">
-
-
                             <div className="row">
                                 <div name="charges" id="charges" className="col-12">
 
@@ -220,9 +211,7 @@ console.log(this.props.state);
                                         </thead>
                                         <tbody>
                                             {this.state.miscFees.map((fee, i) => {
-                                                
                                                 return (
-
                                                     <tr>
                                                         <td name="removeFeeRow" type="button" onClick={this.removeFeeRow} className="close" aria-label="Close">
                                                             <span>
@@ -250,9 +239,6 @@ console.log(this.props.state);
                             <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
                             <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Button</button>
                         </div>
-
-
-
                         <div className="form-group">
                             <label>Reoccurring Due Date: Rent is due on the  </label>
                             <label htmlFor="exampleFormControlSelect1">Day of Month</label>
@@ -270,42 +256,35 @@ console.log(this.props.state);
                                 <input name="moveIn" className="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
                             </div>
                         </div>
-
-                        <label>Miscellaneous Fees: </label>
-                        <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
-                        <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
-                        <button onClick={this.addFeeRow} name="" type="submit" className="btn universal_btn">Button</button>
-                    </div>
-
-
-                    <div className="form-group">
-                        <h4>Reoccurring Due Date</h4>
-                        <label htmlFor="exampleFormControlSelect1">Choose a Day of the Month</label>
-                        <select className="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
-                            {days.map(day => <option key={day} value={day}>{day}</option>)}
-                        </select>
-                    </div>
-
-                  
-                    <div className="form-group">
-                        <label htmlFor="moveIn">Move-In Date</label>
-                        <input name="moveIn" className="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="leaseEnd">Lease End Date: </label>
-                        <input name="moveOut" className="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
-                    </div>
-                    <div>
-                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn universal_btn">Submit Lease</button>
-                    </div>
-                </form>
-
-</div>
-
-
+                        <div>
+                            <label>Miscellaneous Fees: </label>
+                            <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
+                            <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
+                            <button onClick={this.addFeeRow} name="" type="submit" className="btn universal_btn">Button</button>
+                        </div>
+                        <div className="form-group">
+                            <h4>Reoccurring Due Date</h4>
+                            <label htmlFor="exampleFormControlSelect1">Choose a Day of the Month</label>
+                            <select className="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
+                                {days.map(day => <option key={day} value={day}>{day}</option>)}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="moveIn">Move-In Date</label>
+                            <input name="moveIn" className="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="leaseEnd">Lease End Date: </label>
+                            <input name="moveOut" className="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
+                        </div>
+                        <div>
+                            <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn universal_btn">Submit Lease</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
-                                        //}
+        }
     }
 }
 export default AddLease;
