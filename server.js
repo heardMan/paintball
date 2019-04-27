@@ -64,6 +64,11 @@ db.Meta.find({ SUPER_ID: "dolladollabillsyall" })
                 console.log("Lease updated"+resp);
               })
 
+              db.Property.findByIdAndUpdate(resp.property[0], {"$push": {"payments": resp._id}})
+              .then(resp=>{
+                console.log("Lease updated"+resp);
+              })
+
               db.Meta.find({ SUPER_ID: "dolladollabillsyall"}, {lastUpdated: Date.now} )
               .then(resp=>{
                 console.log("Meta updated"+resp);
