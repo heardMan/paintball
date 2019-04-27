@@ -5,6 +5,8 @@ import "./ManageLeaseManager.css";
 class ManageLeasedManager extends Component {
     render() {
         console.log(this.props.state);
+        console.log(this.props.info);
+
         return (
 
             <div className="col col-md-8 mx-auto manageLeaseManager_card shadow">
@@ -17,7 +19,7 @@ class ManageLeasedManager extends Component {
                             Managed Lease Title -manager
                         </div>
                         <div className="card-body">
-                            Words
+                        {this.props.state.currentViewManagedLease.property}
                         </div>
                     </div>
 

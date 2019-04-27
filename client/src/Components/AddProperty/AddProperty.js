@@ -91,7 +91,7 @@ class AddProperty extends Component {
                             <ul className="list-group mb-3">
                                 {managers.map((manager,i) => {
                                     if(manager === this.props.state.userEmail){
-                                        //do nothin
+                                        return null
                                     } else {
 
                                     

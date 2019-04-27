@@ -29,10 +29,29 @@ export default {
     getProperty: function(propertyId){
         return axios.get(`/api/properties/${propertyId}`)
     },
+    getOwnedProperties: function(userId){
+        const data = {userId : userId}
+        return axios.get(`/api/properties/owned`, data)
+    },
     createLease: function(token){
         console.log(`Util/API: ${token}`)
         return axios.post("api/leases", token);
-    }, 
+    },
+    getManagedLeases: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },
+    getLease: function(leaseId){
+        return axios.get(`/api/leases`, leaseId)
+    },  
+    getLeases: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },  
+    getManagedProperties: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },  
+    getLeasedProperties: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },  
     createAnnounce: function(token){
         return axios.post("api/announcements", token);
     },

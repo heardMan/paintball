@@ -15,12 +15,32 @@ router.get("/verify", utilities.verifyToken, function (req, res) {
     console.log(query);
     db.User
         .find(query)
+        .populate('owned_properties')
+        .populate('leased_properties')
         .populate('managed_properties')
+        .populate('createdTickets')
+        .populate('assignedTickets')
+        .populate('payments')
+        .populate('paymentsManager')
+        .populate('managed_leases')
+        .populate('leases')
         .then(dbModel => {
-            console.log(dbModel);
+            console.log("User"+dbModel);
 
             user.managed_properties = dbModel[0].managed_properties;
             user.leased_properties = dbModel[0].leased_properties;
+
+            user.owned_properties = dbModel[0].owned_properties;
+           
+            user.createdTickets = dbModel[0].createdTickets;
+            user.assignedTickets = dbModel[0].assignedTickets;
+            user.payments = dbModel[0].payments;
+            
+            user.paymentsManager = dbModel[0].paymentsManager;
+
+            user.leases = dbModel[0].leases;
+            user.managed_leases = dbModel[0].managed_leases;
+
 
             res.status(200).send(user);
         })
