@@ -14,11 +14,11 @@ class ViewManagedProperties extends Component {
         this.setState({
             redirect: true
         })
-        console.log(this.props.state);
+        console.log(this.info);
     }
 
     render() {
-        console.log(this.props.state.managedProperties);
+        console.log(this.props.info);
         if (this.props.state.managedPropertyRedirect === true) {
             return <Redirect to={{ pathname: "/manageProperty", info: this.props.state.currentViewProperty }} />
         } else {

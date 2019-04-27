@@ -16,7 +16,7 @@ class ManageLeasedProperty extends Component {
                             Leased Property Title
                         </div>
                         <div className="card-body">
-                            Teneant View More Words
+                        {this.props.state.currentViewLeasedProperty.address}
                         </div>
                     </div>
 

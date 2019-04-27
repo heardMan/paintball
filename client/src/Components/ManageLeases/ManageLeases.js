@@ -19,6 +19,7 @@ class ManageLeases extends Component {
                         handleInputChange={this.props.handleInputChange} />
                 </div>
                 <div className="col-12">
+                
                 <ViewManagedLeases
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}

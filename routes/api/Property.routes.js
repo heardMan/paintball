@@ -11,4 +11,8 @@ router
 .route("/:id")
 .get(PropertyController.findOne)
 
+router
+.route("/owned")
+.get(PropertyController.findOwnedProperties)
+
 module.exports = router;

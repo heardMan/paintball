@@ -4,6 +4,8 @@ import React, { Component } from "react";
 class ManageLeasedManager extends Component {
     render() {
         console.log(this.props.state);
+        console.log(this.props.info);
+
         return (
 
             <div className="row">
@@ -16,7 +18,7 @@ class ManageLeasedManager extends Component {
                             Managed Lease Title -manager
                         </div>
                         <div className="card-body">
-                            Words
+                        {this.props.state.currentViewManagedLease.property}
                         </div>
                     </div>
 

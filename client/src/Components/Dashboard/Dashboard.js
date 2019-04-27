@@ -19,7 +19,9 @@ class Dashboard extends Component {
                     <div className="card rounded-0">
                     <div className="card-title"></div>
                     <div className="card-body">
-                    <ViewAnnouncementsDash />
+                    <ViewAnnouncementsDash
+                    state={this.props.state}
+                    />
                     </div>
                     <div className="card-footer">
                     <a href="/manageAnnouncements"><h6>Manage Announcements</h6></a>
@@ -32,16 +34,24 @@ class Dashboard extends Component {
                     
                     
                     
-                    <PaymentsSummaryCard />
+                    <PaymentsSummaryCard 
+                    state={this.props.state}
+                    />
                     </div>
                     <div className="col-3">
-                    <TicketsSummaryCard />
+                    <TicketsSummaryCard 
+                    state={this.props.state}
+                    />
                     </div>
                     <div className="col-3">
-                    <PropertiesSummaryCard />
+                    <PropertiesSummaryCard 
+                    state={this.props.state}
+                    />
                     </div>
                     <div className="col-3">
-                    <LeasesSummaryCard />
+                    <LeasesSummaryCard 
+                    state={this.props.state}
+                    />
                     </div>
 
                     <div className="col-12 my-3 text-center">

@@ -23,6 +23,7 @@ class ManageProperties extends Component {
 
                 <ViewManagedProperties
                         state={this.props.state}
+                        info={this.info}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} />
                 
