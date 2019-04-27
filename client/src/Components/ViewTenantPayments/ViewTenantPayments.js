@@ -11,15 +11,21 @@ class ViewTenantPayments extends Component {
         
     }
     render(){
+        if (this.props.state.roles.indexOf("tenant") < 0){
+            
+            return(null)
+        } 
+        else {
 
         console.log(this.props.state)
 
         return (
-            <div className="viewManagedProperties_card shadow">
+            <div className="col-12 universalCard">
+            <div className="universalCard card shadow">
             <div className="card-title">
             <h5>Manage Payments -for tenants</h5>
             </div>
-            <div className="card-body">
+            <div className="card-body universal_card">
             <div className="row">
 
             <div className="col-4">Due Date</div>
@@ -61,12 +67,9 @@ class ViewTenantPayments extends Component {
                 </div></div>
                 </div>
             </div>
-        );
-        return(
-            <div>
-                
             </div>
         );
+                }
     }
 }
 

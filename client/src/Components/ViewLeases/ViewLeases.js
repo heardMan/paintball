@@ -26,15 +26,15 @@ class ViewLeases extends Component {
         if(this.state.redirect === true){
             return <Redirect to={{ pathname: "/manageLeaseTenant", info: this.props.state.currentViewTenantLease }} />
         } 
-        // else if(this.props.state.roles.indexOf("tenant") < 0) {
-        //     return(null)
-        // } 
+        else if(this.props.state.roles.indexOf("tenant") < 0) {
+            return(null)
+        } 
         else {
             return(
                 <div className="col shadow universal_card">
                     <div className="card-title">
 
-                    <h5>Your Leases - only for tenants</h5>
+                    <h5>Your Leases</h5>
                     </div>
                     <div className="card-body">
                     <ul className="list-group">
