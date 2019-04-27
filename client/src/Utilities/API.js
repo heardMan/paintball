@@ -26,13 +26,32 @@ export default {
     createProp: function(property){
         return axios.post("/api/properties", property);
     },
-    getProperty: function(propertyId){
-        return axios.get(`/api/properties/${propertyId}`)
+    getProperty: function(property){
+        return axios.get("/api/properties/", property)
+    },
+    getOwnedProperties: function(userId){
+        const data = {userId : userId}
+        return axios.get(`/api/properties/owned`, data)
     },
     createLease: function(token){
         console.log(`Util/API: ${token}`)
         return axios.post("api/leases", token);
-    }, 
+    },
+    getManagedLeases: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },
+    getLease: function(leaseId){
+        return axios.get("/api/leases/", leaseId)
+    },  
+    getLeases: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },  
+    getManagedProperties: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },  
+    getLeasedProperties: function(user){
+        return axios.post("/api/users/byEmail", user);
+    },  
     createAnnounce: function(token){
         return axios.post("api/announcements", token);
     },

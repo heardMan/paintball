@@ -6,9 +6,9 @@ class ManageLeasedTenant extends Component {
         console.log(this.props.state);
         return (
 
-            <div className="col col-md-8 mx-auto universal_card shadow">
+            <div className="col col-md-8 mx-auto universalCard shadow">
                 <div className="col-12">
-                    <a href="/manageLeases"> <h5 className="btn btn-light border border-secondary mb-3">Back to Manage Leases</h5> </a>
+                    <a href="/manageLeases"> <h5 className="btn universal_btn border border-secondary mb-3">Back to Manage Leases</h5> </a>
                 </div>
                 <div className="col-12">
                     <div className="card rounded-0">
@@ -16,7 +16,7 @@ class ManageLeasedTenant extends Component {
                             Your Lease Title -tenant
                         </div>
                         <div className="card-body">
-                            Words
+                        {this.props.state.currentViewTenantLease.property}
                         </div>
                     </div>
 

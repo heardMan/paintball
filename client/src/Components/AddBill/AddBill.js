@@ -97,8 +97,8 @@ class AddBill extends Component {
     }
 
    render() {
-        const manager = this.props.state.roles.indexOf("manager") > -1 ? true : false;
-        if (manager) {
+        const manager = this.props.state.roles.indexOf("manager") > 0 ? true : false;
+        if (this.props.state.roles.indexOf("manager")>-1) {
 
 
             const tenants = this.props.state.tenants;
@@ -232,7 +232,7 @@ class AddBill extends Component {
                 </div>
             );
         } else {
-            return (<div><img src="https://media.giphy.com/media/wSSooF0fJM97W/giphy.gif" alt="" className="img-fluid" /></div>)
+            return (null)
         }
     }
 }

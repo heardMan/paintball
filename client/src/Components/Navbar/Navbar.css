@@ -6,12 +6,12 @@ nav {
     display: none;
   }
   .navigation__button {
-    background-color: white;
+    background-color: #001d43;
     height: 4rem;
     width: 4rem;
     position: fixed;
-    top: 6rem;
-    right: 6rem;
+    top: 2rem;
+    right: 3rem;
     border-radius: 50%;
     z-index: 2000;
     box-shadow: 0 1rem 3rem rgba(255, 255, 255, 0.1);
@@ -23,9 +23,9 @@ nav {
     width: 3rem;
     border-radius: 50%;
     position: fixed;
-    top: 6.5rem;
-    right: 6.5rem;
-    background-image: radial-gradient(white, #f99245);
+    top: 2.5rem;
+    right: 3.5rem;
+    background-image: radial-gradient(white, #5f8ac2);
     z-index: 1000;
     transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
   }
@@ -61,7 +61,7 @@ nav {
   
   .navigation__link:link, .navigation__link:visited {
     display: inline-block;
-    font-size: 3rem;
+    font-size: 1rem;
     font-weight: 300;
     padding: 1rem 2rem;
     color: gray;
@@ -94,7 +94,7 @@ nav {
   .navigation__icon, .navigation__icon::before, .navigation__icon::after {
     width: 2rem;
     height: 2px;
-    background-color: gray;
+    background-color: white;
     display: inline-block;
   }
   .navigation__icon::before, .navigation__icon::after {

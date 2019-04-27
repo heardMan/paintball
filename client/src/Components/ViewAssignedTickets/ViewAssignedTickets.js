@@ -4,7 +4,7 @@ import "./ViewAssignedTickets.css";
 class ViewAssignedTickets extends Component {
     render(){
         return(
-            <div className="viewAssignedTickets_card shadow">
+            <div className="universal_card shadow">
                 <div className="card-title">
                 <h5>Manage Assigned Tickets - for managers</h5>
                 </div>

@@ -37,11 +37,26 @@ class App extends Component {
     userEmail: "",
     userId: "",
     roles: [],
+    
     managedProperties: [],
     leasedProperties: [],
+    ownedPropertyList: [], 
     currentViewProperty: {},
+    currentViewLeasedProperty: {},
+    currentViewManagedLease: {},
+    currentViewTenantLease: {},
+    currentViewCreatedTicket: {},
+    currentViewAssignedTicket: {},
     menuToggle: false,
     lastPage: "",
+    payments: [],
+    paymentsManager:[],
+    createdTickets: [],
+    assignedTickets: [],
+    managedLeases: [],
+    tenantLeases: [],
+    ownedProperties: [],
+    
     //signin
     email: "",
     password: "",
@@ -70,6 +85,7 @@ class App extends Component {
     dueDate: "",
     moveIn: "",
     moveOut: "",
+    propertyToLease:"",
     //Create bill
     rent: "",
     repair: "",
@@ -85,6 +101,9 @@ class App extends Component {
     userSignedIn: "",
     //redirects
     managedPropertyRedirect: false,
+    leasedPropertyRedirect: false,
+    managedLeaseRedirect: false,
+    tenantLeaseRedirect: false,
 
 
   };
@@ -95,13 +114,31 @@ class App extends Component {
       .then(resp => {
         console.log(resp.data);
         const data = resp.data.roles;
+        const ownedPropertyList = [];
+        resp.data.owned_properties.map((property,i)=>{
+          console.log(property);
 
+          ownedPropertyList.push(property.address);
+        })
         this.setState({
           userEmail: resp.data.email,
           userId: resp.data.id,
           roles: data,
+
+          payments:resp.data.payments,
+          paymentsManager:resp.data.paymentsManager,
+
+          createdTickets: resp.data.createdTickets,
+          assignedTickets: resp.data.assignedTickets,
+
+          managedLeases: resp.data.managed_leases,
+          tenantLeases: resp.data.leases,
+
+          ownedPropertyList: ownedPropertyList,
+          ownedProperties: resp.data.owned_properties,
           managedProperties: resp.data.managed_properties,
           leasedProperties: resp.data.leased_properties,
+          
           userSignedIn: true
         })
 
@@ -272,10 +309,26 @@ class App extends Component {
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const tenants = this.state.tenants;
     const misc = this.state.misc;
+    
     const dueDate = this.state.dueDate;
     const moveIn = this.state.moveIn;
     const moveOut = this.state.moveOut;
     const feeArr = this.state.miscFees;
+    const property= this.state.propertyToLease;
+    let propertyId;
+    this.state.ownedProperties.forEach((property,i)=>{
+      console.log("ADDRESS:"+property._id)
+      console.log("ADDRESS:"+this.state.propertyToLease)
+
+      if(property.address === this.state.propertyToLease){
+         console.log(property._id);
+         propertyId = property._id; 
+      }
+      console.log(propertyId);
+    })
+
+
+
     function getTenantIds(cb) {
 
       const tenantIds = [];
@@ -308,6 +361,7 @@ class App extends Component {
     function createLeaseObj(tenantIds) {
       console.log("working");
       const Lease = {
+        property: propertyId,
         tenants: tenantIds,
         rate: rateCurrency,
         secDep: securityDep,
@@ -457,7 +511,9 @@ class App extends Component {
 
       <Router>
         <div>
+
           <div name="spacer" style={{ height: "1rem" }}></div>
+
 
 
           <Navbar signOut={this.signOut} state={this.state} handleInputChange={this.handleInputChange} />

@@ -21,6 +21,16 @@ export default class PayForm extends React.Component {
       })
     }).then(response => {
         console.log(response)
+        console.log(response.status)
+        if(response.status === 200){
+          //this.props.paymentId
+          this.props.state.payments.forEach(payment=>{
+            if(payment._id === this.props.paymentID){
+              console.log("EUREKA!!!!")
+            }
+          })
+
+        }
     });
   }
  
@@ -30,7 +40,7 @@ export default class PayForm extends React.Component {
         
       <StripeCheckout
         name="Rentera" // the pop-in header title
-        description="Rent" // the pop-in header subtitle
+        // description="Rent" // the pop-in header subtitle
         image="http://icons.iconarchive.com/icons/webalys/kameleon.pics/512/Apartment-icon.png" // the pop-in header image (default none)
         ComponentClass="div"
         panelLabel="Pay" // prepended to the amount in the bottom pay button
@@ -51,7 +61,9 @@ export default class PayForm extends React.Component {
         triggerEvent="onClick"
         >
         
-       <button className="btn btn-primary">
+
+       <button id={this.props.paymentId} className="btn universal_btn">Pay Bill
+
        
        </button>
       </StripeCheckout>

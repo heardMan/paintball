@@ -70,12 +70,15 @@ class AddProperty extends Component {
 
 
     render() {
+         if(this.props.state.roles.indexOf("manager") < 0) {
+            return(null)
+        } else {
         const managers = this.props.state.managers;
         return (
-            <div className="addProperty_card shadow">
+            <div className="universal_card shadow">
 
             <div className="col">
-            <h5>Add Property -only for managers</h5>
+            <h5>Add Property</h5>
             </div>
             <div className="card-body">
                 <form>
@@ -91,7 +94,7 @@ class AddProperty extends Component {
                             <ul className="list-group mb-3">
                                 {managers.map((manager,i) => {
                                     if(manager === this.props.state.userEmail){
-                                        //do nothin
+                                        return null
                                     } else {
 
                                     
@@ -145,6 +148,7 @@ class AddProperty extends Component {
                 </div> */}
             </div>
         );
+    }
     }
 }
 export default AddProperty;

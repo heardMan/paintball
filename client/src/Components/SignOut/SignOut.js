@@ -24,6 +24,7 @@ render() {
     if (userSignedIn === false) {
         return (
 
+
             <Jumbotron>
                  <h1>You're Signed Out!</h1>
                      <p>
@@ -38,6 +39,7 @@ render() {
             // <div className="">
             //     <div className="">You're Signed Out!</div>
             // </div>
+
         );
     } else {
         return (

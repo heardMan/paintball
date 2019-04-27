@@ -105,7 +105,12 @@ class Autocomplete extends Component {
     } = this;
 
     let suggestionsListComponent;
-
+    let button;
+    if(this.props.kind === "leaseProperty"){
+      button = <button name="addPropertyToLease" onClick={this.props.addSelected} id={userInput} className="btn btn-primary m-0">Add</button>
+    } else {
+      button = <button name="addTenant" onClick={this.props.addSelected} id={userInput} className="btn btn-primary m-0">Add</button>
+    }
     if (showSuggestions && userInput) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
@@ -153,7 +158,8 @@ class Autocomplete extends Component {
         {suggestionsListComponent}
         </div>
         <div className="col-2">
-        <button name="addTenant" onClick={this.props.addSelected} id={userInput} className="btn btn-primary m-0">Add</button>
+        {/* <button name="addTenant" onClick={this.props.addSelected} id={userInput} className="btn btn-primary m-0">Add</button> */}
+        {button}
         </div>
         </div>
       </Fragment>

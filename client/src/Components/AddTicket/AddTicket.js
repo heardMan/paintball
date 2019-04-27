@@ -4,7 +4,7 @@ import "./AddTicket.css";
 class AddTicket extends Component {
     render() {
         return (
-            <div className="AddTicket_card shadow">
+            <div className="universal_card shadow">
             <div className="card-title">
             <h5>Submit a Service Ticket</h5>
             </div>

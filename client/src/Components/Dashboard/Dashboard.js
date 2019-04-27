@@ -18,6 +18,8 @@ class Dashboard extends Component {
         return (
 
 
+
+
 <div className="background">
     <div className="header">  
 
@@ -47,6 +49,7 @@ class Dashboard extends Component {
                             Control Panel
                         </h2>
                     </div>
+
             
 
                  {/* Cards Start Here */}
@@ -176,6 +179,7 @@ class Dashboard extends Component {
             );
 
         }
+
 
     }
 
