@@ -77,7 +77,7 @@ class Dashboard extends Component {
                                             <p className="card__info-view">Click</p>
                                             <p className="card__info-below">Below</p>
                                         </div>
-                                    <a href="#" className="btn btn-lg">Payments</a>
+                                    <a href="/managePayments" className="btn btn-lg">Payments</a>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ class Dashboard extends Component {
                                             <p className="card__info-view">Click</p>
                                             <p className="card__info-below">Below</p>
                                        </div>
-                                    <a href="#" className="btn btn-lg">Tickets</a>
+                                    <a href="manageTickets" className="btn btn-lg">Tickets</a>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +137,7 @@ class Dashboard extends Component {
                                             <p className="card__info-view">Click</p>
                                             <p className="card__info-below">Below</p>
                                         </div>
-                                        <a href="#" className="btn btn-lg">Properties</a>
+                                        <a href="/manageProperties" className="btn btn-lg">Properties</a>
                                     </div>
                               </div>
                          </div>
@@ -166,7 +166,7 @@ class Dashboard extends Component {
                                             <p className="card__info-view">Click</p>
                                             <p className="card__info-below">Below</p>
                                         </div>
-                                        <a href="#" className="btn btn-lg">Leases</a>
+                                        <a href="/manageLeases" className="btn btn-lg">Leases</a>
                                     </div>
                                 </div>
                             </div>
