@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const PaymentSchema = new Schema({
-    lease: String,
-    property: String,
-    tenant: String,
+    lease: [{ type: Schema.ObjectId, ref: 'Lease' }],
+    property: [{ type: Schema.ObjectId, ref: 'Property' }],
+    tenant: [{ type: Schema.ObjectId, ref: 'User' }],
     amount: Number,
     balance: Number,
     paid: Boolean,

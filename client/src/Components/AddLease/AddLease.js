@@ -109,12 +109,16 @@ class AddLease extends Component {
 
 
     render() {
+        
 
         const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         const tenants = this.props.state.tenants;
 
 console.log(this.state.miscFees);
 console.log(this.props.state);
+// if(this.props.state.roles.indexOf("manager") < 0){
+//     return(null)
+// } else{
         return (
             <div className="card rounded-0 p-3">
                 <div className="card-title">
@@ -279,6 +283,7 @@ console.log(this.props.state);
 
             </div>
         );
+                                        //}
     }
 }
 export default AddLease;

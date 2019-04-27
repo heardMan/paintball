@@ -10,22 +10,22 @@ class ManageLeases extends Component {
             
                 <div className="row">
                 <div className="col-12">
-                <a href="/dashboard"><h4>Back to Dashboard</h4></a>
+                {/* <a href="/dashboard"><h4>Back to Dashboard</h4></a> */}
                 
                 </div>
-                <div className="col-12">
+                {/* <div className="col-12">
                 <ViewLeases
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} />
-                </div>
-                <div className="col-12">
+                </div> */}
+                {/* <div className="col-12">
                 
                 <ViewManagedLeases
                         state={this.props.state}
                         handleFormSubmit={this.props.handleFormSubmit}
                         handleInputChange={this.props.handleInputChange} />
-                </div>
+                </div> */}
                 <div className="col-12">
 
 
@@ -51,10 +51,10 @@ class ManageLeases extends Component {
                                         state={this.props.state}
                                         handleFormSubmit={this.props.handleFormSubmit}
                                         handleInputChange={this.props.handleInputChange} />
-                                
 
                                 </div>
                         </div>
+                </div>
                 </div>
            
 

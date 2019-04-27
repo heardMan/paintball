@@ -41,7 +41,7 @@ export default {
         return axios.post("/api/users/byEmail", user);
     },
     getLease: function(leaseId){
-        return axios.get(`/api/leases`, leaseId)
+        return axios.get("/api/leases/", leaseId)
     },  
     getLeases: function(user){
         return axios.post("/api/users/byEmail", user);
