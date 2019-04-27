@@ -4,7 +4,7 @@ import "./AddAnnounce.css";
 class AddAnnounce extends Component {
     render() {
         return (
-            <div className="col mx-auto announcement_card book shadow">
+            <div className="col mx-auto universal_card shadow">
                 
                     <div className="card-title">
                         <h3>Add an Announcement</h3>
@@ -12,7 +12,7 @@ class AddAnnounce extends Component {
                 
                 <div className="card-body">
                 
-                <form>
+                <form className="col">
                     <div className="form-group">
                         <label >Title</label>
                         <input name="announceTitle"  onChange={this.props.handleInputChange} value={this.props.state.announceTitle} type="text" className="form-control" id="announceTitle" aria-describedby="title" placeholder="Title"/>       
@@ -21,7 +21,7 @@ class AddAnnounce extends Component {
                         <small >Announcement Description</small>
                         <textarea name="announceDescription"  onChange={this.props.handleInputChange} value={this.props.state.announceDescription} className="form-control" id="annouceDescription" rows="3"></textarea>
                     </div> 
-                    <button name="newAnnounce" onClick={this.props.handleFormSubmit} type="button" className="btn announcement_btn">Submit</button>
+                    <button name="newAnnounce" onClick={this.props.handleFormSubmit} type="button" className="btn manageProperties_btn">Submit</button>
                 </form>
                 
                 </div>

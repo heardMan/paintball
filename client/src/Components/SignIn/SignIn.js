@@ -34,9 +34,9 @@ class SignIn extends Component {
         //render the sign in form
         else {
             return (
-            <div className="header col-6 mx-auto">
-                <form className="form-box">
-                    <div><h2>Sign In</h2></div>
+            <div className="col-6 mx-auto register_card shadow">
+                <form className="form-box mx-auto">
+                    <div><h2 className="text-center">Sign In</h2></div>
                     <div className="form-group">
                         <label >Email address</label>
                         <input name="email" 
@@ -60,7 +60,7 @@ class SignIn extends Component {
                             disabled={emailCheck + passCheck} 
                             onClick={this.props.handleFormSubmit} 
                             type="submit" 
-                            className="btn btn-primary">Submit</button>
+                            className="btn universal_btn">Submit</button>
                 
                 </form>
                 

@@ -4,7 +4,7 @@ import "./ViewLeasedPropterties.css";
 class ViewLeasedProperties extends Component {
     render(){
         return(
-            <div className="viewLeasedProperties_card shadow">
+            <div className="universal_card shadow">
                 <div className="card-title">
                 <h5>Manage Leased Properties - for tenants</h5>
                 </div>

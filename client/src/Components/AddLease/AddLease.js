@@ -96,7 +96,7 @@ class AddLease extends Component {
         const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
         const tenants = this.props.state.tenants;
         return (
-            <div className="manageAnnouncement_card shadow">
+            <div className="universal_card shadow">
             <div className="card-title">
             <h5>Add A Lease -only for  managers</h5>
             </div>
@@ -199,7 +199,7 @@ class AddLease extends Component {
                         <label>Miscellaneous Fees: </label>
                         <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
                         <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
-                        <button onClick={this.addFeeRow} name="" type="submit" className="btn btn-primary">Button</button>
+                        <button onClick={this.addFeeRow} name="" type="submit" className="btn universal_btn">Button</button>
                     </div>
 
 
@@ -221,7 +221,7 @@ class AddLease extends Component {
                         <input name="moveOut" className="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
                     </div>
                     <div>
-                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
+                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn universal_btn">Submit Lease</button>
                     </div>
                 </form>
 

@@ -18,8 +18,8 @@ render() {
     const userSignedIn = this.props.state.userSignedIn;
     if (userSignedIn === false) {
         return (
-            <div className="">
-                <div className="">You're Signed Out!</div>
+            <div className="col-6 mx-auto universalCard shadow">
+                <div className="text-center">You're Signed Out!</div>
             </div>
         );
     } else {

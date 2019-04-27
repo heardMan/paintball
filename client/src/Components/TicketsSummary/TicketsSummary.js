@@ -4,14 +4,12 @@ import React, { Component } from "react";
 class TicketsSummaryCard extends Component {
     render() {
         return (
-            <div className="card rounded-0">
                 <div className="row">
                 <div className="col-12">
-                    <a href="/manageTickets">Tickets Summary Card</a>
+                    <a href="/manageTickets"><h6 className="btn universal_btn border border-secondary ml-3">Tickets Summary Card</h6></a>
                 </div>
 
                 </div>
-            </div>
 
         );
     }

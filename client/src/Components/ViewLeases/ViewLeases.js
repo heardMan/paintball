@@ -4,7 +4,7 @@ import "./ViewLeases.css";
 class ViewLeases extends Component {
     render(){
         return(
-            <div className="col shadow viewLease_card">
+            <div className="col shadow universal_card">
                 <div className="card-title">
                     <h5>Your Leases - only for tenants</h5>
                 </div>

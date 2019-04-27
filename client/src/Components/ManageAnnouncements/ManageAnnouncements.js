@@ -10,7 +10,7 @@ class ManageAnnouncements extends Component {
             
                 <div className="col col-md-8 mx-auto shadow manageAnnouncement_card">
                     <div className="col-12">
-                    <a href="/dashboard"><h4 className="btn btn-light border border-secondary mb-3">Back to Dashboard</h4></a>
+                    <a href="/dashboard"><h4 className="btn universal_btn border border-secondary mb-3">Back to Dashboard</h4></a>
                     </div>
 
                     <div className="col-12">

@@ -6,9 +6,9 @@ class ManageAnnouncementPage extends Component {
         console.log(this.props.state);
         return (
 
-            <div className="col col-md-8 mx-auto universal_card shadow">
+            <div className="col col-md-8 mx-auto universalCard shadow">
                 <div className="col-12">
-                    <a href="/manageAnnouncements"> <h5 className="btn btn-light border border-secondary mb-3">Back to Manage Announcements</h5> </a>
+                    <a href="/manageAnnouncements"> <h5 className="btn universal_btn border border-secondary mb-3">Back to Manage Announcements</h5> </a>
                 </div>
                 <div className="col-12">
                     <div className="card rounded-0">

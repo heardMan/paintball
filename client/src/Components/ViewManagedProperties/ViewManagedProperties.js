@@ -25,7 +25,7 @@ class ViewManagedProperties extends Component {
             return <Redirect to={{ pathname: "/manageProperty", info: this.props.state.currentViewProperty }} />
         } else {
             return (
-                <div className="viewManagedProperties_card shadow">
+                <div className="universal_card shadow">
                 <div className="card-title">
                 <h5>Manage Properties -for managers</h5>
                 </div>

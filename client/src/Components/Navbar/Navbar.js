@@ -24,7 +24,11 @@ class Navbar extends Component {
                 <nav className="navigation__nav">
 
                     <ul className={`navigation__list ${toggled}`}>
-                        <li className="navigation__item"><a href="/signout" onClick={this.props.signOut} className="navigation__link"><span>01</span> Sign Out</a></li> 
+                        <li className="navigation__item"><a href="/managePayments"className="navigation__link"><span>01</span> Payments</a></li>
+                        <li className="navigation__item"><a href="/manageTickets"className="navigation__link"><span>02</span> Tickets</a></li>
+                        <li className="navigation__item"><a href="/manageProperties"className="navigation__link"><span>03</span> Properties</a></li>
+                        <li className="navigation__item"><a href="/manageLeases"className="navigation__link"><span>04</span> Leases</a></li>
+                        <li className="navigation__item"><a href="/signout" onClick={this.props.signOut} className="navigation__link"><span>05</span> Sign Out</a></li>  
                     </ul>
    
 

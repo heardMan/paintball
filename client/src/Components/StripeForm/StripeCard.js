@@ -30,7 +30,7 @@ export default class PayForm extends React.Component {
         
       <StripeCheckout
         name="Rentera" // the pop-in header title
-        description="Rent" // the pop-in header subtitle
+        // description="Rent" // the pop-in header subtitle
         image="http://icons.iconarchive.com/icons/webalys/kameleon.pics/512/Apartment-icon.png" // the pop-in header image (default none)
         ComponentClass="div"
         panelLabel="Pay" // prepended to the amount in the bottom pay button
@@ -51,7 +51,7 @@ export default class PayForm extends React.Component {
         triggerEvent="onClick"
         >
         
-       <button className="btn btn-primary">
+       <button className="btn universal_btn">
        
        </button>
       </StripeCheckout>
