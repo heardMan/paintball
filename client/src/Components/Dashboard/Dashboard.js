@@ -50,7 +50,9 @@ class Dashboard extends Component {
                     <div className="card rounded-0">
                     <div className="card-title"></div>
                     <div className="card-body">
-                    <ViewAnnouncementsDash />
+                    <ViewAnnouncementsDash
+                    state={this.props.state}
+                    />
                     </div>
 
                     <div className="card-footer">
@@ -60,19 +62,29 @@ class Dashboard extends Component {
 
                     </div>
                     </div>
+
                     <div className="row">
                         <div className="col-12 col-md-3">
-                        <PaymentsSummaryCard />
+                        <PaymentsSummaryCard 
+                        state={this.props.state}
+                        />
                         </div>
                         <div className="col-12 col-md-3">
-                        <TicketsSummaryCard />
+                        <TicketsSummaryCard 
+                        state={this.props.state}
+                        />
                         </div>
                         <div className="col-12 col-md-3">
-                        <PropertiesSummaryCard />
+                        <PropertiesSummaryCard 
+                        state={this.props.state}
+                        />
                         </div>
                         <div className="col-12 col-md-3">
-                        <LeasesSummaryCard />
+                        <LeasesSummaryCard 
+                        state={this.props.state}
+                        />
                         </div>
+
                     </div>
 
                     <div className="col-12 my-3 text-center">

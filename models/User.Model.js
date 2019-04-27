@@ -31,10 +31,14 @@ const UserSchema = new Schema({
     roles: {
         type:Array
     },
+    managed_leases:[{ type: Schema.ObjectId, ref: 'Lease' }],
+    owned_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
     managed_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
     leased_properties: [{ type: Schema.ObjectId, ref: 'Property' }],
     leases: [{ type: Schema.ObjectId, ref: 'Lease' }],
-    tickets: [{ type: Schema.ObjectId, ref: 'Ticket' }],
+    createdTickets: [{ type: Schema.ObjectId, ref: 'Ticket' }],
+    assignedTickets: [{ type: Schema.ObjectId, ref: 'Ticket' }],
+    paymentsManager: [{ type: Schema.ObjectId, ref: 'Payment' }],
     payments: [{ type: Schema.ObjectId, ref: 'Payment' }],
 });
 

@@ -16,7 +16,7 @@ class ManageLeasedTenant extends Component {
                             Your Lease Title -tenant
                         </div>
                         <div className="card-body">
-                            Words
+                        {this.props.state.currentViewTenantLease.property}
                         </div>
                     </div>
 

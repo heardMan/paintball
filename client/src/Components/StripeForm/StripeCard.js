@@ -21,6 +21,16 @@ export default class PayForm extends React.Component {
       })
     }).then(response => {
         console.log(response)
+        console.log(response.status)
+        if(response.status === 200){
+          //this.props.paymentId
+          this.props.state.payments.forEach(payment=>{
+            if(payment._id === this.props.paymentID){
+              console.log("EUREKA!!!!")
+            }
+          })
+
+        }
     });
   }
  
@@ -51,7 +61,9 @@ export default class PayForm extends React.Component {
         triggerEvent="onClick"
         >
         
-       <button className="btn universal_btn">
+
+       <button id={this.props.paymentId} className="btn universal_btn">Pay Bill
+
        
        </button>
       </StripeCheckout>

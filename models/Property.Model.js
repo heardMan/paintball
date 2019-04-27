@@ -8,6 +8,7 @@ const PropertySchema = new Schema({
     leases: [{ type: Schema.ObjectId, ref: 'Lease' }],
     isVacant: {type: Boolean},
     payments: [{ type: Schema.ObjectId, ref: 'Payment' }],
+    payments: [{ type: Schema.ObjectId, ref: 'Payment' }],
     address: String,
 
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AutoComplete from "../AutoComplete/AutoComplete";
 
 
 class ManageLeasedProperty extends Component {
@@ -16,7 +17,8 @@ class ManageLeasedProperty extends Component {
                             Leased Property Title
                         </div>
                         <div className="card-body">
-                            Teneant View More Words
+                        
+                        {this.props.state.currentViewLeasedProperty.address}
                         </div>
                     </div>
 

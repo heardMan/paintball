@@ -21,6 +21,7 @@ body {
     position: absolute;
     left: 6%;
     background-color: #ffffff;
+    z-index: 10000;
   }
   
   .suggestions li {

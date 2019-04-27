@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import "./ManageLeaseManager.css";
+import API from "../../Utilities/API";
 
 
 class ManageLeasedManager extends Component {
+    componentDidMount(){
+        //API.getLease(this.props.state.currentViewManagedLease.property)
+    }
     render() {
         console.log(this.props.state);
+        API.getLease(this.props.state.currentViewManagedLease.property)
+        .then(res=>{console.log(res)})
+        .catch(err=>{err});
+        
+
         return (
 
             <div className="col col-md-8 mx-auto universalCard shadow">
@@ -17,7 +26,15 @@ class ManageLeasedManager extends Component {
                             Managed Lease Title -manager
                         </div>
                         <div className="card-body">
-                            Words
+                        <div className="row">
+                        <div className="col-12">
+                        <ul className="list-group">
+                        
+                        </ul>
+                        </div>
+                        </div>
+
+                        {this.props.state.currentViewManagedLease.property}
                         </div>
                     </div>
 
