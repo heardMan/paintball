@@ -3,10 +3,11 @@
 }
 
 .register_card {
+    background-color: #FBFCFD;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
-    background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(/img/five.jpg);
+    /* background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(/img/five.jpg); */
     background-size: 100%;
     border-radius: 3px;
     box-shadow: 0 1.5rem 4rem rgba(255, 155, 155, 0.2);

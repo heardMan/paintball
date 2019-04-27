@@ -35,7 +35,7 @@ class ViewManagedLeases extends Component {
 
         
         return(
-            <div className="col viewManagedLeases_card shadow">
+            <div className="col universal_card shadow">
                 <div className="card-title">
                 <h5>Manage Leases - only for managers</h5>
                 </div>

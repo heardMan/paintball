@@ -21,6 +21,7 @@ class ViewLeasedProperties extends Component {
     }
     render(){
 
+
         if(this.state.redirect === true){
             return <Redirect to={{ pathname: "/manageLeasedProperty", info: this.props.state.currentViewLeasedProperty }} />
         } 
@@ -29,7 +30,7 @@ class ViewLeasedProperties extends Component {
         // } 
         else {
             return(
-                <div className="card rounded-0 p-3 my-3">
+                <div className="universal_card shadow">
                     <div className="card-title">
                     <h5>Manage Leased Properties - for tenants</h5>
                     </div>
@@ -60,6 +61,7 @@ class ViewLeasedProperties extends Component {
                     
                     </ul>
                     </div>
+
 
                 </div>
             );

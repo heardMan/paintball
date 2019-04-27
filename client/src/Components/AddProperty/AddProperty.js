@@ -75,7 +75,7 @@ class AddProperty extends Component {
         // } else {
         const managers = this.props.state.managers;
         return (
-            <div className="addProperty_card shadow">
+            <div className="universal_card shadow">
 
             <div className="col">
             <h5>Add Property -only for managers</h5>

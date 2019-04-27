@@ -120,7 +120,8 @@ console.log(this.props.state);
 //     return(null)
 // } else{
         return (
-            <div className="card rounded-0 p-3">
+
+            <div className="universal_card shadow">
                 <div className="card-title">
                     <h5>Add A Lease -only for  managers</h5>
                 </div>
@@ -159,6 +160,7 @@ console.log(this.props.state);
                                         );
                                     })}
                                 </div>
+
                             </div>
                             <div className="row">
                                 <div className="col-12">
@@ -268,18 +270,38 @@ console.log(this.props.state);
                                 <input name="moveIn" className="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
                             </div>
                         </div>
-                        <div className="form-group row" className="dateBox">
-                            <label htmlFor="leaseEnd" className="col-2 col-form-label">Lease End Date: </label>
-                            <div className="col-10">
-                                <input name="moveOut" className="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
-                            </div>
-                        </div>
-                        <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
-                    </form>
 
-                       
+                        <label>Miscellaneous Fees: </label>
+                        <input type="text" name="misc" className="form-control" id="addFee" onChange={this.props.handleInputChange} value={this.props.state.misc} placeholder="Pet Deposit" />
+                        <input type="text" name="miscFee" className="form-control" id="feeAmount" onChange={this.props.handleInputChange} value={this.props.state.miscFee} placeholder="200.00" />
+                        <button onClick={this.addFeeRow} name="" type="submit" className="btn universal_btn">Button</button>
+                    </div>
 
-                </div>
+
+                    <div className="form-group">
+                        <h4>Reoccurring Due Date</h4>
+                        <label htmlFor="exampleFormControlSelect1">Choose a Day of the Month</label>
+                        <select className="form-control" name="dueDate" id="dueDate" onChange={this.props.handleInputChange} value={this.props.state.dueDate}>
+                            {days.map(day => <option key={day} value={day}>{day}</option>)}
+                        </select>
+                    </div>
+
+                  
+                    <div className="form-group">
+                        <label htmlFor="moveIn">Move-In Date</label>
+                        <input name="moveIn" className="form-control" type="date" id="moveIn" onChange={this.props.handleInputChange} value={this.props.state.moveIn}></input>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="leaseEnd">Lease End Date: </label>
+                        <input name="moveOut" className="form-control" type="date" id="leaseEnd" onChange={this.props.handleInputChange} value={this.props.state.moveOut}></input>
+                    </div>
+                    <div>
+                    <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn universal_btn">Submit Lease</button>
+                    </div>
+                </form>
+
+</div>
+
 
             </div>
         );

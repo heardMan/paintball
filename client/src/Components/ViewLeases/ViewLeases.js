@@ -22,6 +22,7 @@ class ViewLeases extends Component {
     }
     render(){
 
+
         if(this.state.redirect === true){
             return <Redirect to={{ pathname: "/manageLeaseTenant", info: this.props.state.currentViewTenantLease }} />
         } 
@@ -30,8 +31,9 @@ class ViewLeases extends Component {
         // } 
         else {
             return(
-                <div className="card rounded-0 p-3 my-3">
+                <div className="col shadow universal_card">
                     <div className="card-title">
+
                     <h5>Your Leases - only for tenants</h5>
                     </div>
                     <div className="card-body">

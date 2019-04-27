@@ -4,7 +4,7 @@ import "./ViewCreatedTickets.css";
 class ViewManagedLeases extends Component {
     render(){
         return(
-            <div className="viewCreatedTickets_card shadow">
+            <div className="universal_card shadow">
                 <div className="card-title">
                 <h5>Manage Created Tickets - for tenants</h5>
                 </div>

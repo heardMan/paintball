@@ -4,7 +4,7 @@ import "./ViewAnnouncements.css";
 class ViewAnnouncements extends Component {
     render() {
         return (
-            <div className="col shadow viewAnnouncements_card">
+            <div className="col shadow universal_card">
                 <div className="card-title">
                     <h5>Announcements</h5>
                 </div>

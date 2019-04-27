@@ -1,9 +1,9 @@
 .viewAnnouncements_card {
-    background-color: rgb(153, 122, 149);
+    background-color: #E8ECED;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 30px;
-    background-image: linear-gradient(110deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url();
+    /* background-image: linear-gradient(110deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(); */
     background-size: 100%;
     border-radius: 3px;
     box-shadow: 0 1.5rem 4rem rgba(255, 155, 155, 0.2);
