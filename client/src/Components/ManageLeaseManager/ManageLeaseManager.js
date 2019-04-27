@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./ManageLeaseManager.css";
 
 
 class ManageLeasedManager extends Component {
@@ -8,9 +9,9 @@ class ManageLeasedManager extends Component {
 
         return (
 
-            <div className="row">
+            <div className="col col-md-8 mx-auto manageLeaseManager_card shadow">
                 <div className="col-12">
-                    <a href="/manageLeases"> <h5>Back to Manage Leases</h5> </a>
+                    <a href="/manageLeases"> <h5 className="btn btn-light border border-secondary mb-3">Back to Manage Leases</h5> </a>
                 </div>
                 <div className="col-12">
                     <div className="card rounded-0">

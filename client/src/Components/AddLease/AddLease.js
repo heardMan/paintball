@@ -11,7 +11,9 @@ class AddLease extends Component {
         allTenants: [],
         ownedPropertyList: [],
         tenants: [],
+
         miscFees: [],
+
     }
 
     addSelected = event => {
@@ -124,6 +126,7 @@ console.log(this.props.state);
                             <div className="row">
                                 <div className="col-12">
                                     Add Tenants
+  
                             </div>
                                 <div className="col-12">
                                     {tenants.map((tenant) => {
@@ -243,6 +246,7 @@ console.log(this.props.state);
                         </div>
 
 
+
                         <div className="form-group">
                             <label>Reoccurring Due Date: Rent is due on the  </label>
                             <label htmlFor="exampleFormControlSelect1">Day of Month</label>
@@ -268,6 +272,8 @@ console.log(this.props.state);
                         </div>
                         <button onClick={this.props.handleFormSubmit} name="addNewLease" type="submit" className="btn btn-primary">Submit Lease</button>
                     </form>
+
+                       
 
                 </div>
 

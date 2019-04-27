@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AutoComplete from "../AutoComplete/AutoComplete";
 import API from "../../Utilities/API";
 import AddLease from "../AddLease/AddLease";
+import "./addProperty.css";
 
 class AddProperty extends Component {
     state = {
@@ -71,8 +72,9 @@ class AddProperty extends Component {
     render() {
         const managers = this.props.state.managers;
         return (
-            <div className="card rounded-0 mb-5 p-3">
-            <div className="card-title">
+            <div className="addProperty_card shadow">
+
+            <div className="col">
             <h5>Add Property -only for managers</h5>
             </div>
             <div className="card-body">
@@ -130,7 +132,7 @@ class AddProperty extends Component {
                         onClick={this.props.handleFormSubmit} 
                         name="addNewProperty" 
                         type="submit" 
-                        className="btn btn-primary">Submit</button>
+                        className="btn addProperty_btn">Submit</button>
                 </form>
                 </div>
 

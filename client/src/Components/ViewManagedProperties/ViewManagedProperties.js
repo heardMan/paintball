@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import API from "../../Utilities/API";
+import "./ViewManagedProperties.css";
+
 class ViewManagedProperties extends Component {
     state = {
         redirect: false
@@ -23,7 +25,7 @@ class ViewManagedProperties extends Component {
             return <Redirect to={{ pathname: "/manageProperty", info: this.props.state.currentViewProperty }} />
         } else {
             return (
-                <div className="card rounded-0 my-3 p-3">
+                <div className="viewManagedProperties_card shadow">
                 <div className="card-title">
                 <h5>Manage Properties -for managers</h5>
                 </div>

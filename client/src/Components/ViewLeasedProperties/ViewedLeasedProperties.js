@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+
 import { Redirect } from "react-router-dom";
+import "./ViewLeasedPropterties.css";
+
 
 class ViewLeasedProperties extends Component {
     state = {
@@ -17,6 +20,7 @@ class ViewLeasedProperties extends Component {
         console.log(this.info);
     }
     render(){
+
         if(this.state.redirect == true){
             return <Redirect to={{ pathname: "/manageLeasedProperty", info: this.props.state.currentViewLeasedProperty }} />
         } else {
@@ -52,6 +56,7 @@ class ViewLeasedProperties extends Component {
                     
                     </ul>
                     </div>
+
                 </div>
             );
         }

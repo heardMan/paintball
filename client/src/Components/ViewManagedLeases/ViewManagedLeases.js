@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+
 import { Redirect } from "react-router-dom";
 import API from "../../Utilities/API";
 import { runInThisContext } from "vm";
+import "./ViewManagedLeases.css";
+
+
 class ViewManagedLeases extends Component {
     state = {
         redirect: false
@@ -27,7 +31,7 @@ class ViewManagedLeases extends Component {
 
         
         return(
-            <div className="card rounded-0 p-3 my-3">
+            <div className="col viewManagedLeases_card shadow">
                 <div className="card-title">
                 <h5>Manage Leases - only for managers</h5>
                 </div>
