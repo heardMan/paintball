@@ -6,98 +6,181 @@ import PropertiesSummaryCard from "../PropertiesSummary/PropertiesSummary";
 import PaymentsSummaryCard from "../PaymentsSummary/PaymentsSummary";
 import ViewAnnouncementsDash from "../ViewAnnouncementsDash/ViewAnnouncementsDash";
 
+// import { Row, Col, Card, Popup, Button } from "react-bootstrap";
+
+import "./Dashboard.css";
+
+
 class Dashboard extends Component {
     
     render() {
         console.log(this.props.state)
         return (
-            
-                
-                <div className="row col mx-auto universalCard shadow-lg">
-                    <div className="col universal_card shadow">
-                        <h1 className="text-center">Welcome to the Dashboard!</h1>
 
-                        <hr></hr>
-                        <div className="row text-center">
-                            <h4 className="col-12 text-center py-3">Announcements</h4>
-                            <div className="col-12 text-center">
-                                <a href="/manageAnnouncements"><h6 className="btn universal_btn border border-secondary mr-3">Manage Announcements</h6></a>
-                                <a href="/viewAnnouncement"><h6 className="btn universal_btn border border-secondary mr-3">View Announcements</h6></a>
-                            </div>
-                        </div>
 
-                        <div className="row my-4">
-                            <div className="col-12 col-md-3">
-                            <PaymentsSummaryCard />
-                            </div>
-                            <div className="col-12 col-md-3">
-                            <TicketsSummaryCard />
-                            </div>
-                            <div className="col-12 col-md-3">
-                            <PropertiesSummaryCard />
-                            </div>
-                            <div className="col-12 col-md-3">
-                            <LeasesSummaryCard />
-                            </div>
-                        </div>
-                        
+
+
+<div className="background">
+    <div className="header">  
+
+
+            <div className="jumbotron" >
+                 <h1 className="display-4 text-center">Welcome to the Dashboard!</h1>
+                 <p className="lead text-center">Announcements </p>
+                 <hr className="my-4"/>
+                 <div className="row my-2"> 
+                  <div className="col-md-4"></div>
+                    <div className="col-md-2 mx-auto first-col">
+                        <a className="btn btn-primary first_btn btn-lg" href="#" role="button">Learn more</a>
+                    </div>
+                    <div className="col-md-2 mx-auto">
+                        <a className="btn btn-primary second_btn btn-lg" href="#" role="button">Learn more</a>
+                   </div>
+                   <div className="col-md-4"></div>
+                 </div>
+             </div>
+       
+      </div>   
+
+     <div className="body_cards">
+         <section className="section-tours" id="section-tours">
+                <div className="u-center-text u-margin-bottom-big">
+                        <h2 className="heading-secondary">
+                            Control Panel
+                        </h2>
                     </div>
 
-
-                    {/* <div className="col universal_card shadow">
-                    <div className="col-12 my-3 text-center"><h1>Welcome to the dashbord!</h1></div>
-                    <div className="col-12 my-3 text-center">
-                    <div className="card rounded-0">
-                    <div className="card-title"></div>
-                    <div className="card-body">
-                    <ViewAnnouncementsDash
-                    state={this.props.state}
-                    />
-                    </div>
-
-                    <div className="card-footer">
-                    <a href="/manageAnnouncements"><h6 className="btn universal_btn border border-secondary mb-3">Manage Announcements</h6></a>
-                    </div>
-                        
-
-                    </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-12 col-md-3">
-                        <PaymentsSummaryCard 
-                        state={this.props.state}
-                        />
-                        </div>
-                        <div className="col-12 col-md-3">
-                        <TicketsSummaryCard 
-                        state={this.props.state}
-                        />
-                        </div>
-                        <div className="col-12 col-md-3">
-                        <PropertiesSummaryCard 
-                        state={this.props.state}
-                        />
-                        </div>
-                        <div className="col-12 col-md-3">
-                        <LeasesSummaryCard 
-                        state={this.props.state}
-                        />
-                        </div>
-
-                    </div>
-
-                    <div className="col-12 my-3 text-center">
-                    <div className="card rounded-0">
-                        <h1>Intersting Info...</h1>
-                    </div>
-                    </div>
-                    </div> */}
-                </div>
             
 
-        );
+                 {/* Cards Start Here */}
+                    <div className="row firstrow">
+                        {/* Payment Summary Card */}
+                        <div className="col-md-4 mx-auto">
+                            <div className="card">
+                                <div className="card__side card__side--front card__side--front-1">
+                                 <div className="card__picture card__picture--1">
+                                    
+                                 </div>
+                                 <h4 className="card__heading card__heading--1">
+                                    <span className="card__heading-span card__heading-span--1">Payment Summary</span>
+                                 </h4>
+                                 <div className="card__details card__details--1">
+                                    <ul>
+                                        <li>Pay Bills</li>
+                                        <li>View your Bills</li>
+                                    </ul>
+                                 </div>
+                                </div>
+                                <div className="card__side card__side--back card__side--back-1">
+                                    <div className="card__cta">
+                                        <div className="card__info-box">
+                                            <p className="card__info-view">Click</p>
+                                            <p className="card__info-below">Below</p>
+                                        </div>
+                                    <a href="#" className="btn btn-lg">Payments</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Tickets Summary Card */}
+                        <div className="col-md-4 mx-auto">
+                            <div className="card">
+                            <div className="card__side card__side--front card__side--front-2">
+                            <div className="card__picture card__picture--2">
+
+                                 </div>
+                                 <h4 className="card__heading card__heading--2">
+                                    <span className="card__heading-span card__heading-span--1">Tickets Summary</span>
+                                 </h4>
+                                 <div className="card__details card__details--2">
+                                    <ul>
+                                        <li>View Tickets</li>
+                                        <li>Create a Ticket</li>
+                                    </ul>
+                                 </div>
+                                </div>
+                                <div className="card__side card__side--back card__side--back-2">
+                                    <div className="card__cta">
+                                        <div className="card__info-box">
+                                            <p className="card__info-view">Click</p>
+                                            <p className="card__info-below">Below</p>
+                                       </div>
+                                    <a href="#" className="btn btn-lg">Tickets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+                    
+                 <div className="row secondrow">
+                        {/* Properties Summary Card */}
+                     <div className="col-md-4 mx-auto">
+                         <div className="card">
+                            <div className="card__side card__side--front card__side--front-3">
+                                <div className="card__picture card__picture--3">
+
+                                 </div>
+                                 <h4 className="card__heading card__heading--3">
+                                    <span className="card__heading-span card__heading-span--1">Properties Summary</span>
+                                 </h4>
+                                 <div className="card__details card__details--3">
+                                     <ul>
+                                        <li>View Properties</li>
+                                        <li>Add Properties</li>
+                                    </ul>
+                                 </div>
+                                </div>
+                             <div className="card__side card__side--back card__side--back-3">
+                                    <div className="card__cta">
+                                        <div className="card__info-box">
+                                            <p className="card__info-view">Click</p>
+                                            <p className="card__info-below">Below</p>
+                                        </div>
+                                        <a href="#" className="btn btn-lg">Properties</a>
+                                    </div>
+                              </div>
+                         </div>
+                    </div> 
+
+                        {/* Leases Summary Card */}
+                        <div className="col-md-4 mx-auto">
+                            <div className="card">
+                            <div className="card__side card__side--front card__side--front-4">
+                              <div className="card__picture card__picture--4">
+                                 
+                                 </div>
+                                 <h4 className="card__heading card__heading--4">
+                                    <span className="card__heading-span card__heading-span--1">Lease Summary</span>
+                                 </h4>
+                                 <div className="card__details card__details--4">
+                                    <ul>
+                                        <li>View your Lease</li>
+                                        <li>Add a Lease</li>
+                                    </ul>
+                                 </div>
+                                </div>
+                             <div className="card__side card__side--back card__side--back-4">
+                                    <div className="card__cta">
+                                        <div className="card__info-box">
+                                            <p className="card__info-view">Click</p>
+                                            <p className="card__info-below">Below</p>
+                                        </div>
+                                        <a href="#" className="btn btn-lg">Leases</a>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+            </section>  
+        </div>  
+ </div>
+
+            );
+
+        }
+
+
     }
-}
 
 export default Dashboard;

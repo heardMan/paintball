@@ -511,7 +511,9 @@ class App extends Component {
 
       <Router>
         <div>
-          <div name="spacer" style={{ height: "5rem" }}></div>
+
+          <div name="spacer" style={{ height: "1rem" }}></div>
+
 
 
           <Navbar signOut={this.signOut} state={this.state} handleInputChange={this.handleInputChange} />
