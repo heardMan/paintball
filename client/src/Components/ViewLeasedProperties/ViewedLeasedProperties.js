@@ -21,9 +21,13 @@ class ViewLeasedProperties extends Component {
     }
     render(){
 
-        if(this.state.redirect == true){
+        if(this.state.redirect === true){
             return <Redirect to={{ pathname: "/manageLeasedProperty", info: this.props.state.currentViewLeasedProperty }} />
-        } else {
+        } 
+        // else if (this.props.state.roles.indexOf("tenant") < 0){
+        //     return(null)
+        // } 
+        else {
             return(
                 <div className="card rounded-0 p-3 my-3">
                     <div className="card-title">

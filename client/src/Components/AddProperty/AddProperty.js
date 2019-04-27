@@ -70,6 +70,9 @@ class AddProperty extends Component {
 
 
     render() {
+        //  if(this.props.state.roles.indexOf("manager") < 0) {
+        //     return(null)
+        // } else {
         const managers = this.props.state.managers;
         return (
             <div className="addProperty_card shadow">
@@ -146,5 +149,6 @@ class AddProperty extends Component {
             </div>
         );
     }
+    //}
 }
 export default AddProperty;

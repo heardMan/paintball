@@ -8,4 +8,5 @@ module.exports = {
     Property: require("./Property.Model"),
     Ticket: require("./Ticket.Model"),
     User: require("./User.Model"),
+    Meta: require("./Meta.Model"),
   };

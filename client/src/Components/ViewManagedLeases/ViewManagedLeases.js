@@ -27,7 +27,11 @@ class ViewManagedLeases extends Component {
 
         if(this.state.redirect === true){
             return <Redirect to={{ pathname: "/manageLeaseManager", info: this.props.state.currentViewManagedLease }} />
-        } else {
+        } 
+        // else if(this.props.state.roles.indexOf("manager") < 0) {
+        //     return(null)
+        // } 
+        else {
 
         
         return(

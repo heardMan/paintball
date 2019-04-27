@@ -23,7 +23,11 @@ class ViewManagedProperties extends Component {
         console.log(this.props.info);
         if (this.props.state.managedPropertyRedirect === true) {
             return <Redirect to={{ pathname: "/manageProperty", info: this.props.state.currentViewProperty }} />
-        } else {
+        } 
+        // else if(this.props.state.roles.indexOf("manager") < 0) {
+        //     return(null)
+        // } 
+        else {
             return (
                 <div className="viewManagedProperties_card shadow">
                 <div className="card-title">
