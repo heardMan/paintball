@@ -3,7 +3,11 @@
     font-family: 'Quicksand', serif;
 }
 
- .header {
+.announcement {
+    background-color: rgba(197, 125, 125, 0.397);
+}
+
+.header {
     height: 95vh;
     background-image: linear-gradient(
         to right bottom,
@@ -19,6 +23,7 @@
  }
 
   .jumbotron {
+      padding-top: 20px;
       width: 80%;
       top: 18%;
       left: 10%;
@@ -249,5 +254,25 @@
     color: white;
     margin-bottom: 2rem;
 }
-    
 
+.message {
+    position: relative;
+}
+    
+.notification {
+    position: absolute;
+    top: -4px;
+    right: 42px;
+    width: 15px;
+    height: 15px;
+    background-color: #DABAB7;
+    border-radius: 15px;
+}
+
+.notification_amount {
+    font-weight: bold;
+    font-size: 13px;
+    position: absolute;
+    top: -3px;
+    right: 4px;
+}

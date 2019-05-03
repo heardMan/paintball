@@ -23,22 +23,13 @@ render() {
     const userSignedIn = this.props.state.userSignedIn;
     if (userSignedIn === false) {
         return (
+            <div className="universalCard shadow col-6 mx-auto">
+                <div className="universal_card shadow" style={{marginBottom: 0}}>
+                    <div className="text-center signout">Goodbye!</div>
+                    <div className="text-center">You are signed out!</div>
+                </div>
+            </div>
 
-
-            <Jumbotron>
-                 <h1>You're Signed Out!</h1>
-                     <p>
-                       This is a simple hero unit, a simple jumbotron-style component for calling
-                       extra attention to featured content or information.
-                     </p>
-                     <p>
-                        <Button variant="primary">Learn more</Button>
-                    </p>
-            </Jumbotron>
-            
-            // <div className="">
-            //     <div className="">You're Signed Out!</div>
-            // </div>
 
         );
     } else {

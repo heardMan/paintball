@@ -9,8 +9,8 @@ class ViewManagedProperties extends Component {
     }
     setViewProperty = event => {
         const propertyEnum = event.target.id.split("-")[1];
-        console.log(propertyEnum);
-        console.log(this.props.state.managedProperties[propertyEnum]);
+        // console.log(propertyEnum);
+        // console.log(this.props.state.managedProperties[propertyEnum]);
         this.props.state.currentViewProperty = this.props.state.managedProperties[propertyEnum];
         this.props.state.managedPropertyRedirect = true;
         this.setState({
@@ -20,7 +20,7 @@ class ViewManagedProperties extends Component {
     }
 
     render() {
-        console.log(this.props.info);
+        // console.log(this.props.info);
         if (this.props.state.managedPropertyRedirect === true) {
             return <Redirect to={{ pathname: "/manageProperty", info: this.props.state.currentViewProperty }} />
         } 

@@ -11,7 +11,7 @@ class ManageLeasedManager extends Component {
         console.log(this.props.state);
         API.getLease(this.props.state.currentViewManagedLease.property)
         .then(res=>{console.log(res)})
-        .catch(err=>{err});
+        // .catch(err=>{err});
         
 
         return (

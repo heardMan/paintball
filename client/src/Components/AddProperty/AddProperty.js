@@ -53,7 +53,7 @@ class AddProperty extends Component {
                 this.setState({
                     allManagers: arr
                 })
-                console.log(this.state.allManagers);
+                // console.log(this.state.allManagers);
             })
             .catch(err => console.log(err));
 
@@ -61,7 +61,7 @@ class AddProperty extends Component {
     }
     onClick1 = event => {
         event.preventDefault();
-        console.log(this.state.showResults)
+        // console.log(this.state.showResults)
 
         this.setState({
             showResults: true

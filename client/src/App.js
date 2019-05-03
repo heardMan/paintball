@@ -112,11 +112,11 @@ class App extends Component {
 
     API.checkAuth(this.props.allCookies.token)
       .then(resp => {
-        console.log(resp.data);
+        // console.log(resp.data);
         const data = resp.data.roles;
         const ownedPropertyList = [];
         resp.data.owned_properties.map((property,i)=>{
-          console.log(property);
+          // console.log(property);
 
           ownedPropertyList.push(property.address);
         })
@@ -142,11 +142,11 @@ class App extends Component {
           userSignedIn: true
         })
 
-        console.log(this.state);
+        // console.log(this.state);
 
       })
       .catch(err => {
-        console.log(err.status);
+        // console.log(err.status);
         if (this.props.allCookies.token === undefined) {
           this.setState({ userSignedIn: false });
         }
@@ -165,7 +165,7 @@ class App extends Component {
 
 
   signOut = () => {
-    console.log(this.state.userSignOut);
+    // console.log(this.state.userSignOut);
 
     this.props.cookies.remove("token");
     this.setState({
@@ -188,14 +188,14 @@ class App extends Component {
       //console.log(newUser);
       API.registerUser(newUser)
         .then(resp => {
-          console.log(resp)
+          // console.log(resp)
           this.setState({
             successfulRegistration: true
           })
         })
         .catch(err => console.log(err));
     } else {
-      console.log("fill out all fields complteely");
+      // console.log("fill out all fields complteely");
     }
   }
 
@@ -207,7 +207,7 @@ class App extends Component {
 
     API.signInUser(user)
       .then(resp => {
-        console.log(resp);
+        // console.log(resp);
         this.setState({
           userEmail: resp.data.email,
           userId: resp.data.userID,
@@ -241,22 +241,22 @@ class App extends Component {
     const addCurrentUser = managers.indexOf(this.state.userEmail);
 
     if (addCurrentUser < 0) return managers.push(this.state.userEmail);
-    console.log(managers);
+    // console.log(managers);
     const owner = this.state.userId;
     const address = this.state.PropertyAddress;
 
-    console.log("working");
+    // console.log("working");
 
     const getManagerIds = (cb) => {
       const managerIds = [];
 
       managers.forEach((manager, i) => {
-        console.log(manager);
+        // console.log(manager);
         const email = { email: manager }
 
         API.getUserByEmail(email)
           .then(resp => {
-            console.log(resp.data);
+            // console.log(resp.data);
             managerIds.push(resp.data[0]._id);
             if (i + 1 === managers.length) {
               cb(managerIds);
@@ -266,7 +266,7 @@ class App extends Component {
           .catch(err => console.log(err))
 
       });
-      console.log(managerIds);
+      // console.log(managerIds);
 
 
     }
@@ -277,10 +277,10 @@ class App extends Component {
         managers: managerIds,
         isVacant: true
       }
-      console.log(Property)
+      // console.log(Property)
       API.createProp(Property)
         .then(resp => {
-          console.log(resp);
+          // console.log(resp);
 
 
         })
@@ -317,14 +317,14 @@ class App extends Component {
     const property= this.state.propertyToLease;
     let propertyId;
     this.state.ownedProperties.forEach((property,i)=>{
-      console.log("ADDRESS:"+property._id)
-      console.log("ADDRESS:"+this.state.propertyToLease)
+      // console.log("ADDRESS:"+property._id)
+      // console.log("ADDRESS:"+this.state.propertyToLease)
 
       if(property.address === this.state.propertyToLease){
-         console.log(property._id);
+        //  console.log(property._id);
          propertyId = property._id; 
       }
-      console.log(propertyId);
+      // console.log(propertyId);
     })
 
 
@@ -332,9 +332,9 @@ class App extends Component {
     function getTenantIds(cb) {
 
       const tenantIds = [];
-      console.log(`tenants: ${tenants}`)
+      // console.log(`tenants: ${tenants}`)
       tenants.forEach((tenant, i) => {
-        console.log(tenant);
+        // console.log(tenant);
         const email = { email: tenant }
         //console.log(tenants.length);
         //console.log(i);
@@ -342,8 +342,8 @@ class App extends Component {
         API.getUserByEmail(email)
           .then(resp => {
 
-            console.log(`RESP MOFO:`);
-            console.log(resp.data);
+            // console.log(`RESP MOFO:`);
+            // console.log(resp.data);
             tenantIds.push(resp.data[0]._id);
             if (i + 1 === tenants.length) {
               cb(tenantIds);
@@ -354,12 +354,12 @@ class App extends Component {
 
 
       });
-      console.log(tenantIds);
+      // console.log(tenantIds);
 
 
     }
     function createLeaseObj(tenantIds) {
-      console.log("working");
+      // console.log("working");
       const Lease = {
         property: propertyId,
         tenants: tenantIds,
@@ -370,11 +370,11 @@ class App extends Component {
         moveIn: moveIn,
         moveOut: moveOut
       }
-      console.log(Lease);
+      // console.log(Lease);
       API.createLease(Lease)
         .then(resp => {
-          console.log("lease made successfully")
-          console.log(resp)
+          // console.log("lease made successfully")
+          // console.log(resp)
         })
         .catch(err => console.log(err))
     }
@@ -384,7 +384,7 @@ class App extends Component {
   }
 
   createBill = () => {
-    console.log("hello");
+    // console.log("hello");
     const rentCurrency =
       parseFloat(this.state.rent.replace(/,/g, ""))
         .toFixed(2)
@@ -403,9 +403,9 @@ class App extends Component {
     const feeArr = this.state.repairFees;
     function getTenantIds(cb) {
       const tenantIds = [];
-      console.log("hello 2");
+      // console.log("hello 2");
       tenants.forEach((tenant, i) => {
-        console.log(tenant);
+        // console.log(tenant);
         const email = { email: tenant }
         //console.log(tenants.length);
         //console.log(i);
@@ -413,8 +413,8 @@ class App extends Component {
         API.getUserByEmail(email)
           .then(resp => {
 
-            console.log(`RESP MOFO:`);
-            console.log(resp.data);
+            // console.log(`RESP MOFO:`);
+            // console.log(resp.data);
             tenantIds.push(resp.data[0]._id);
             if (i + 1 === tenants.length) {
               cb(tenantIds);
@@ -425,7 +425,7 @@ class App extends Component {
 
 
       });
-      console.log(tenantIds);
+      // console.log(tenantIds);
 
 
     }
@@ -441,7 +441,7 @@ class App extends Component {
         billStart: billStart,
         billEnd: billEnd
       }
-      console.log(Bill);
+      // console.log(Bill);
       API.createBill(Bill)
         .then(resp => console.log(resp))
         .catch(err => console.log(err))
@@ -481,26 +481,26 @@ class App extends Component {
       // console.log(this.state.managers);
     } else if (form === "addNewLease") {
       this.createLease();
-      console.log(event.target.name)
+      // console.log(event.target.name)
     } else if (form === "addBill") {
       this.createBill();
-      console.log(event.target.name)
+      // console.log(event.target.name)
     } else if (form === "newTicket") {
-      console.log(event.target.name);
+      // console.log(event.target.name);
       this.createTicket();
     } else if (form === "newAnnounce") {
-      console.log(event.target.name);
+      // console.log(event.target.name);
       this.createAnnounce();
     } else if (form === "setProperty") {
-      console.log(form);
+      // console.log(form);
       const propertyEnum = event.target.id.split("-")[1];
 
-      console.log("propertyEnum", propertyEnum);
-      console.log(this.props.state.managedProperties[propertyEnum]);
+      // console.log("propertyEnum", propertyEnum);
+      // console.log(this.props.state.managedProperties[propertyEnum]);
       this.setState({
         currentViewProperty: this.state.managedProperties[propertyEnum]
       });
-      console.log(this.props.state);
+      // console.log(this.props.state);
     }
 
   };
@@ -522,7 +522,7 @@ class App extends Component {
 
             <Route exact path="/" render={(routeProps) => {
               const signedIn = this.state.userSignedIn;
-              console.log(signedIn);
+              // console.log(signedIn);
               if (this.state.userSignedIn === true) return <Redirect to={{ pathname: "/dashboard" }} />
               else if (this.state.managedPropertyRedirect === true) return <Redirect to={{ pathname: "/manageProperty", info: this.state.currentViewProperty }} />
               else return <Redirect to={{ pathname: "/welcome" }} />
