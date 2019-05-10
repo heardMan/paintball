@@ -91,7 +91,7 @@ class AddBill extends Component {
                 this.setState({
                     allTenants: arr
                 })
-                console.log(this.state.allTenants);
+                // console.log(this.state.allTenants);
             })
             .catch(err => console.log(err));
     }

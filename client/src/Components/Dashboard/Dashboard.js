@@ -14,7 +14,7 @@ import "./Dashboard.css";
 class Dashboard extends Component {
     
     render() {
-        console.log(this.props.state)
+        // console.log(this.props.state)
         return (
 
 
@@ -25,18 +25,47 @@ class Dashboard extends Component {
 
 
             <div className="jumbotron" >
-                 <h1 className="display-4 text-center">Welcome to the Dashboard!</h1>
-                 <p className="lead text-center">Announcements </p>
+                <div className="row mb-2">
+                    <div className="col-6">
+                        <h4 className="text-left">Hi, Mario</h4>
+                    </div>
+                    <div className="col-6">
+                        <h4 className="text-right"><i className="message fas fa-comment-alt"></i> <i className="fas fa-user-circle"></i></h4>
+                        <div className="notification">
+                            <p className="text-center notification_amount">2</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                 <p className="lead text-center">Vantage Apartments</p>
+                 <h1 className="text-center"><i class="fas fa-cloud-sun"></i> 61&#176;</h1>
+                 <p  className="text-center">Partly Cloudy</p>
                  <hr className="my-4"/>
                  <div className="row my-2"> 
-                  <div className="col-md-4"></div>
-                    <div className="col-md-2 mx-auto first-col">
-                        <a className="btn btn-primary first_btn btn-lg" href="#" role="button">Learn more</a>
+                  <div className="col-md-5 mx-auto announcement">
+                    <div className="row">
+                        <div className="col-10 my-2">
+                            <h5 className="my-1" style={{fontSize: "16px"}}>You have a package!</h5>
+                        </div>
+                        <div className="col-2 my-2">
+                        <i className="fas fa-times-circle"></i>
+                        </div>
                     </div>
-                    <div className="col-md-2 mx-auto">
-                        <a className="btn btn-primary second_btn btn-lg" href="#" role="button">Learn more</a>
-                   </div>
-                   <div className="col-md-4"></div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-5 mx-auto announcement">
+                    <div className="row">
+                        <div className="col-10 my-2">
+                            <h5 className="my-1" style={{fontSize: "16px"}}>Management: Street closure...</h5>
+                        </div>
+                        <div className="col-2 my-2">
+                        <i className="fas fa-times-circle"></i>
+                        </div>
+                    </div>
+                  </div>
+                  
                  </div>
              </div>
        

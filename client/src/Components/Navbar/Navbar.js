@@ -8,7 +8,7 @@ class Navbar extends Component {
         checked: ""
     }
     loggedIn = (toggled) => {
-        console.log(toggled);
+        // console.log(toggled);
         if (this.props.state.roles.length < 1) {
             return (
                 <nav className="navigation__nav">
