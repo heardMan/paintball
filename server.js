@@ -46,7 +46,7 @@ db.Meta.find({ SUPER_ID: "dolladollabillsyall" })
     if (resp[0].lastUpdated.getDate() !== rightMeow) {
       db.Lease.find({ dueDate: date.getDate() })
         .then(resp => {
-          console.log("BILL TIME BITCHES")
+          console.log("BILL TIME")
           console.log(resp)
           resp.forEach(lease =>{
             const bill = {
